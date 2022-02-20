@@ -11,12 +11,13 @@
         <style>
              body { display: none; }
 
-            /* Botones LogIn y SignUp */
+            /* Botones LogIn, SignUp y Mostrar*/
             .btn-enviar:hover{background: rgb(51,94,234); border: 2px solid rgb(51, 94, 234); margin-bottom:-1px; margin-top:-1px;}
             .btn-enviar:active{background: rgb(21, 62, 202)}
-            .btn-signUp{width:100%; border:1px solid gray; border-radius:25px; font-color:gray; background:white;}
+            .btn-signUp{width:100%; border:1px solid gray; border-radius:25px; color:gray; background:white;}
             .btn-signUp:hover{border: 2px solid rgb(139, 138, 145); margin-bottom:-1px; margin-top:-1px;}
-            .btn-signUp:active{background: rgb(247, 247, 247);}
+            .btn-signUp:active{border-color: rgb(82, 82, 82);}
+            #btn-mostrar{background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;}
 
         </style>
         <title>
@@ -77,8 +78,8 @@
                                 <input value="208297" id="password" name="password" class="form-control" placeholder="Enter your password" type="password">
                                     <!-- Icon -->
                                     <span class="input-group-text">
-                                        <i class="fe fe-eye">
-                                        </i>
+                                        <button type="button" id="btn-mostrar" onclick="mostrarContrasena()"><i class="fe fe-eye">
+                                        </i></button>
                                     </span>
                                 </input>
                             </div>
@@ -123,6 +124,19 @@
                 $("form").submit();
                }
             });
+
+            function mostrarContrasena(){
+
+                if(document.getElementById('password').type == "password"){
+                    document.getElementById('password').type = 'text';
+                    console.log("password")
+                }else{
+                    document.getElementById('password').type = 'password';
+                    console.log("text")
+                }
+
+            };
+
         </script>
     </body>
 </html>
