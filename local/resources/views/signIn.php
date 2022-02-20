@@ -95,7 +95,7 @@
                             <div class="text-center">
                                 <h4>Don't have an account yet?</h4>
                                 <a type="button" class="btn btn-lg btn-signUp" href="<?= Request::root();?>/campaign/new">
-                                    Sign up
+                                    Sign up for GoLoudr
                                 </a> 
                             </div>
                         </div>
