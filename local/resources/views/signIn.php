@@ -89,11 +89,11 @@
                         <button type="button" id="btn-enviar" class="btn btn-lg btn-primary btn-enviar" style="border-radius: 25px; width:100%;">
                                  Log In
                         </button>
-                        <hr>
+                        <hr class="mb-3">
                         <!-- Link -->
                         <div class="text-center">
                             <div class="text-center">
-                                <h4>Don't have an account yet?</h4>
+                                <h4 class="mb-3">Don't have an account yet?</h4>
                                 <a type="button" class="btn btn-lg btn-signUp" href="<?= Request::root();?>/campaign/new">
                                     Sign up for GoLoudr
                                 </a> 
