@@ -10,9 +10,18 @@
 
         <style>
              body { display: none; }
+
+            /* Botones LogIn, SignUp y Mostrar*/
+            .btn-enviar:hover{background: rgb(51,94,234); border: 2px solid rgb(51, 94, 234); margin-bottom:-1px; margin-top:-1px;}
+            .btn-enviar:active{background: rgb(21, 62, 202)}
+            .btn-signUp{width:100%; border:1px solid gray; border-radius:25px; color:gray; background:white;}
+            .btn-signUp:hover{border: 2px solid rgb(139, 138, 145); margin-bottom:-1px; margin-top:-1px;}
+            .btn-signUp:active{border-color: rgb(82, 82, 82);}
+            #btn-mostrar{background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;}
+
         </style>
         <title>
-            SignIn
+            SignIn 
         </title>
     </head>
     <body class="d-flex align-items-center bg-auth border-top border-top-2 border-primary">
@@ -27,12 +36,12 @@
                 </div>
                 <div class="col-12 col-md-5 col-xl-4 order-md-1 my-5">
                     <!-- Heading -->
-                    <h1 class="display-4 text-center mb-3">
-                        Sign in
-                    </h1>
+                    <div class="display-4 text-center mb-3">
+                        <object id="aside-icon" data="https://zuliamercado.com/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"></object>
+                    </div>
                     <!-- Subheading -->
                     <p class="text-muted text-center mb-5">
-                        Free access to our dashboard.
+                        To continue, log in to GoLoudr.
                     </p>
                     <!-- Form -->
                     <form method="POST" action="<?= Request::root();?>/signIn">
@@ -69,24 +78,25 @@
                                 <input value="208297" id="password" name="password" class="form-control" placeholder="Enter your password" type="password">
                                     <!-- Icon -->
                                     <span class="input-group-text">
-                                        <i class="fe fe-eye">
-                                        </i>
+                                        <button type="button" id="btn-mostrar" onclick="mostrarContrasena()"><i class="fe fe-eye">
+                                        </i></button>
                                     </span>
                                 </input>
                             </div>
                         </div>
                         <!-- Submit -->
-                        <button type="button" id="btn-enviar" class="btn btn-lg w-100 btn-primary mb-3">
-                            Sign in
+                        <button type="button" id="btn-enviar" class="btn btn-lg btn-primary btn-enviar" style="border-radius: 25px; width:100%;">
+                                 Log In
                         </button>
+                        <hr>
                         <!-- Link -->
                         <div class="text-center">
-                            <small class="text-muted text-center">
-                                Don't have an account yet?
-                                <a href="<?= Request::root();?>/campaign/new">
+                            <div class="text-center">
+                                <h4>Don't have an account yet?</h4>
+                                <a type="button" class="btn btn-lg btn-signUp" href="<?= Request::root();?>/campaign/new">
                                     Sign up
                                 </a> 
-                            </small>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -114,6 +124,19 @@
                 $("form").submit();
                }
             });
+
+            function mostrarContrasena(){
+
+                if(document.getElementById('password').type == "password"){
+                    document.getElementById('password').type = 'text';
+                    console.log("password")
+                }else{
+                    document.getElementById('password').type = 'password';
+                    console.log("text")
+                }
+
+            };
+
         </script>
     </body>
 </html>
