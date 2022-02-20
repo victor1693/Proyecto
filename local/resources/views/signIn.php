@@ -10,6 +10,14 @@
 
         <style>
              body { display: none; }
+
+            /* Botones LogIn y SignUp */
+            .btn-enviar:hover{background: rgb(51,94,234); border: 2px solid rgb(51, 94, 234); margin-bottom:-1px; margin-top:-1px;}
+            .btn-enviar:active{background: rgb(21, 62, 202)}
+            .btn-signUp{width:100%; border:1px solid gray; border-radius:25px; font-color:gray; background:white;}
+            .btn-signUp:hover{border: 2px solid rgb(139, 138, 145); margin-bottom:-1px; margin-top:-1px;}
+            .btn-signUp:active{background: rgb(247, 247, 247);}
+
         </style>
         <title>
             SignIn 
@@ -27,12 +35,12 @@
                 </div>
                 <div class="col-12 col-md-5 col-xl-4 order-md-1 my-5">
                     <!-- Heading -->
-                    <h1 class="display-4 text-center mb-3">
-                        Sign in
-                    </h1>
+                    <div class="display-4 text-center mb-3">
+                        <object id="aside-icon" data="https://zuliamercado.com/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"></object>
+                    </div>
                     <!-- Subheading -->
                     <p class="text-muted text-center mb-5">
-                        Free access to our dashboard.
+                        To continue, log in to GoLoudr.
                     </p>
                     <!-- Form -->
                     <form method="POST" action="<?= Request::root();?>/signIn">
@@ -76,17 +84,18 @@
                             </div>
                         </div>
                         <!-- Submit -->
-                        <button type="button" id="btn-enviar" class="btn btn-lg w-100 btn-primary mb-3">
-                            Sign in
+                        <button type="button" id="btn-enviar" class="btn btn-lg btn-primary btn-enviar" style="border-radius: 25px; width:100%;">
+                                 Log In
                         </button>
+                        <hr>
                         <!-- Link -->
                         <div class="text-center">
-                            <small class="text-muted text-center">
-                                Don't have an account yet?
-                                <a href="<?= Request::root();?>/campaign/new">
+                            <div class="text-center">
+                                <h4>Don't have an account yet?</h4>
+                                <a type="button" class="btn btn-lg btn-signUp" href="<?= Request::root();?>/campaign/new">
                                     Sign up
                                 </a> 
-                            </small>
+                            </div>
                         </div>
                     </form>
                 </div>
