@@ -80,19 +80,19 @@
                                             <!-- List group -->
                                             <ul class="small text-muted ps-4 mb-0">
                                                 <li id="p_caracteres">
-                                                    Minimo 8 caracteres
+                                                    At least 8 characters
                                                 </li> 
                                                 <li id="p_numero">
-                                                    Almenos un numero
+                                                    At least 1 number
                                                 </li>
                                                 <li id="p_mayuscula">
-                                                    Almenos una letra mayuscula
+                                                    At least 1 uppercase letter
                                                 </li> 
                                                 <li id="p_espacios">
-                                                    Sin espacios
+                                                    No space 
                                                 </li> 
                                                 <li id="p_coinciden">
-                                                    Coincidencia
+                                                    Both match 
                                                 </li>   
                                             </ul>
                                         </div>
