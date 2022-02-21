@@ -82,8 +82,7 @@
                                         <div class="col-auto">
                                             <input id="img_profile_input" type="file" name="img_profile" style="display: none;">
                                             <div class="avatar">
-                                                <img style="cursor: pointer;" alt="..." class="avatar-img rounded-circle img_profile" src="<?= Request::root();?>/local/storage/app/profile_img/<?= $img;?>">
-                                                </img>
+                                                <object data="<?= Request::root();?>/local/resources/views/assets/img/img_profile_default.svg" type="image/svg+xml"></object>
                                             </div>
                                         </div>
                                         <div class="col ms-n2">
@@ -272,6 +271,26 @@
             $(".img_profile").click(function(){
                 $("#img_profile_input").click();
             });
+
+            $(document).ready(function(){
+                var urlActual = window.location;
+                if(String(urlActual).slice(-4)=="eral"){
+                   $("#navlink-general").addClass('active'); 
+                   $("#navlink-billing").removeClass('active'); 
+                   $("#navlink-security").removeClass('active'); 
+                }
+                else if(String(urlActual).slice(-4)=="ling"){
+                   $("#navlink-general").removeClass('active'); 
+                   $("#navlink-billing").addClass('active'); 
+                   $("#navlink-security").removeClass('active'); 
+                }
+                else if(String(urlActual).slice(-4)=="rity"){
+                   $("#navlink-general").removeClass('active'); 
+                   $("#navlink-billing").removeClass('active'); 
+                   $("#navlink-security").addClass('active'); 
+                }
+            });
+
         </script>
     </body>
 </html>

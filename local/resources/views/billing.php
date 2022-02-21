@@ -824,5 +824,26 @@
         </script>
         <script src="https://www.google-analytics.com/analytics.js">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                var urlActual = window.location;
+                if(String(urlActual).slice(-4)=="eral"){
+                   $("#navlink-general").addClass('active'); 
+                   $("#navlink-billing").removeClass('active'); 
+                   $("#navlink-security").removeClass('active'); 
+                }
+                else if(String(urlActual).slice(-4)=="ling"){
+                   $("#navlink-general").removeClass('active'); 
+                   $("#navlink-billing").addClass('active'); 
+                   $("#navlink-security").removeClass('active'); 
+                }
+                else if(String(urlActual).slice(-4)=="rity"){
+                   $("#navlink-general").removeClass('active'); 
+                   $("#navlink-billing").removeClass('active'); 
+                   $("#navlink-security").addClass('active'); 
+                }
+            });
+        </script>
     </body>
 </html>
