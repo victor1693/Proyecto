@@ -12,12 +12,13 @@
              body { display: none; }
 
             /* Botones LogIn, SignUp y Mostrar*/
-            .btn-enviar:hover{background: rgb(51,94,234); border: 2px solid rgb(51, 94, 234); margin-bottom:-1px; margin-top:-1px;}
+            .btn-enviar:hover{transform: scale(1.035);}
             .btn-enviar:active{background: rgb(21, 62, 202)}
-            .btn-signUp{width:100%; border:1px solid gray; border-radius:25px; color:gray; background:white;}
-            .btn-signUp:hover{border: 2px solid rgb(139, 138, 145); margin-bottom:-1px; margin-top:-1px;}
+            .btn-signUp{width:100%; border:1px solid rgb(210, 221, 236); border-radius:25px; color:gray; background:white;}
+            .btn-signUp:hover{border-color: rgb(51,94,234); color: rgb(51,94,234); transform: scale(1.035);}
             .btn-signUp:active{border-color: rgb(82, 82, 82);}
             #btn-mostrar{background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;}
+            .forgot:hover{text-decoration: underline;}
 
         </style>
         <title>
@@ -66,7 +67,7 @@
                                 </div>
                                 <div class="col-auto">
                                     <!-- Help text -->
-                                    <a class="form-text small text-muted" href="<?= Request::root();?>/restore-password">
+                                    <a class="form-text small text-muted forgot" href="<?= Request::root();?>/restore-password">
                                         Forgot password?
                                     </a>
                                 </div>
@@ -88,13 +89,13 @@
                         <button type="button" id="btn-enviar" class="btn btn-lg btn-primary btn-enviar" style="border-radius: 25px; width:100%;">
                                  Log In
                         </button>
-                        <hr>
+                        <hr class="mb-3">
                         <!-- Link -->
                         <div class="text-center">
                             <div class="text-center">
-                                <h4>Don't have an account yet?</h4>
+                                <h4 class="mb-3">Don't have an account yet?</h4>
                                 <a type="button" class="btn btn-lg btn-signUp" href="<?= Request::root();?>/campaign/new">
-                                    Sign up
+                                    Sign up for GoLoudr
                                 </a> 
                             </div>
                         </div>
@@ -127,12 +128,15 @@
 
             function mostrarContrasena(){
 
-                if(document.getElementById('password').type == "password"){
-                    document.getElementById('password').type = 'text';
-                    console.log("password")
+                var tipo = document.getElementById('password');
+                var icono = document.getElementById('btn-mostrar');
+
+                if(tipo.type == "password"){
+                    tipo.type = 'text';
+                    icono.style.color = "rgb(51,94,234)"
                 }else{
-                    document.getElementById('password').type = 'password';
-                    console.log("text")
+                    tipo.type = 'password';
+                    icono.style.color = "inherit"
                 }
 
             };
