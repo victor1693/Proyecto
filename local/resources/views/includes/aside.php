@@ -1,5 +1,5 @@
 <!-- NAVIGATION -->
-<nav class="navbar navbar-vertical fixed-start navbar-expand-md " id="sidebar" style="z-index: 0">
+<nav class="navbar navbar-vertical fixed-start navbar-expand-md scroll" id="sidebar" style="z-index: 0">
     <div class="container-fluid">
         <!-- Toggler -->
         <button aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#sidebarCollapse" data-bs-toggle="collapse" type="button">
@@ -7,11 +7,9 @@
             </span>
         </button>
         <!-- Brand -->
-        <a class="navbar-brand" href="<?= Request::root();?>/dashboard">
-            <object  style="margin-bottom: -10px;height: 56px;margin-top: -6px;" data="<?= Request::root();?>/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"></object>
-
-
-             
+        <a style="z-index: 1" class="navbar-brand" href="<?= Request::root();?>/dashboard">
+            <object style="margin-bottom: -10px;height: 56px;margin-top: -6px;position: relative; z-index: -1" data="<?= Request::root();?>/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"> 
+            </object>  
         </a>
         <!-- User (xs) -->
         <div class="navbar-user d-md-none">
@@ -159,36 +157,36 @@
             <div class="mt-auto">
             </div>
             <div class="mb-4">
-                <span class="item-score badge bg-primary" href="#offcanvasDemo" style="width: 100%;padding: 13px;font-size: .9375rem;">
+                 <div style="padding: 13px;text-align: center;font-size: 14px;border: 1px solid #335eea;border-radius: 5px;color: #335eea">
                     <i class="fe fe-briefcase me-2">
                     </i>
                     <?php if (isset($data->balance)): ?>
-                        $<?= number_format($data->balance[0]->balance,2);?>
+                        Balance: $<?= number_format($data->balance[0]->balance,2);?>
                     <?php else: ?> 
-                        Balance: $0
+                        Balance: $0.00
                     <?php endif ?>
-                </span>
+                 </div>
             </div>
-            <div class="navbar-user d-none d-md-flex" id="sidebarUser">
-                <a aria-controls="sidebarOffcanvasActivity" class="navbar-user-link" data-bs-toggle="offcanvas" href="">
-                </a>
-                <div class="d">
-                    <a href="#" role="button">
-                        <div class="avatar avatar-sm avatar-online">
-                            <img alt="..." class="avatar-img rounded-circle" src="<?= Request::root();?>/local/resources/views/assets/img/avatars/profiles/avatar-1.jpg">
-                            </img>
-                        </div>
-                    </a>
+            <?php if (isset($data->user)): ?> 
+                <?php if (count($data->user)>0): ?> 
+                <div class="navbar-user d-none d-md-flex" id="sidebarUser"> 
+                    <?php if ($data->user[0]->img!=""): ?>  
+                        <a href="#" role="button">
+                            <div class="avatar avatar-sm avatar-online">
+                                <img class="avatar-img rounded-circle" src="<?= Request::root();?>/local/storage/app/profile_img/<?= $data->user[0]->img;?>">
+                                </img>
+                            </div>
+                        </a> 
+                    <?php endif ?> 
                 </div>
-                <a aria-controls="sidebarOffcanvasSearch" class="navbar-user-link" data-bs-toggle="offcanvas" href="">
-                </a>
-            </div>
-            <p class="text-dark text-center mt-2 fw-bold mb-0 fs-3">
-                Victor Smith
-            </p>
-            <p class="text-muted text-uppercase mt-0 text-center fs-5">
-                Artist
-            </p>
+                <p class="text-dark text-center mt-2 fw-bold mb-0 fs-3">
+                   <?= $data->user[0]->nombre;?> <?= $data->user[0]->apellido;?>
+                </p>
+                <p class="text-muted text-uppercase mt-0 text-center fs-5">
+                    <?= $data->user[0]->role;?>
+                </p>
+                <?php endif ?>
+            <?php endif ?>
         </div>
     </div>
 </nav>
@@ -197,3 +195,9 @@
 </nav>
 <nav class="navbar navbar-expand-lg " id="topnav" style="display: none !important;">
 </nav>
+
+<script>
+    function dashboard(){
+         alert("Okay");
+    }
+</script>

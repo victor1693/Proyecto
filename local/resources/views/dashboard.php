@@ -12,9 +12,9 @@
         <link href="<?= Request::root();?>/local/resources/views/assets/css/theme-dark.bundle.css" id="stylesheetDark" rel="stylesheet"/>
       
         <style>
-            body{display: none;}
-
+            body{display: none;} 
         </style>
+
         <title>
             Dashboard
         </title>
@@ -51,16 +51,13 @@
 
                                 </h1>
                             </div>
-                            <div class="col-auto">
-                                <!-- Button -->
-                                <a class="btn btn-primary lift" href="campaign-new.php">
+                            <div class="col-auto"> 
+                                <a class="btn btn-primary lift" href="<?= Request::root();?>/campaign-new">
                                     New Campaign
                                 </a>
                             </div>
-                        </div>
-                        <!-- / .row -->
-                    </div>
-                    <!-- / .header-body -->
+                        </div> 
+                    </div> 
                 </div>
             </div>
             <div class="container-fluid">
@@ -236,7 +233,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
-                        <div class="card card-fill">
+                        <div class="card">
                             <div class="card-header">
                                 <!-- Title -->
                                 <h4 class="card-header-title">
@@ -246,7 +243,7 @@
                                     Analytics
                                 </a>
                             </div>
-                            <div class="card-body" style="flex-grow: 1 !important;">
+                            <div class="card-body scroll" style="flex-grow: 1 !important;max-height: 396px;overflow-y: scroll;">
                                 <!-- List group -->
                                 <div class="list-group list-group-flush">
                                     <?php foreach ($data->ArtistRoster as $key ): ?> 
@@ -301,7 +298,7 @@
                                 </div>
                                 <!-- / .row -->
                             </div>
-                            <div class="table-responsive" style="max-height: 390px;">
+                            <div class="table-responsive scroll" style="max-height: 390px;">
                                 <table class="table table-sm table-hover table-nowrap card-table text-center">
                                     <thead>
                                         <tr>
@@ -475,10 +472,13 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
         </script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-       
-        </script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script> 
         <script>
+            $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+            });  
+
             <?php $t = explode(" ", $totalConversion) ;?>;
             traffic = <?= $t[0];?>;
             symbol = "";
