@@ -11,13 +11,15 @@
         <style>
              body { display: none; }
 
-            /* Botones LogIn, SignUp y Mostrar*/
-            .btn-enviar:hover{transform: scale(1.035);}
-            .btn-enviar:active{background: rgb(21, 62, 202)}
-            .btn-signUp{width:100%; border:1px solid rgb(210, 221, 236); border-radius:25px; color:gray; background:white;}
-            .btn-signUp:hover{border-color: rgb(51,94,234); color: rgb(51,94,234); transform: scale(1.035);}
-            .btn-signUp:active{border-color: rgb(82, 82, 82);}
+            /* Botones SignUp y Mostrar*/
+            .btn-enviar:hover{background: rgb(37, 105, 195);}
+
+            .btn-signUp{width:100%; border-color: rgb(210, 221, 236); color: rgb(210, 221, 236); background:white;}
+            .btn-signUp:hover{border-color: rgb(51,94,234); color: rgb(51,94,234);}
+            .btn-signUp:active{border-color: rgb(82, 82, 82);} 
+            
             #btn-mostrar{background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;}
+            
             .forgot:hover{text-decoration: underline;}
 
         </style>
@@ -38,7 +40,7 @@
                 <div class="col-12 col-md-5 col-xl-4 order-md-1 my-5">
                     <!-- Heading -->
                     <div class="display-4 text-center mb-3">
-                        <object id="aside-icon" data="https://zuliamercado.com/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"></object>
+                        <object id="aside-icon" style="width: 56px; height:56px;" data="https://zuliamercado.com/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"></object>
                     </div>
                     <!-- Subheading -->
                     <p class="text-muted text-center mb-5">
@@ -86,7 +88,7 @@
                             </div>
                         </div>
                         <!-- Submit -->
-                        <button type="button" id="btn-enviar" class="btn btn-lg btn-primary btn-enviar" style="border-radius: 25px; width:100%;">
+                        <button type="button" id="btn-enviar" class="btn btn-lg btn-primary btn-enviar" style="width:100%;">
                                  Log In
                         </button>
                         <hr class="mb-3">
@@ -95,7 +97,7 @@
                             <div class="text-center">
                                 <h4 class="mb-3">Don't have an account yet?</h4>
                                 <a type="button" class="btn btn-lg btn-signUp" href="<?= Request::root();?>/campaign/new">
-                                    Sign up for GoLoudr
+                                    Sign up
                                 </a> 
                             </div>
                         </div>
