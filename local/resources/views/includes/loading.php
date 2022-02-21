@@ -4,11 +4,11 @@
 <script src="https://www.jqueryscript.net/demo/Fullscreen-Loading-Modal-Indicator-Plugin-For-jQuery-loadingModal/js/jquery.loadingModal.js"></script>
 
 <div style="" data-backdrop="static" class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="loading" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content"> 
       <div class="modal-body  text-center"> 
       	<div class="mb-5">
-      		<img src="<?= Request::root();?>/local/resources/views/assets/img/logo.svg"/>
+			<object id="aside-icon" style="width: 56px; height:56px;" data="https://zuliamercado.com/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"></object>
       	</div>
 		<h1 class="header-title mb-5 fade-in" id="text" style="display: none;">
 			
@@ -29,32 +29,32 @@
 $(".loading-artist").click(function(){  
 	$("#lock").show();
 	$('#loading').modal('show'); 
-	$("#text").text("Espere mientras preparamos su panel...");
+	$("#text").text("Wait while we prepare your panel...");
 	$("#text").fadeIn(2500);
 	$("#text").fadeOut(2500);
 	setTimeout(function(){ 
-		$("#text").text("Recuperando información de " + titulo);
+		$("#text").text("Retrieving information from " + titulo);
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 5000,titulo = $(this).attr('title'));
 
 	setTimeout(function(){ 
-		$("#text").text("Analizando la información...");
+		$("#text").text("Analyzing the information...");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 10000);
 	setTimeout(function(){ 
-		$("#text").text("Almacenando datos de " + titulo + " en el sistema");
+		$("#text").text("Storing data from " + titulo + " in the system");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 15000);
 	setTimeout(function(){ 
-		$("#text").text("Finalizando configuración.");
+		$("#text").text("Finalizing settup.");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 20000);
 	setTimeout(function(){ 
-		$("#text").text("Todo listo, espere un momento...");
+		$("#text").text("All set, only a moment...");
 		$("#text").fadeIn(2500); 
 	}, 25000);
 });
@@ -70,28 +70,28 @@ $(".loading-audience-analysis").click(function(){
 	$("#text").fadeOut(2500);
 
 	setTimeout(function(){ 
-		$("#text").text("Importando Audiencia...");
+		$("#text").text("Importing Audience...");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 5000,titulo = $(this).attr('title'));
 
 	setTimeout(function(){ 
-		$("#text").text("Analizando la información...");
+		$("#text").text("Analyzing the information...");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 10000);
 	setTimeout(function(){ 
-		$("#text").text("Procesando información de Audience...");
+		$("#text").text("Processing Audience Information...");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 15000);
 	setTimeout(function(){ 
-		$("#text").text("Guardando analysis.");
+		$("#text").text("Saving analysis.");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 20000);
 	setTimeout(function(){ 
-		$("#text").text("Todo listo, espere un momento...");
+		$("#text").text("All set, only a moment...");
 		$("#text").fadeIn(2500); 
 	}, 25000);
 });
@@ -105,28 +105,28 @@ $(".loading-catalogue").click(function(){
 	$("#text").fadeOut(2500);
 
 	setTimeout(function(){ 
-		$("#text").text("Importando albumes...");
+		$("#text").text("Importing albums...");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 5000);
 
 	setTimeout(function(){ 
-		$("#text").text("Ordenando información...");
+		$("#text").text("Ordering the information...");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 10000);
 	setTimeout(function(){ 
-		$("#text").text("Guardando albumes de " + artist);
+		$("#text").text("Saving albums by " + artist);
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 15000,artist = $(this).attr('title'));
 	setTimeout(function(){ 
-		$("#text").text("Guardando analysis...");
+		$("#text").text("Saving analysis...");
 		$("#text").fadeIn(2500);
 		$("#text").fadeOut(2500);
 	}, 20000);
 	setTimeout(function(){ 
-		$("#text").text("Todo listo, espere un momento...");
+		$("#text").text("All set, only a moment...");
 		$("#text").fadeIn(2500); 
 	}, 25000);
 });
