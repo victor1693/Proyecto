@@ -252,14 +252,25 @@
                             <div class="card-body">
                                 <div class="card-body">
                                     <div class="chart">
-                                    <?php if (count($data->totalReachPerRelease)>0): ?> 
+                                     <?php 
+                                     $totalReachgained = 0;
+                                     foreach ($data->totalReachPerRelease as $key): ?>
+                                         <?php $totalReachgained = $totalReachgained + $key->gained;?>
+                                    <?php endforeach ?>
+                                     <?php 
+                                     $totalReachgainedPerArtist = 0;
+                                     foreach ($data->totalReachPerRelease as $key): ?>
+                                         <?php $totalReachgainedPerArtist = $totalReachgainedPerArtist + $key->gained;?>
+                                    <?php endforeach ?>
+
+                                    <?php if ($totalReachgained>0): ?> 
                                          <canvas class="chart-canvas totalReachGraph" id="totalReachRelease">
                                         </canvas> 
                                     <?php else: ?> 
                                     <?= notStatsYetGraph("totalReachRelease","totalReachGraph");?>
                                     <?php endif ?> 
 
-                                    <?php if (count($data->totalReachPerArtist)>0): ?> 
+                                    <?php if ($totalReachgainedPerArtist > 0): ?> 
                                      <canvas class="chart-canvas totalReachGraph" id="totalReachArtist" style="display: none;">
                                     </canvas>
                                     <?php else: ?>
@@ -513,14 +524,27 @@
                             <div class="card-body">
                                 <div class="card-body">
                                     <div class="chart">
-                                        <?php if (count($data->totalConversionPerRelease)>0): ?>
+                                        <?php 
+                                        $tcPerReleaseCount = 0;
+                                        foreach ($data->totalConversionPerRelease as $key): ?>
+                                            <?php $tcPerReleaseCount = $tcPerReleaseCount + $key->gained;?> 
+                                        <?php endforeach ?>
+
+                                        <?php 
+                                        $tcPerArtistCount = 0;
+                                        foreach ($data->totalConversionPerArtist as $key): ?>
+                                            <?php $tcPerArtistCount = $tcPerArtistCount + $key->gained;?> 
+                                        <?php endforeach ?>
+
+
+                                        <?php if ($tcPerReleaseCount>0): ?>
                                             <canvas class="chart-canvas totalConversionGraph" id="totalConversionRelease">
                                             </canvas>
                                             <?php else: ?>
                                                  <?= notStatsYetGraph("totalConversionRelease","totalConversionGraph");?>
                                         <?php endif ?>
                                          
-                                         <?php if (count($data->totalConversionPerArtist)>0): ?> 
+                                         <?php if ($tcPerArtistCount > 0): ?> 
                                              <canvas class="chart-canvas totalConversionGraph" id="totalConversionArtist" style="display: none;">
                                             </canvas>
                                             <?php else: ?>
