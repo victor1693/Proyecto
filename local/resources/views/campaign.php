@@ -242,10 +242,7 @@
                                     </span>
                                     Performance
                                 </h4>
-                                <!-- Button -->
-                                <a class="btn btn-sm btn-white" href="#!">
-                                    Export
-                                </a>
+                                
                             </div>
                             <div class="table-responsive mb-0">
                                 <table class="table table-sm table-nowrap card-table">
@@ -539,8 +536,10 @@
                                             <div class="col-auto">
                                                 <!-- Avatar -->
                                                 <a class="avatar" href="#!">
-                                                    <img alt="..." class="avatar-img rounded" src="<?= Request::root();?>/local/resources/views/assets/img/files/file-1.jpg">
-                                                    </img>
+                                                     <div class="avatar-title rounded bg-white text-secondary">
+                                                        <span class="fe fe-activity">
+                                                        </span>
+                                                    </div>
                                                 </a>
                                             </div>
                                             <div class="col ms-n2">
@@ -573,8 +572,10 @@
                                             <div class="col-auto">
                                                 <!-- Avatar -->
                                                 <a class="avatar" href="#!">
-                                                    <img alt="..." class="avatar-img rounded" src="<?= Request::root();?>/local/resources/views/assets/img/files/file-2.jpg">
-                                                    </img>
+                                                    <div class="avatar-title rounded bg-white text-secondary">
+                                                        <span class="fe fe-activity">
+                                                        </span>
+                                                    </div>
                                                 </a>
                                             </div>
                                             <div class="col ms-n2">
@@ -606,11 +607,10 @@
                                     </div>
                                     <div class="list-group-item">
                                         <div class="row align-items-center">
-                                            <div class="col-auto">
-                                                <!-- Avatar -->
+                                            <div class="col-auto"> 
                                                 <a class="avatar" href="#!">
                                                     <div class="avatar-title rounded bg-white text-secondary">
-                                                        <span class="fe fe-folder">
+                                                        <span class="fe fe-activity">
                                                         </span>
                                                     </div>
                                                 </a>
@@ -619,13 +619,14 @@
                                                 <!-- Title -->
                                                 <h4 class="mb-1">
                                                     <a href="#!">
-                                                        Danceability <i style="position: absolute;margin-left: 5px;" class="fe fe-info"></i>
+                                                        Danceability 
+                                                        <i style="position: absolute;margin-left: 5px;" class="fe fe-info"></i>
                                                     </a>
                                                 </h4>
                                                 <!-- Time -->
                                                 <p class="card-text small text-muted">
                                                     <?php if (count($data->track) > 0): ?>
-                                                        <?= $data->track[0]->danceability;?>
+                                                        <?= round($data->track[0]->danceability * 100,2);?>%
                                                     <?php endif ?> 
                                                 </p>
                                             </div>
@@ -635,8 +636,7 @@
                                                     <a aria-expanded="false" aria-haspopup="true" class="dropdown-ellipses dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">
                                                         <i class="fe fe-more-vertical">
                                                         </i>
-                                                    </a>
-                                                   
+                                                    </a> 
                                                 </div>
                                             </div>
                                         </div>
@@ -647,8 +647,10 @@
                                             <div class="col-auto">
                                                 <!-- Avatar -->
                                                 <a class="avatar" href="#!">
-                                                    <img alt="..." class="avatar-img rounded" src="<?= Request::root();?>/local/resources/views/assets/img/files/file-3.jpg">
-                                                    </img>
+                                                   <div class="avatar-title rounded bg-white text-secondary">
+                                                        <span class="fe fe-activity">
+                                                        </span>
+                                                    </div>
                                                 </a>
                                             </div>
                                             <div class="col ms-n2">
@@ -661,7 +663,7 @@
                                                 <!-- Time -->
                                                 <p class="card-text small text-muted">
                                                    <?php if (count($data->track) > 0): ?>
-                                                        <?= $data->track[0]->energy;?>
+                                                        <?= round($data->track[0]->energy * 100,2);?>%
                                                     <?php endif ?> 
                                                 </p>
                                             </div>

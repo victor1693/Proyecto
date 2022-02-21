@@ -32,6 +32,16 @@
                     return $valor;
                 }
             }
+
+            function notyet(){
+                return '<span style="font-size: 18px;">No stats yet</span> <span class="fe fe-info" style="font-size: 16px;cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="If your campaign just begun allow up to 48 hours to start seeing data. Data usually updates live, but some platforms only update their statistics once a day."></span>';
+            }
+
+            function notStatsYetGraph($id,$class,$display=false){
+                $dis = "";
+                if($display == true){$dis = "display:none;";}
+                return '<div style="padding-top: 40px;'.$dis.'" class="'.$class.'" id="'.$id.'"> <div class="text-center mb-2"> <span class="fe fe-bar-chart-2 text-primary" style="font-size: 48px"></span> </div><h2 class="text-center">No stats yet</h2> <p class="text-center mt-3 mb-0">You will see first results within 20-48 hours of campaign start.</p></div>';
+            }
         ?>
         <?php include('includes/aside.php');?>
         <div class="main-content">   
@@ -80,13 +90,18 @@
                                             $totalReach = 0;
                                             if ($data->totalReach > 0): ?>
                                                  <?php $totalReach = MOK($data->totalReach[0]->gained);?>
-                                            <?php endif ?> 
-                                            <?= $totalReach;?>
-                                            <div class="spinner-grow spinner-grow-sm text-success" role="status" style="width: 10px;height: 10px;position: absolute;top: 7px;right: -15px;">
-                                                <span class="visually-hidden">
-                                                    Loading...
-                                                </span>
-                                            </div>
+                                                 <?php if ($totalReach>0): ?>
+                                                      <?= $totalReach;?>
+                                                      <div class="spinner-grow spinner-grow-sm text-success" role="status" style="width: 10px;height: 10px;position: absolute;top: 7px;right: -15px;">
+                                                            <span class="visually-hidden">
+                                                                Loading...
+                                                            </span>
+                                                        </div>
+                                                    <?php else: ?>
+                                                       <?= notYet()?>
+                                                  <?php endif ?>  
+                                            <?php else: ?> 
+                                            <?php endif ?>  
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -118,12 +133,16 @@
                                             $totalConversion = 0;
                                             if ($data->totalConversion > 0): ?>
                                                  <?php $totalConversion = MOK($data->totalConversion[0]->gained);?>
-                                            <?php endif ?> 
-                                            <?= $totalConversion;?>
-                                            <div class="spinner-grow spinner-grow-sm text-success" role="status" style="width: 10px;height: 10px;position: absolute;top: 7px;right: -15px;">
-                                                <span class="visually-hidden"> 
-                                                </span>
-                                            </div>
+                                                 <?php if ($totalConversion > 0): ?>
+                                                 <?= $totalConversion;?>
+                                                 <div class="spinner-grow spinner-grow-sm text-success" role="status" style="width: 10px;height: 10px;position: absolute;top: 7px;right: -15px;">
+                                                    <span class="visually-hidden"> 
+                                                    </span>
+                                                </div>
+                                                 <?php else: ?>
+                                                    <?= notYet()?>
+                                                 <?php endif ?>
+                                            <?php endif ?>   
                                         </span> 
                                     </div>
                                     <div class="col-auto">
@@ -155,8 +174,14 @@
                                             $numberOfCampaign = 0;
                                             if ($data->numberOfCampaign > 0): ?>
                                                  <?php $numberOfCampaign = MOK($data->numberOfCampaign[0]->total);?>
-                                            <?php endif ?> 
-                                            <?= $numberOfCampaign;?>
+                                                 <?php if ($numberOfCampaign > 0): ?>
+                                                     <?= $numberOfCampaign;?>
+                                                 <?php else: ?> 
+                                                    <?= notYet()?>
+                                                 <?php endif ?>
+                                            <?php else: ?> 
+                                                <?= notYet()?>
+                                            <?php endif ?>  
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -174,7 +199,7 @@
                                     <div class="col">
                                         <!-- Title -->
                                         <h6 class="text-uppercase text-muted mb-2">
-                                            total spent
+                                            total budget spent
                                         </h6>
                                         <!-- Heading -->
                                         <span class="h2 mb-0">
@@ -184,8 +209,12 @@
                                             $totalSpent = 0;
                                             if (count($data->totalSpent) > 0): ?> 
                                                 <?php $totalSpent = MOK($data->totalSpent[0]->total);?>
+                                                <?php if ($totalSpent == ""): ?> 
+                                                    <?= notYet()?>
+                                                 <?php else: ?> 
+                                                    <?= $totalSpent;?>
+                                                <?php endif ?>
                                             <?php endif ?> 
-                                            <?= $totalSpent;?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -223,10 +252,19 @@
                             <div class="card-body">
                                 <div class="card-body">
                                     <div class="chart">
-                                        <canvas class="chart-canvas totalReachGraph" id="totalReachRelease">
-                                        </canvas>
-                                         <canvas class="chart-canvas totalReachGraph" id="totalReachArtist" style="display: none;">
-                                        </canvas>
+                                    <?php if (count($data->totalReachPerRelease)>0): ?> 
+                                         <canvas class="chart-canvas totalReachGraph" id="totalReachRelease">
+                                        </canvas> 
+                                    <?php else: ?> 
+                                    <?= notStatsYetGraph("totalReachRelease","totalReachGraph");?>
+                                    <?php endif ?> 
+
+                                    <?php if (count($data->totalReachPerArtist)>0): ?> 
+                                     <canvas class="chart-canvas totalReachGraph" id="totalReachArtist" style="display: none;">
+                                    </canvas>
+                                    <?php else: ?>
+                                        <?= notStatsYetGraph("totalReachArtist","totalReachGraph",true);?>
+                                    <?php endif ?>
                                     </div>
                                 </div>
                             </div>
@@ -247,19 +285,19 @@
                                 <!-- List group -->
                                 <div class="list-group list-group-flush">
                                     <?php foreach ($data->ArtistRoster as $key ): ?> 
+
                                     <div class="list-group-item">
                                         <div class="row align-items-center">
-                                            <div class="col-auto">
-                                                <!-- Avatar -->
-                                                <a class="avatar avatar-4by3" href="project-overview.html">
-                                                    <img alt="..." class="avatar-img rounded" src="<?= $key->cover;?>">
+                                            <div class="col-auto"> 
+                                                <a class="avatar avatar-4by3" href="<?= Request::root();?>/artist-summary/<?= $key->artist_token;?>">
+                                                    <img style="width: 50px;height: 50px;" class="avatar-img rounded-circle" src="<?= $key->artist_img_profile;?>">
                                                     </img>
                                                 </a>
                                             </div>
                                             <div class="col ms-n2">
                                                 <!-- Title -->
                                                 <h4 class="mb-1">
-                                                    <a href="project-overview.html">
+                                                    <a href="<?= Request::root();?>/artist-summary/<?= $key->artist_token;?>">
                                                         <?= $key->artist_name;?>
                                                     </a>
                                                 </h4>
@@ -269,8 +307,15 @@
                                                         Lastest Campaign: <br/>
                                                         <span class="text-dark"><?= $key->track_name;?></span>
                                                     </time>
-                                                </p>
+                                                </p>  
                                             </div> 
+                                            <div class="col-auto">  
+                                                <div class="dropdown">
+                                                  <a href="<?= Request::root();?>/artist-summary/<?= $key->artist_token;?>" class="text-muted">
+                                                    <i class="fe fe-bar-chart-2"></i>
+                                                  </a> 
+                                                </div> 
+                                              </div>
                                         </div>
                                         <!-- / .row -->
                                     </div>
@@ -386,13 +431,23 @@
                                                      <span class="item-score badge bg-success">
                                                        <?= $key->campaign_statust;?>
                                                     </span>
+                                                 <?php elseif($key->campaign_statust == "Pending"): ?>
+                                                     <span class="item-score badge bg-info">
+                                                       <?= $key->campaign_statust;?>
+                                                    </span>
                                                 <?php endif ?> 
                                             </td>
                                             <td>
                                                 <!-- Badge -->
-                                                <span class="item-score badge bg-success">
-                                                   <?= $key->payment_status;?>
-                                                </span>
+                                                <?php if ($key->payment_status == "Paid"): ?> 
+                                                    <span class="item-score badge bg-success">
+                                                       <?= $key->payment_status;?>
+                                                    </span>
+                                                <?php else: ?> 
+                                                    <span class="item-score badge bg-danger">
+                                                       <?= $key->payment_status;?>
+                                                    </span>
+                                                <?php endif ?>
                                             </td>
                                             <td class="text-center">
                                                 <a href="<?= Request::root();?>/campaign-analytics/<?= $key->campaign_token;?>" class="btn btn-outline-primary btn-sm mb-2">
@@ -422,8 +477,12 @@
                             <div class="card-body">
                                 <!-- Chart -->
                                 <div class="chart chart-appended">
+                                    <?php if ($totalConversion > 0): ?> 
                                     <canvas class="chart-canvas" data-target="#trafficChartLegend" data-toggle="legend" id="trafficChart2">
                                     </canvas>
+                                    <?php else: ?>
+                                        <?= notStatsYetGraph("trafficChart2","");?>
+                                    <?php endif ?>
                                 </div>
                                 <!-- Legend -->
                                 <div class="chart-legend" id="trafficChartLegend">
@@ -454,10 +513,20 @@
                             <div class="card-body">
                                 <div class="card-body">
                                     <div class="chart">
-                                        <canvas class="chart-canvas totalConversionGraph" id="totalConversionRelease">
-                                        </canvas>
-                                         <canvas class="chart-canvas totalConversionGraph" id="totalConversionArtist" style="display: none;">
-                                        </canvas>
+                                        <?php if (count($data->totalConversionPerRelease)>0): ?>
+                                            <canvas class="chart-canvas totalConversionGraph" id="totalConversionRelease">
+                                            </canvas>
+                                            <?php else: ?>
+                                                 <?= notStatsYetGraph("totalConversionRelease","totalConversionGraph");?>
+                                        <?php endif ?>
+                                         
+                                         <?php if (count($data->totalConversionPerArtist)>0): ?> 
+                                             <canvas class="chart-canvas totalConversionGraph" id="totalConversionArtist" style="display: none;">
+                                            </canvas>
+                                            <?php else: ?>
+                                                <?= notStatsYetGraph("totalConversionArtist","totalConversionGraph",true);?>
+                                        <?php endif ?>
+
                                     </div>
                                 </div>
                             </div>
