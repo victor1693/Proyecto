@@ -34,7 +34,7 @@
                         <div class="header mt-md-5">
                             <div class="header-body">
                                  <a href="<?= Request::root();?>/signIn">
-                                    <img src="<?= Request::root();?>/local/resources/views/assets/img/logo.svg"/>
+                                     <object style="height: 28px;" data="<?= Request::root();?>/local/resources/views/assets/img/logo.svg"> </object>
                                 </a>
                                 <div class="row align-items-center mt-4">
                                     <div class="col">
