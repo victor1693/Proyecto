@@ -40,7 +40,7 @@
             function notStatsYetGraph($id,$class,$display=false){
                 $dis = "";
                 if($display == true){$dis = "display:none;";}
-                return '<div style="padding-top: 40px;'.$dis.'" class="'.$class.'" id="'.$id.'"> <div class="text-center mb-2"> <span class="fe fe-bar-chart-2 text-primary" style="font-size: 48px"></span> </div><h2 class="text-center">No stats yet</h2> <p class="text-center mt-3 mb-0">You will see first results within 20-48 hours of campaign start.</p></div>';
+                return '<div style="padding-top: 40px;'.$dis.'" class="'.$class.'" id="'.$id.'"> <div class="text-center mb-2"> <span class="fe fe-bar-chart-2 text-primary" style="font-size: 48px"></span> </div><h2 class="text-center">No stats yet</h2> <p class="text-center mt-3 mb-0">You will see first results within 24-48 hours of campaign start.</p></div>';
             }
         ?>
         <?php include('includes/aside.php');?>
