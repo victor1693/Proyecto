@@ -778,6 +778,15 @@
                 }
             });
         }
+
+            $(document).ready(function(){
+                var urlActual = window.location;
+                if(String(urlActual).indexOf("analytics")!==-1){
+                   $("#navlink-performance").removeClass('active'); 
+                   $("#navlink-analysis").removeClass('active'); 
+                   $("#navlink-analytics").addClass('active'); 
+                }
+            });
         </script>
     </body>
 </html>

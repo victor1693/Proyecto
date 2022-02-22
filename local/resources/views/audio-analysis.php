@@ -734,6 +734,16 @@ A measure on how likely the track does not contain any vocals. Values over 50% i
                 frame = $("#elframe").contents();
                 frame.find("#main > div").hide(); 
             });
+
+                $(document).ready(function(){
+                 var urlActual = window.location;
+                    if(String(urlActual).indexOf("analysis")!==-1){
+                       $("#navlink-performance").removeClass('active'); 
+                       $("#navlink-analysis").addClass('active'); 
+                       $("#navlink-security").removeClass('active'); 
+                    }
+                });
+                
             </script>
         </div>
     </body>

@@ -351,5 +351,15 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
         </script> 
+        <script>
+            $(document).ready(function(){
+                var urlActual = window.location;
+                if(String(urlActual).indexOf("performance")!==-1){
+                   $("#navlink-performance").addClass('active'); 
+                   $("#navlink-analysis").removeClass('active'); 
+                   $("#navlink-analytics").removeClass('active'); 
+                }
+            });
+        </script>
     </body>
 </html>
