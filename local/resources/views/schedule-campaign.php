@@ -6,6 +6,7 @@
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
          <link href="<?= Request::root();?>/local/resources/views/assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon"/> 
+        
         <link href="<?= Request::root();?>/local/resources/views/assets/css/libs.bundle.css" rel="stylesheet"/>
         <link href="<?= Request::root();?>/local/resources/views/assets/css/theme.bundle.css" id="stylesheetLight" rel="stylesheet"/>
         <link href="<?= Request::root();?>/local/resources/views/assets/css/theme-dark.bundle.css" id="stylesheetDark" rel="stylesheet"/>
@@ -28,9 +29,10 @@
                 right: 0;
                 top: 0;
                 width: auto;
-            }
+            } 
 
              
+ 
         </style>
         <title>
             Schedule campaign
@@ -95,7 +97,7 @@
                                 <label class="form-label h1 mb-1" id="flag_inversion">
                                     $ <?= number_format(50, 2, ',', ' ');?>
                                 </label>
-                                <input value="50" id="campaign_reach" style="cursor: pointer;" name="inversion" class="form-range mb-4 " type="range" value="0" max="1300" min="50" step="10">
+                                <input value="50" id="campaign_reach" style="cursor: pointer;width: 100%" name="inversion" class="mb-4 form-control-range" type="range" value="0" max="1300" min="50" step="10">
                                 </input>
                                 
                                 <div class="row">
