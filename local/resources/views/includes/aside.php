@@ -173,6 +173,12 @@
                     <?php if ($data->user[0]->img!=""): ?>  
                         <a href="#" role="button">
                             <div class="avatar avatar-sm avatar-online">
+                                <object data="<?= Request::root();?>/local/storage/app/profile_img/<?= $data->user[0]->img;?>" type="image/svg+xml"></object>
+                            </div>
+                        </a> 
+                    <?php else: ?>
+                        <a href="#" role="button">
+                            <div class="avatar avatar-sm avatar-online">
                                 <object data="<?= Request::root();?>/local/resources/views/assets/img/img_profile_default.svg" type="image/svg+xml"></object>
                             </div>
                         </a> 
