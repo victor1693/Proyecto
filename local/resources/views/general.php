@@ -5,8 +5,7 @@
     <head>
         <meta charset="utf-8"/>
         <meta content="width=device-width, initial-scale=1" name="viewport"/>
-        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
-        <link href="<?= Request::root();?>/local/resources/views/assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+         <link href="<?= Request::root();?>/local/resources/views/assets/favicon/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
          <link href="<?= Request::root();?>/local/resources/views/assets/css/libs.bundle.css" rel="stylesheet"/>
         <link href="<?= Request::root();?>/local/resources/views/assets/css/theme.bundle.css" id="stylesheetLight" rel="stylesheet"/>
         <link href="<?= Request::root();?>/local/resources/views/assets/css/theme-dark.bundle.css" id="stylesheetDark" rel="stylesheet"/>
@@ -83,11 +82,11 @@
                                             <input id="img_profile_input" type="file" name="img_profile" style="display: none;">
                                             <?php if ($img!=""): ?>  
                                                 <div class="avatar">
-                                                    <object data="<?= Request::root();?>/local/storage/app/profile_img/<?= $img;?>" type="image/svg+xml"></object>
+                                                    <img class="avatar-img rounded-circle" src="<?= Request::root();?>/local/storage/app/profile_img/<?= $img;?>">
                                                 </div>
                                             <?php else: ?>
                                                 <div class="avatar">
-                                                    <object data="<?= Request::root();?>/local/resources/views/assets/img/img_profile_default.svg" type="image/svg+xml"></object>
+                                                     <img class="avatar-img rounded-circle" src="<?= Request::root();?>/local/resources/views/assets/img/img_profile_default.svg"> 
                                                 </div>
                                             <?php endif ?>
                                         </div>
