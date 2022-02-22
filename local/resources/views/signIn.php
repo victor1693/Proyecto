@@ -14,7 +14,7 @@
             /* Botones SignUp y Mostrar*/
             .btn-enviar:hover{background: rgb(37, 105, 195);}
 
-            .btn-signUp{width:100%; border-color: rgb(108, 117, 125); color: rgb(108, 117, 125); background:white;}
+            .btn-signUp{width:100%; border-color: rgb(108, 117, 125); color: black; background:white;}
             .btn-signUp:hover{border-color: rgb(51,94,234); color: rgb(51,94,234);}
             .btn-signUp:active{border-color: rgb(181,185,189); color: rgb(181,185,189);} 
             
@@ -96,8 +96,8 @@
                         <div class="text-center">
                             <div class="text-center">
                                 <h4 class="mb-3">Don't have an account yet?</h4>
-                                <a type="button" class="btn btn-lg btn-signUp" href="<?= Request::root();?>/campaign/new">
-                                    Sign up
+                                <a href="<?= Request::root();?>/campaign/new">
+                                    <button type="button" class="btn btn-lg btn-signUp">Sign up</button>
                                 </a> 
                             </div>
                         </div>
