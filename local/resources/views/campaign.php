@@ -53,7 +53,30 @@
           $artist_cover = ""; 
           $artist_img = "";
           $artist_name = "";
-          $artist_token = ""; 
+          $artist_token = "";
+          function key_struc($key,$mode) {
+            $response = "";
+            if($key == 0){$response = "C";}
+            else if($key == 1){$response = "C#";}
+            else if($key == 2){$response = "D";}
+            else if($key == 3){$response = "D#";}
+            else if($key == 4){$response = "E";}
+            else if($key == 5){$response = "F";}
+            else if($key == 6){$response = "F#";}
+            else if($key == 7){$response = "G";}
+            else if($key == 8){$response = "G#";}
+            else if($key == 9){$response = "A";}
+            else if($key == 10){$response = "A#";}
+            else if($key == 11){$response = "B";}
+
+            if($mode == "1"){
+                $response = $response . " Major";
+            }
+            else if($mode == "0"){
+                $response = $response . " Minor";
+            }   
+            return $response;
+        } 
          ?>
         <?php include('includes/aside.php');?>
         <div class="main-content">
@@ -551,7 +574,7 @@
                                                 </h4>
                                                 <!-- Time -->
                                                 <p class="card-text small text-muted">
-                                                
+                                                <?= key_struc($data->track[0]->key_name,$data->track[0]->mode)?>
                                                 </p>
                                             </div>
                                             <div class="col-auto">

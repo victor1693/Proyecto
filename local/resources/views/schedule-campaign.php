@@ -15,6 +15,22 @@
             .is-invalid{
                 border: 1px solid red !important;
             }
+             
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                display: block;
+                background: transparent;
+                bottom: 0;
+                color: transparent;
+                cursor: pointer;
+                height: auto;
+                left: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: auto;
+            }
+
+             
         </style>
         <title>
             Schedule campaign
@@ -79,14 +95,14 @@
                                 <label class="form-label h1 mb-1" id="flag_inversion">
                                     $ <?= number_format(50, 2, ',', ' ');?>
                                 </label>
-                                <input value="50" id="campaign_reach" style="cursor: pointer;" name="inversion" class="form-range mb-4" type="range" value="0" max="1300" min="50" step="10">
+                                <input value="50" id="campaign_reach" style="cursor: pointer;" name="inversion" class="form-range mb-4 " type="range" value="0" max="1300" min="50" step="10">
                                 </input>
                                 
                                 <div class="row">
                                     <div class="col-6">
                                         <h4 class="card-header-title mb-2">
                                             Reach
-                                            <i class="fe fe-info fs-5 fw-bold">
+                                            <i class="fe fe-info fs-5 fw-bold" style="font-size: 16px;cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="This is the number of people we estimate you'll reach in your genre throughout your campaign. This has to do with factors like your budget, genre, playlist size and ad placements. Your actual reach may be higher or lower than this estimate.">
                                             </i>
                                         </h4>
                                         <span class="badge bg-primary-soft fw-bold">
@@ -103,8 +119,8 @@
                                     </div>
                                     <div class="col-6">
                                         <h4 class="card-header-title mb-2">
-                                            Streams
-                                            <i class="fe fe-info fs-5 fw-bold">
+                                            Conversions
+                                            <i class="fe fe-info fs-5 fw-bold" style="font-size: 16px;cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="This is the number of plays, streams, likes, saves, playlist adds, comments, etc that we estimate you can get from your campaign based on your performance and estimated daily reach. The actual number of conversions you get may be higher or lower than this estimate.">
                                             </i>
                                         </h4>
                                         <span class="badge bg-primary-soft fw-bold">
@@ -129,11 +145,16 @@
                             <div class="card-header">
                                 <!-- Title -->
                                 <h4 class="card-header-title">
-                                    Start Date
+                                    Start Date 
                                 </h4>
                             </div>
                             <div class="card-body">
-                                <input id="date" class="form-control mb-3" name="date" type="date"/>
+                                <div class="input-group mb-3 flex-nowrap"> 
+                                 <input value="" id="date" class="form-control" name="date" type="date"/>
+                                  <span class="input-group-text icon-date">
+                                    <i class="fe fe-calendar"></i>
+                                  </span> 
+                                </div> 
                                 <p class="text-muted">
                                     Your campaign will start within 48 hours or within a start date you select. All our campaigns are running for 14 days to ensure that we let the playlist curators have enough time to review your song.
                                 </p>
@@ -204,12 +225,12 @@
 
                     $('#estimated_streams').css('width',Math.round((max_streams * 100) / 238160,0) + "%");
                     $('#estimated_reach').css('width',Math.round((max_reach * 100) / 1190800,0) + "%");
-                }
-                console.log(inversion);
+                } 
             }
 
             // VALIDACIONES ANTES DE GUARDAR
-            
+            $("#date").val("<?= date('Y-m-d');?>");  
+
             $("#continue").click(function(){
 
                 $("input,select,button").removeClass("is-invalid");
