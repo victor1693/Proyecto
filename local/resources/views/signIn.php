@@ -96,8 +96,8 @@
                         <div class="text-center">
                             <div class="text-center">
                                 <h4 class="mb-3">Don't have an account yet?</h4>
-                                <a href="<?= Request::root();?>/campaign/new">
-                                    <button type="button" class="btn btn-lg btn-signUp">Sign up</button>
+                                <a href="<?= Request::root();?>/campaign/new" class="btn btn-lg btn-signUp" role="button" aria-pressed="true">
+                                    Sign up
                                 </a> 
                             </div>
                         </div>
