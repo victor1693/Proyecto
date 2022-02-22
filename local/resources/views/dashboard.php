@@ -408,7 +408,7 @@
                                             <td>
                                                 <!-- Avatar -->
                                                 <div class="avatar avatar-xs align-middle me-2">
-                                                    <img alt="..." class="avatar-img rounded-circle" src="<?= $key->track_cover;?>">
+                                                    <img alt="..." class="avatar-img rounded" src="<?= $key->track_cover;?>">
                                                     </img>
                                                 </div>
                                             </td>
