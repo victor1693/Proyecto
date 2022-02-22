@@ -43,7 +43,7 @@
                 $role = $data->account[0]->role;
                 $phone = $data->account[0]->telefono; 
                 $pais = $data->account[0]->pais;
-                $img = $data->account[0]->img;  
+                $img = $data->account[0]->img;
             }
         ?>
         <div class="main-content">
@@ -81,9 +81,15 @@
                                     <div class="row align-items-center">
                                         <div class="col-auto">
                                             <input id="img_profile_input" type="file" name="img_profile" style="display: none;">
-                                            <div class="avatar">
-                                                <object data="<?= Request::root();?>/local/resources/views/assets/img/img_profile_default.svg" type="image/svg+xml"></object>
-                                            </div>
+                                            <?php if ($img!=""): ?>  
+                                                <div class="avatar">
+                                                    <object data="<?= Request::root();?>/local/storage/app/profile_img/<?= $img;?>" type="image/svg+xml"></object>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class="avatar">
+                                                    <object data="<?= Request::root();?>/local/resources/views/assets/img/img_profile_default.svg" type="image/svg+xml"></object>
+                                                </div>
+                                            <?php endif ?>
                                         </div>
                                         <div class="col ms-n2">
                                             <!-- Heading -->
