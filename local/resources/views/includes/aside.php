@@ -8,7 +8,7 @@
         </button>
         <!-- Brand -->
         <a style="z-index: 1" class="navbar-brand" href="<?= Request::root();?>/dashboard">
-            <object style="margin-bottom: -10px;height: 56px;margin-top: -6px;position: relative; z-index: -1" data="<?= Request::root();?>/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"> 
+            <object style="margin-bottom: -7px;height: 50px;margin-top: -3px;position: relative; z-index: -1" data="<?= Request::root();?>/local/resources/views/assets/img/logo.svg" type="image/svg+xml"> 
             </object>  
         </a>
         <!-- User (xs) -->

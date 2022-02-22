@@ -28,7 +28,7 @@
                         <div class="header mt-3 mb-4">
                             <div class="header-body">
                                 <a class="text-left" href="<?= Request::root();?>/signIn">
-                                     <object style="height: 28px;" data="<?= Request::root();?>/local/resources/views/assets/img/logo.svg"> </object>
+                                     <object style="height: 50px;" data="<?= Request::root();?>/local/resources/views/assets/img/logo.svg"> </object>
                                 </a>
                                 <div class="row align-items-center mt-4">
                                     <div class="col">
