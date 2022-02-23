@@ -192,13 +192,13 @@
                                     </div>
                                     <div class="p-2 bd-highlight">
                                         <div class="card mb-0">
-                                            <div class="card-body p-3 text-center" style="max-width: 100px; min-height:74px;">
+                                            <div class="card-body py-3 px-lg-2 px-md-2 px-sm-0 px-xs-0 text-center" style="max-width: 100px; min-height:74px;">
                                                 <div class="row align-items-center gx-0">
-                                                    <div class="col">
-                                                        <h6 class="text-uppercase text-muted mb-2 ">
+                                                    <div class="col text-justify">
+                                                        <h6 class="text-uppercase text-muted mb-2">
                                                             Strategy
                                                         </h6>
-                                                        <p class="item-score badge bg-primary-soft mb-0" style="margin-top: 13px;">
+                                                        <p class="item-score badge bg-primary-soft mb-0 mx-lg-1 mx-md-auto mx-sm-auto mx-xs-auto" style="margin-top: 13px;">
                                                             
                                                             <?php if (count($data->campaign)>0): ?>
                                                                 <?= $data->campaign[0]->estrategia;?>

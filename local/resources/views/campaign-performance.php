@@ -118,7 +118,9 @@
                                             </td>
                                             <td>
                                                 <?php if (count($data->total_reach)>0): ?>
-                                                      <?= number_format($data->total_reach[0]->gained);?>  
+                                                      <?= number_format($data->total_reach[0]->gained);?>
+                                                <?php else: ?>
+                                                      No stats yet  
                                                 <?php endif ?> 
                                             </td>
                                             <td>
@@ -184,7 +186,7 @@
                                                 Unavailable
                                             </td>
                                             <td>
-                                               0
+                                                No stats yet  
                                             </td>
                                             <td>
                                                 <div class="row align-items-center g-0">
@@ -205,7 +207,7 @@
                                                 <!-- / .row -->
                                             </td>
                                             <td>
-                                                $0.00
+                                                $0
                                             </td>
                                         </tr>
                                         <tr>
@@ -227,7 +229,7 @@
                                                 Unavailable
                                             </td>
                                             <td>
-                                               0
+                                                No stats yet
                                             </td>
                                             <td>
                                                 <div class="row align-items-center g-0">
@@ -248,7 +250,7 @@
                                                 <!-- / .row -->
                                             </td>
                                             <td>
-                                                $0.00
+                                                $0
                                             </td>
                                         </tr>
                                         <tr>
@@ -270,7 +272,7 @@
                                                 Unavailable
                                             </td>
                                             <td>
-                                               0
+                                                No stats yet
                                             </td>
                                             <td>
                                                 <div class="row align-items-center g-0">
@@ -291,7 +293,7 @@
                                                 <!-- / .row -->
                                             </td>
                                             <td>
-                                                $0.00
+                                                $0
                                             </td>
                                         </tr>
                                         <tr>
@@ -313,7 +315,7 @@
                                                 Unavailable
                                             </td>
                                             <td>
-                                               0
+                                                No stats yet
                                             </td>
                                             <td>
                                                 <div class="row align-items-center g-0">
@@ -334,7 +336,7 @@
                                                 <!-- / .row -->
                                             </td>
                                             <td>
-                                                $0.00
+                                                $0
                                             </td>
                                         </tr>
                                     </tbody>
