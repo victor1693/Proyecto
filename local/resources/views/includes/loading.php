@@ -10,8 +10,8 @@
       	<div class="mb-5">
 			<object id="aside-icon" style="width: 56px; height:56px;" data="https://zuliamercado.com/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"></object>
       	</div>
-		<h1 class="header-title mb-5 fade-in" id="text" style="display: none;">
-			
+		<h1 class="header-title mb-5" id="text">
+			Audience Analysis <span class="badge bg-primary-soft fw-bold">AI</span>
 		</h1>
       	<div class="spinner-border text-primary" role="status">
 		  <span class="visually-hidden">Loading...</span>
