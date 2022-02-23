@@ -163,6 +163,8 @@
                                                         $0
                                                     <?php endif ?>
                                                     / $<?= number_format($data->campaign[0]->inversion);?>
+                                                <?php else: ?>
+                                                    $0
                                                 <?php endif ?>  
                                                    
                                             </td>
