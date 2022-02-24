@@ -303,7 +303,7 @@
                 contador = contador + 1;
                     id_track = item.id;
 
-                    var new_track = '<div class="row align-items-center mb-2 select-track" onclick="setTrack('+contador +')" style="position: relative;"> <div class="col-auto text-center"> <a class="avatar avatar-4by3 select-track"> <img class="avatar-img rounded aqui" src="' + item.album.images[2].url + '" style="height: 35px;width: 35px;margin-top: 6px;"> </img> </a> </div><div class="col ms-n2"> <h4 class="mb-1"> <a id="track-' + contador + '" onclick="setTrack('+contador +')" t-name="' + item.name + '"  t-img="' + item.album.images[0].url + '"  t-artist="' + item.artists[0].name + '" t-id="' + item.id + '" class="select-track"> ' + item.name + ' </a> </h4> <p class="card-text small text-muted"> <span> ' + item.artists[0].name + ' </span> </p></div></div>'; 
+                    var new_track = '<div class="row align-items-center mb-1 select-track" onclick="setTrack('+contador +')" style="position: relative;"> <div class="col-auto text-center"> <a class="avatar avatar-4by3 select-track"> <img class="avatar-img rounded aqui" src="' + item.album.images[2].url + '" style="height: 35px;width: 35px;margin-top: 6px;"> </img> </a> </div><div class="col ms-n2"> <h4 class="mb-1"> <a id="track-' + contador + '" onclick="setTrack('+contador +')" t-name="' + item.name + '"  t-img="' + item.album.images[0].url + '"  t-artist="' + item.artists[0].name + '" t-id="' + item.id + '" class="select-track"> ' + item.name + ' </a> </h4> <p class="card-text small text-muted"> <span> ' + item.artists[0].name + ' </span> </p></div></div><hr class="mb-1 mt-0">'; 
                     track = track + new_track; 
                 }); 
 
