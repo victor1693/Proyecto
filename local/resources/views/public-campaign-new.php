@@ -173,7 +173,7 @@
                                                         </div>
                                                         <div class="col-9 col-lg-11">
                                                             <p class="mb-0 fw-bold fs-5">
-                                                                Apple Music Campaign
+                                                                    Apple Music Campaign
                                                                 <span class="badge bg-light fw-bold" style="font-size: 11px;">
                                                                     Ads & Playlists.
                                                                 </span>

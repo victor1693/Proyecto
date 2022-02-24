@@ -33,8 +33,8 @@
                     <div class="col-12 col-lg-10 col-xl-8">
                         <div class="header mt-md-5">
                             <div class="header-body">
-                                 <a class="text-left navbar-brand pt-4 pb-3" style="z-index: 1;" href="<?= Request::root();?>/signIn">
-                                     <object style="margin-bottom: -10px;height: 50px;margin-top: -3px;position: relative; z-index: -1" style="height: 50px;" data="<?= Request::root();?>/local/resources/views/assets/img/logo.svg"> </object>
+                                <a class="text-left navbar-brand pt-4 pb-3" style="z-index: 1;" href="<?= Request::root();?>/signIn">
+                                    <object style="margin-bottom: -10px;height: 50px;margin-top: -3px;position: relative; z-index: -1" style="height: 50px;" data="<?= Request::root();?>/local/resources/views/assets/img/logo.svg"> </object>
                                 </a>
                                 <div class="row align-items-center mt-4">
                                     <div class="col">
@@ -149,7 +149,7 @@
                                             Phone
                                         </label>
                                         <!-- Input -->
-                                        <input maxlength="20" style="height: 40px;" id="telefono" name="telefono" class="form-control" type="text">
+                                        <input maxlength="12" style="height: 40px;" id="telefono" name="telefono" class="form-control" type="text">
                                         </input>
                                         <small class="form-text text-muted mt-2">
                                         </small>
