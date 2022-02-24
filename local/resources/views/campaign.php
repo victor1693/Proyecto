@@ -605,7 +605,7 @@
                                                 <!-- Title -->
                                                 <h4 class="mb-1">
                                                     <a href="#!">
-                                                        Popularity <i style="position: absolute;margin-left: 5px;" class="fe fe-info"></i>
+                                                        Popularity <i style="position: absolute;margin-left: 5px; cursor:pointer;" class="fe fe-info" data-bs-original-title="A measure on how popular the track is on Spotify. Updates every two days, so may appear 0% for new tracks. " data-bs-toggle="tooltip" title=""></i>
                                                     </a>
                                                 </h4>
                                                 <!-- Time -->
@@ -643,7 +643,8 @@
                                                 <h4 class="mb-1">
                                                     <a href="#!">
                                                         Danceability 
-                                                        <i style="position: absolute;margin-left: 5px;" class="fe fe-info"></i>
+                                                        <i style="position: absolute;margin-left: 5px;" class="fe fe-info" data-bs-original-title="
+A measure on how suitable a track could be for dancing to, through measuring tempo, rhythm, stability, beat strength and overall regularity. Tracks near 0% are least danceable, whereas tracks near 100% are more suited for dancing to. " data-bs-toggle="tooltip" style="cursor: pointer;" title=""></i>
                                                     </a>
                                                 </h4>
                                                 <!-- Time -->
@@ -680,7 +681,8 @@
                                                 <!-- Title -->
                                                 <h4 class="mb-1">
                                                     <a href="#!">
-                                                        Energy <i style="position: absolute;margin-left: 5px;" class="fe fe-info"></i>
+                                                        Energy <i style="position: absolute;margin-left: 5px; cursor: pointer;" class="fe fe-info" data-bs-original-title="
+A measure on how intense a track sounds, through measuring the dynamic range, loudness, timbre, onset rate and general entropy. 0% indicates low energy, 100% indicates high energy. " data-bs-toggle="tooltip" title=""></i>
                                                     </a>
                                                 </h4>
                                                 <!-- Time -->
