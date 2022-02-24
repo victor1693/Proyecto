@@ -11,6 +11,19 @@
         <link href="<?= Request::root();?>/local/resources/views/assets/css/theme.bundle.css" id="stylesheetLight" rel="stylesheet"/>
         <link href="<?= Request::root();?>/local/resources/views/assets/css/theme-dark.bundle.css" id="stylesheetDark" rel="stylesheet"/>
          <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+      <script>
+        if(typeof Cookies.get("track_id") !== "undefined"){
+             $("#id_track").val(Cookies.get('track_id'));
+        }else{
+            Cookies.remove('track_name');
+            Cookies.remove('track_img');
+            Cookies.remove('track_artist');
+            Cookies.remove('track_id'); 
+            window.location.href = "<?= Request::root();?>/campaign-new";
+        }
+      </script>
         <style>
             body{display: none;}
             .is-invalid{
@@ -31,7 +44,9 @@
                 width: auto;
             } 
 
-             
+            .new-secundary{
+                color: #bababa;
+            }
  
         </style>
         <title>
@@ -95,7 +110,7 @@
                                     Budget
                                 </h4>
                                 <label class="form-label h1 mb-1" id="flag_inversion">
-                                    $ <?= number_format(50, 2, ',', ' ');?>
+                                    $<?= number_format(50, 2, ',', ' ');?>
                                 </label>
                                 <input value="50" id="campaign_reach" style="cursor: pointer;width: 100%" name="inversion" class="mb-4 form-control-range" type="range" value="0" max="1300" min="50" step="10">
                                 </input>
@@ -141,6 +156,17 @@
                                 <p class="text-muted mt-3">
                                     The accuracy of estimates is based on factors like past campaign data, the budget you entered, market data, targeting criteria and ad placements. Numbers are provided to give you an idea of performance for your budget, but are only estimates and don't guarantee results.
                                 </p>
+
+                                 <h4 class="card-header-title mb-2">
+                                    Discount Code
+                                </h4>
+                                <div class="input-group mb-3"> 
+                                  <input id="cupon" type="text" class="form-control" placeholder="Your code here: ##########" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                  <div class="input-group-append">
+                                    <button id="btn-cupon" class="btn btn-primary" style="border-top-left-radius: 0;border-bottom-left-radius: 0;" type="button">Apply</button>
+                                  </div>
+                                </div>
+                                <p class="mb-0 badge bg-light fs-4" id="text_cupon"><span class="fw-bold text-primary text-uppercase" id="text_cupon_value"></span> <i id="delete-discount" title="Remove coupon" class="fe fe-x-circle text-secondary" style="cursor: pointer;"></i></p>
                             </div>
                         </div>
                         <div class="card">
@@ -181,13 +207,10 @@
         <script src="<?= Request::root();?>/local/resources/views/assets/js/vendor.bundle.js">
         </script>
         <script src="<?= Request::root();?>/local/resources/views/assets/js/theme.bundle.js">
-        </script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-        </script> 
+        </script>  
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js">
         </script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js"></script> 
 
         <script>
             $(document).ready(function(){
@@ -201,9 +224,45 @@
                 calcular($(this).val());
             });
 
+            $("#delete-discount").click(function(){ 
+                Cookies.remove('cupon_code');
+                Cookies.remove('cupon_tipo');
+                Cookies.remove('cupon_percent');
+                Cookies.remove('cupon_amount');
+                $("#cupon").val("");
+                calcular($("#campaign_reach").val());
+            });
 
-            function calcular(valor){  
-            // HACEMOS LOS CALCULOS
+            $("#btn-cupon").click(function(){
+                $("#cupon").removeClass("is-invalid");
+                if($("#cupon").val()==""){
+                    $("#cupon").addClass("is-invalid");
+                    $("#cupon").focus();
+                    return 0;
+                }
+                var settings = {
+                  "url": "https://app.venbia.com/v1/cupon/" + $("#cupon").val(),
+                  "method": "GET",
+                  "timeout": 0,
+                  "headers": {},
+                }; 
+                $.ajax(settings).done(function (response) {
+                  if(response['cupon'].length == 0){
+                    $("#cupon").addClass("is-invalid");
+                    $("#cupon").focus();
+                    return 0;
+                  } 
+                   Cookies.set('cupon_code', response['cupon'][0].cupon_token);
+                   Cookies.set('cupon_tipo',  response['cupon'][0].tipo_cupon);
+                   Cookies.set('cupon_percent', response['cupon'][0].porcentaje_dicount);
+                   Cookies.set('cupon_amount',  response['cupon'][0].monto_discount);
+                   $("#cupon").addClass("is-valid");
+                    calcular($("#campaign_reach").val());
+                });
+            });
+
+            function calcular(valor){
+              
             var inversion = valor;
             var min_streams = 0;
             var max_streams = 0;
@@ -216,14 +275,51 @@
 
                     min_streams = min_reach * 0.3;
                     max_streams = max_reach * 0.2;
+                    
+                    cupon_tipo = "";
+                    cupon_percent = ""; 
+                    cupon_amount = ""; 
+                    cupon_code = "";
+
+                    if(typeof Cookies.get("cupon_tipo") !== "undefined"){
+                        cupon_tipo = Cookies.get('cupon_tipo'); 
+                    }
+                    if(typeof Cookies.get("cupon_percent") !== "undefined"){
+                        cupon_percent = Cookies.get('cupon_percent'); 
+                    }
+                    if(typeof Cookies.get("cupon_amount") !== "undefined"){
+                        cupon_amount = Cookies.get('cupon_amount'); 
+                    }
+                    if(typeof Cookies.get("cupon_code") !== "undefined"){
+                        cupon_code = Cookies.get('cupon_code'); 
+                    }
+                    if(cupon_tipo == "monto"){ 
+                        descuento = $.number(valor - cupon_amount,  0, '.',',');
+                        valor = $.number(valor,  0, '.',','); 
+                        inversion = '<span class="text-muted fw-normal"><strike style="font-weight:300;font-size: 21px;">$'+valor+'</strike></span> $' + descuento;  
+                        $("#text_cupon_value").html('<span class="fe fe-tag" style = "font-size: 13px;padding-right: 2px;"></span>' + cupon_code); 
+                    }
+                    else if(cupon_tipo == "porcentaje"){ 
+                        descuento = $.number(valor - (valor * (cupon_percent / 100)),  2, '.',',');  
+                        valor = $.number(valor,  0, '.',','); 
+                        inversion = '<span class="text-muted fw-normal"><strike style="font-weight:300;font-size: 21px;">$'+valor+'</strike></span> $' + descuento;
+                        $("#text_cupon_value").html('<span class="fe fe-tag" style = "font-size: 13px;padding-right: 2px;"></span>' + cupon_code); 
+                    }
+
+                    if(cupon_tipo!=""){
+                        $("#text_cupon").show();
+                    }
+                    else{
+                        $("#text_cupon").hide();
+                        inversion = "$" + inversion;
+                    }
 
                     $("#flag_min_stream").text($.number(min_streams, 0, '.',','));
                     $("#flag_max_stream").text($.number(max_streams,  0, '.',','));
 
                     $("#flag_min_reach").text($.number(min_reach,  0, '.',','));
-                    $("#flag_max_reach").text($.number(max_reach,  0, '.',','));
-
-                    $("#flag_inversion").text("$ " +$.number(inversion,  0, '.',',') );
+                    $("#flag_max_reach").text($.number(max_reach,  0, '.',',')); 
+                    $("#flag_inversion").html(inversion);
 
                     $('#estimated_streams').css('width',Math.round((max_streams * 100) / 238160,0) + "%");
                     $('#estimated_reach').css('width',Math.round((max_reach * 100) / 1190800,0) + "%");
@@ -257,6 +353,9 @@
             // SETEAMOS EN CASO QUE HAYAN DATOS GUARDADOS
 
             function loadInfo() {
+                if(typeof Cookies.get("cupon_code") !== "undefined"){
+                    $("#cupon").val(Cookies.get('cupon_code'));
+                }
                 if(typeof Cookies.get("track_inversion") !== "undefined"){
                     $("#campaign_reach").val(Cookies.get('track_inversion'));
                 }
