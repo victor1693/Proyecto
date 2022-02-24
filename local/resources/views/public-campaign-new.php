@@ -27,8 +27,8 @@
                     <div class="col-12 col-lg-10 col-xl-8 pd-0">
                         <div class="header mt-3 mb-4">
                             <div class="header-body">
-                                <a class="text-left" href="<?= Request::root();?>/signIn">
-                                     <object style="height: 50px;" data="<?= Request::root();?>/local/resources/views/assets/img/logo.svg"> </object>
+                                <a class="text-left navbar-brand pt-4 pb-3" style="z-index: 1;" href="<?= Request::root();?>/signIn">
+                                     <object style="margin-bottom: -7px;height: 50px;margin-top: -3px;position: relative; z-index: -1" data="<?= Request::root();?>/local/resources/views/assets/img/logo.svg"> </object>
                                 </a>
                                 <div class="row align-items-center mt-4">
                                     <div class="col">
