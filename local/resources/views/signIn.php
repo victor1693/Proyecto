@@ -40,7 +40,7 @@
                 <div class="col-12 col-md-5 col-xl-4 order-md-1 my-5">
                     <!-- Heading -->
                     <div class="display-4 text-center mb-3">
-                        <object id="aside-icon" style="width: 56px; height:56px;" data="https://zuliamercado.com/local/resources/views/assets/img/logo2.svg" type="image/svg+xml"></object>
+                        <object id="aside-icon" style="margin-bottom: -7px;height: 50px;margin-top: -3px;position: relative; z-index: -1" data="<?= Request::root();?>/local/resources/views/assets/img/logo.svg" type="image/svg+xml"></object>
                     </div>
                     <!-- Subheading -->
                     <p class="text-muted text-center mb-5">
