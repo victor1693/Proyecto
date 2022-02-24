@@ -149,7 +149,7 @@
                                             Phone
                                         </label>
                                         <!-- Input -->
-                                        <input maxlength="12" style="height: 40px;" id="telefono" name="telefono" class="form-control" type="text">
+                                        <input maxlength="15" style="height: 40px;" id="telefono" name="telefono" class="form-control" type="text">
                                         </input>
                                         <small class="form-text text-muted mt-2">
                                         </small>
