@@ -32,15 +32,15 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content"> 
       <div class="modal-body  text-center"> 
-      	<div class="mb-2">
-			<object id="aside-icon" style="width: 72px; height:72px;" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/goloudrbrain.svg" type="image/svg+xml"></object>
+      	<div class="mb-1 mt-n4">
+			<object id="aside-icon" style="width: 218px; height:218px;" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/goloudrbrain.svg" type="image/svg+xml"></object>
       	</div>
-		<h1 class="header-title mb-5 fade-in">
+		<h4 class="header-title mb-1 fade-in mt-n4">
 			Audience Analysis <span class="badge bg-primary-soft fw-bold">AI</span>
-		</h1>
-		<h3>LOADING</h3>
-		<h3 class="mb-5" id="text-1"></h3>
-      	<div class="spinner-border text-primary" role="status">
+		</h4>
+		<h5 class="mb-4">LOADING <span id="text-1"></span></h5>
+		<!--<h5 class="mb-5" id="text-1"></h5>-->
+      	<div class="spinner-border text-primary" style="width: 25px; height: 25px;" role="status">
 		  <span class="visually-hidden">Loading...</span>
 		</div>
 
@@ -125,7 +125,7 @@ $(".loading-audience-analysis").click(function(){
 		$("#text-1").fadeOut(2500); 
 	}, 60000);
 	setTimeout(function(){ 
-		$("#text-1").text("All set, only a moment...");
+		$("#text-1").text(", almost ready...");
 		$("#text-1").fadeIn(2500); 
 	}, 65000);
 });
