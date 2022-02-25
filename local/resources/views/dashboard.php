@@ -768,13 +768,85 @@
             <?php foreach ($data->totalSpentGraph as $key): ?>
                 dTotalSpent.push(<?= $key->spent/1000;?>);
             <?php endforeach ?>
-            slChart('graph_total_spent',dTotalSpent);   
-        </script>
+            slChart('graph_total_spent',dTotalSpent);
 
-        <?php include ("includes/loading.php") ?>
+            $(".audience-analysis-modal").click(function(){  
 
-        <script>
-            
-        </script>
+	            $("#lock-1").show();
+	            $('#loading-1').modal('show'); 
+	            $("#text-1").text($(this).attr('title'));
+	            $("#text-1").fadeIn(2500);
+	            $("#text-1").fadeOut(2500);
+
+
+	        setTimeout(function(){ 
+		        $("#text-1").text("Socials");
+		        $("#text-1").fadeIn(2500);
+		        $("#text-1").fadeOut(2500);
+	        }, 5000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("Genres");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500);
+	        }, 10000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("Top Cities");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500);
+	        }, 15000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("Artist in Same Genres");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500);
+	        }, 20000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("Catalogue");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500); 
+	        }, 25000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("Markets of Opportunity");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500); 
+	        }, 30000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("AUDIENCE");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500); 
+	        }, 35000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("GROWTH POTENTIAL");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500); 
+	        }, 40000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("Artists with Similar Fanbases");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500); 
+	        }, 45000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("YOUR MONTHLY LISTENERS");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500); 
+	        }, 50000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("SIMILAR ARTISTS AVG. MONTHLY LISTENERS");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500); 
+	        }, 55000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text("POTENTIAL ACHIEVED");
+	        	$("#text-1").fadeIn(2500);
+	        	$("#text-1").fadeOut(2500); 
+	        }, 60000);
+	        setTimeout(function(){ 
+	        	$("#text-1").text(", almost ready...");
+	        	$("#text-1").fadeIn(2500); 
+	        }, 65000);
+            });   
+        </script> 
+        <script> 
+             <?php include ("includes/loading.php") ?> 
+        </script> 
     </body>
 </html>
