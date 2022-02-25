@@ -423,12 +423,12 @@
         </script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
         </script> 
+       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
         <script src="https://js.stripe.com/v3/">
         </script>
         <script src="checkout/checkout.js">
         </script> 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
-
         <script src="https://www.paypal.com/sdk/js?client-id=AWnPN3ca5Lms-Ek9yVe0txASM-TIsB-L80B9mB6zlJ9vFMug3a3N92xw0qri0xUX027IqkjW0wqYmLPR&disable-funding=credit">
         </script>
         <script>
@@ -437,9 +437,8 @@
                 $(".paypal-button-text true").css("display","none");
                 $("#submit").addClass('btn btn-primary w-100 mt-4 mb-2'); 
                 deleteCookies();
-            });
-
-
+            }); 
+            
             function deleteCookies(){
                 Cookies.remove("track_artist");
                 Cookies.remove("track_date");

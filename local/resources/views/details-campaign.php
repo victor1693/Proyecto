@@ -204,13 +204,19 @@
                                                 $0,00
                                            </p>
                                        </h4>
-                                       
+                                       <h4 class="card-header-title mt-1 fw-normal mb-2" id="balance_title">
+                                          Pay with balance
+                                          <p class="mb-0 " style="float: right;" id="balance_value">
+                                             $0,00
+                                          </p>
+                                       </h4>
                                        <h4 class="card-header-title mt-1 fw-normal mb-2">
                                           Taxes (estimated)
                                           <p class="mb-0 " style="float: right;">
                                              $0,00
                                           </p>
                                        </h4>
+                                       
                                     </div>
                                     <div class="col-12 mt-1">
                                        <hr/>
@@ -267,13 +273,32 @@
                         <h2 class="card-header-title me-auto mb-3 ">
                            Balance
                         </h2>
-                        <div class="input-group mb-2">
-                           <input type="number" aria-describedby="button-addon2" aria-label="" class="form-control" placeholder="" style="" min="0" max="" />
-                           <button type="button" class="btn btn-primary px-4" id="btnPayWithBalance">
-                           Use
-                           </button>
-                        </div>
-                        <small class="fs-4">
+                        <?php if (count($data->balance)>0): ?>
+                            <?php if ($data->balance > 0): ?>
+                              <div class="input-group mb-2">
+                                 <input id="input_balance" type="number" class="form-control" placeholder="Your balance here: $0.00" min="0" max="" />
+                                 <button type="button" class="btn btn-primary px-4" id="btnPayWithBalance">
+                                 Use
+                                 </button>
+                              </div>
+                            <?php else: ?>
+                              <div class="input-group mb-2">
+                                 <input disabled id="input_balance" type="number" class="form-control" placeholder="" min="0" max="" />
+                                 <button disabled type="button" class="btn btn-primary px-4" id="btnPayWithBalance">
+                                 Use
+                                 </button>
+                              </div>
+                            <?php endif ?> 
+                            <?php else: ?>
+                               <div class="input-group mb-2">
+                                 <input disabled id="input_balance" type="number" class="form-control" placeholder="" min="0" max="" />
+                                 <button disabled type="button" class="btn btn-primary px-4" id="btnPayWithBalance">
+                                 Use
+                                 </button>
+                              </div>
+                        <?php endif ?>
+                        
+                        <small class="" style="font-size: 17px;padding-top: 3px;margin-right: 5px;">
                         My Balance:
                         <span class="fw-bold" id="myBalance">
                         <?php if (count($data->balance)>0): ?>
@@ -281,6 +306,11 @@
                         <?php endif ?>
                         </span>
                         </small>
+                        <p class="mb-0 badge bg-light fs-4" id="text_cupon" style="position: absolute;display: none;">
+                            <span class="fw-bold text-primary text-uppercase" id="text_cupon_value"><span id="tx_balance_used">-14.00</span></span>
+                            <i id="delete-balance" title="Remove" class="fe fe-x-circle text-secondary" style="cursor: pointer;"></i>
+                        </p>
+
                      </div>
                   </div>
                   <h2 class="card-header-title me-auto mt-4 mb-4 ">
@@ -409,12 +439,19 @@
             </div>
          </div>
          <form id="form-campaign" method="POST" action="<?= Request::root();?>/create-campaign">
-            <input type="hidden" name="id_track" id="id_track">
-            <input type="hidden" name="inversion" id="inversion">
-            <input type="hidden" name="date" id="date">
+            <input type="hidden" name="payment_flag" id="payment_flag">
+            <input type="hidden" name="track_id" id="id_track">
+            <input type="hidden" name="payment_amount" id="inversion">
+            <input type="hidden" name="payment_type" id="payment_type">
+            <input type="hidden" name="start_date" id="date">
             <input type="hidden" name="generos" id="generos">
+            <input type="hidden" name="cupon_code" id="cupon_code">
+            <input type="hidden" name="cupon_amount" id="cupon_amount">
+            <input type="hidden" name="payment_status" id="payment_status">
+            <input type="hidden" name="balance" id="paid_with_balance">
          </form>
       </div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
     <script src="<?= Request::root();?>/local/resources/views/assets/js/vendor.bundle.js"></script>
     <script src="<?= Request::root();?>/local/resources/views/assets/js/theme.bundle.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
@@ -425,14 +462,19 @@
     </script> 
     <script src="https://www.paypal.com/sdk/js?client-id=AWnPN3ca5Lms-Ek9yVe0txASM-TIsB-L80B9mB6zlJ9vFMug3a3N92xw0qri0xUX027IqkjW0wqYmLPR&disable-funding=credit">
     </script>
-      <script>
-         $(document).ready(function(){
-            
+      <script> 
+         $("#delete-balance").click(function(){
+            $("#text_cupon").hide();
+            $("#tx_balance_used").text("");
+            $("#paid_with_balance").val("");
+            Cookies.remove("balance");
+            loadInfo();
          });
+
          loadInfo();
-         total_a_pagar = 0;
-         // CARGAMOS LA INFORMACION 
+         total_a_pagar = 0; 
          function loadInfo() {
+         
          if(typeof Cookies.get("track_date") !== "undefined"){
              $("#start_date").html('<i class="fe fe-calendar"></i>'+Cookies.get("track_date")+'</span>'); 
          }
@@ -444,22 +486,36 @@
          } 
 
          if(typeof Cookies.get("cupon_code") !== "undefined"){
+            $("#start_date,#cupon_code").val(Cookies.get("cupon_code"));
+
             if(typeof Cookies.get("cupon_percent") !== "undefined" && Cookies.get("cupon_percent") !=0){
                 inversion = $.number(Cookies.get("track_inversion"));
                 discount = Cookies.get("cupon_percent");
                 discount = inversion * (discount / 100);
                 total_a_pagar = inversion - discount;
+                $("#cupon_amount").val(discount);
                 $("#discount").text("$"+$.number(discount, 2, '.',','));
+
             }
             else if(typeof Cookies.get("cupon_amount") !== "undefined" && Cookies.get("cupon_amount") !=0){
                 inversion = $.number(Cookies.get("track_inversion"));
                 discount = Cookies.get("cupon_amount");
                 total_a_pagar = inversion - discount;
+                $("#cupon_amount").val(discount);
                 $("#discount").text("$"+$.number(discount, 2, '.',','));
             }         
+         } 
+         
+         if(typeof Cookies.get("balance") !== "undefined"){
+            $("#balance_value").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
+            $("#tx_balance_used").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
+            $("#text_cupon").show();
+            $("#paid_with_balance").val($.number(Cookies.get("balance"), 2, '.',','));
+            total_a_pagar = total_a_pagar - Cookies.get("balance");
          }
-
-         $("#total_amount").text("$"+$.number(total_a_pagar, 2, '.',','));
+         
+         $("#total_amount").text("$" + $.number(total_a_pagar, 2, '.',','));
+         
          if(typeof Cookies.get("track_img") !== "undefined"){
              $("#track-img").attr('src',Cookies.get('track_img'));
          }
@@ -514,5 +570,31 @@
          }); 
       </script>
 
+      <script>
+         // GESTION DE PAGOS
+         $("#btnPayWithBalance").click(function(){
+            if($("#input_balance").val() ==""){return 0;} 
+            
+            if(parseFloat($("#input_balance").val()) < (inversion - parseFloat($("#cupon_amount").val()))){
+               Cookies.set("balance",$("#input_balance").val());
+               $("#balance_value").text("$" + $.number($("#input_balance").val(), 2, '.',','));
+               loadInfo(); 
+            }
+
+            if(parseFloat($("#input_balance").val()) >= (inversion - parseFloat($("#cupon_amount").val()))){   
+               if (confirm("Esta seguro que desea pagar este campaign con su balance?") == true) {
+                  $("#paid_with_balance").val($("#input_balance").val());
+                  $("#payment_type").val("balance");
+                  $("#form-campaign").submit();
+               } 
+            }
+         });
+
+      <?php if (Session::has('info')): ?>
+         $.notify("<?= Session::get('info');?>", "primary");
+      <?php elseif(Session::has('error')): ?> 
+         $.notify("<?= Session::get('info');?>", "danger");
+      <?php endif ?>
+      </script>
    </body>
 </html>
