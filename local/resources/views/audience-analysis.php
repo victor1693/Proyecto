@@ -44,6 +44,12 @@
             $artist_img = $artistSummary->artist->img_profile;
             $artist_name = $artistSummary->artist->name;
             $artist_token = $artistSummary->artist->artist_token;
+
+            function notStatsYetGraph($id,$class,$display=false){
+                $dis = "";
+                if($display == true){$dis = "display:none;";}
+                return '<div style="padding-top: 50px;'.$dis.'" class="'.$class.'" id="'.$id.'"> <div class="text-center mb-2"> <span class="fe fe-bar-chart-2 text-primary" style="font-size: 48px"></span> </div><h2 class="text-center">No stats yet</h2> <p class="text-center mt-3 mb-0">You will see first results within 24-48 hours of campaign start.</p></div>';
+            }
         ?>
         <?php include('includes/aside.php');?>
         <div class="main-content">
@@ -71,22 +77,34 @@
                                                     <?php $ayer = 0;?>
                                                 <?php endif ?> 
                                             <?php endif ?>
-                                             <?php echo number_format($hoy); ?>
+                                            <?php echo number_format($hoy); ?>
                                         </span>
                                         <!-- Badge -->
-                                        <?php if (number_format($hoy - $ayer)>=0): ?> 
-                                            <span class="badge bg-success-soft mt-n1">
-                                               <?php echo number_format($hoy - $ayer); ?>
-                                            </span>
-                                        <?php else: ?>
-                                            <span class="badge bg-danger-soft mt-n1">
-                                               <?php echo number_format($hoy - $ayer); ?>
-                                            </span>
-                                        <?php endif ?>
+                                        <?php if (number_format($hoy)>=0 && number_format($ayer)>0): ?>
+                                            <?php if (number_format($hoy - $ayer)>0): ?> 
+                                                <span class="badge bg-success-soft mt-n1">
+                                                   <?php echo number_format(($hoy - $ayer)*100/$hoy);?>%
+                                                </span>
+                                            <?php elseif(number_format($hoy - $ayer)<0): ?>
+                                                <span class="badge bg-danger-soft mt-n1">
+                                                    <?php echo number_format(($hoy - $ayer)*100/$hoy);?>%
+                                                </span>
+                                            <?php elseif(number_format($hoy - $ayer)==0): ?>
+                                                <span class="badge bg-secondary-soft mt-n1">
+                                                    0%
+                                                </span>
+                                            <?php endif ?>
+                                        <?php elseif(number_format($hoy)>=0 && number_format($ayer)>=0): ?>
+                                            <span class="badge bg-secondary-soft mt-n1">
+                                                    0%
+                                                </span>    
+                                        <?php elseif(number_format($ayer)==0 && number_format($hoy)==0 ): ?>
+                                            <span></span>   
+                                        <?php endif ?>    
                                     </div>
                                     <div class="col-auto">
                                         <!-- Icon -->
-                                        <span class="h2 fe fe-dollar-sign text-muted mb-0">
+                                        <span class="h2 fe fe-users text-muted mb-0">
                                         </span>
                                     </div>
                                 </div>
@@ -209,8 +227,12 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="chart">
-                                            <canvas class="chart-canvas" id="g1">
-                                            </canvas>
+                                            <?php if(count($artistSummary->monthly_listener_graph) > 0): ?>
+                                                <canvas class="chart-canvas" id="g1">
+                                                </canvas>
+                                            <?php else: ?>
+                                                <?= notStatsYetGraph("g1","");?>
+                                            <?php endif ?>
                                         </div>
                                     </div>
                                 </div>
@@ -364,7 +386,7 @@
                                                     followers
                                                 </th>
                                                 <th>
-                                                   Best city
+                                                    Most popular in
                                                 </th>
                                                  <th>
                                                     Monthly listeners
@@ -653,6 +675,16 @@
                     }); 
                 }
             }
+
+            $(document).ready(function(){
+                var urlActual = window.location;
+                if(String(urlActual).indexOf("audience")!==-1){
+                   $("#navlink-audience").addClass('active');
+                   $("#navlink-catalogue").removeClass('active'); 
+                   $("#navlink-summary").removeClass('active');
+                }
+            });
+
         </script>
          
         <?php include ("includes/loading.php") ?>

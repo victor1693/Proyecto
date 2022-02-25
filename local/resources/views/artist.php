@@ -32,6 +32,17 @@
           $artist_img = $artistSummary->artist->img_profile;
           $artist_name = $artistSummary->artist->name;
           $artist_token = $artistSummary->artist->artist_token;
+
+            function notyet(){
+                return '<span style="font-size: 18px;">No stats yet</span> <span class="fe fe-info" style="font-size: 16px;cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="If your campaign just begun allow up to 48 hours to start seeing data. Data usually updates live, but some platforms only update their statistics once a day."></span>';
+            }
+
+            function notStatsYetGraph($id,$class,$display=false){
+                $dis = "";
+                if($display == true){$dis = "display:none;";}
+                return '<div style="padding-top: 50px;'.$dis.'" class="'.$class.'" id="'.$id.'"> <div class="text-center mb-2"> <span class="fe fe-bar-chart-2 text-primary" style="font-size: 48px"></span> </div><h2 class="text-center">No stats yet</h2> <p class="text-center mt-3 mb-0">You will see first results within 24-48 hours of campaign start.</p></div>';
+            }
+
          ?>
         <?php include('includes/aside.php');?>
         <div class="main-content">
@@ -46,7 +57,7 @@
                                     <div class="col">
                                         <!-- Title -->
                                         <h6 class="text-uppercase text-muted mb-2">
-                                            total campaign reach
+                                            total campaign reach 
                                         </h6>
                                         <!-- Heading -->
                                         <span class="h2 mb-0" style="position: relative;">
@@ -55,18 +66,22 @@
                                             <?php 
                                             $reach = $artistSummary->artist->reach;
                                             ?>
-                                            <?php if ($reach > 999 && $reach < 1000000): ?>
-                                                 <?= round($reach / 1000,1);?> K
-                                            <?php elseif ($reach >= 1000000): ?>
-                                                 <?= round($reach / 1000000,1);?> M
+                                            <?php if ($reach>0): ?>
+                                                <?php if ($reach > 999 && $reach < 1000000): ?>
+                                                    <?= round($reach / 1000,1);?> K
+                                                <?php elseif ($reach >= 1000000): ?>
+                                                     <?= round($reach / 1000000,1);?> M
+                                                <?php else: ?>
+                                                     <?= $reach;?>
+                                                <?php endif ?>
+                                                <div class="spinner-grow spinner-grow-sm text-success" role="status" style="width: 10px;height: 10px;position: absolute;top: 7px;right: -15px;">
+                                                    <span class="visually-hidden">
+                                                        Loading...
+                                                    </span>
+                                                </div>
                                             <?php else: ?>
-                                                 <?= $reach;?> 
+                                                <?= notYet()?>
                                             <?php endif ?> 
-                                            <div class="spinner-grow spinner-grow-sm text-success" role="status" style="width: 10px;height: 10px;position: absolute;top: 7px;right: -15px;">
-                                                <span class="visually-hidden">
-                                                    Loading...
-                                                </span>
-                                            </div>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -97,26 +112,32 @@
                                              <?php 
                                             $streams = $artistSummary->artist->streams;
                                             ?>
-                                            <?php if ($streams > 999 && $streams < 1000000): ?>
-                                                 <?= round($streams / 1000,1);?> K
-                                            <?php elseif ($streams >= 1000000): ?>
-                                                 <?= round($streams / 1000000,1);?> M
+                                            <?php if ($streams>0): ?>
+                                                <?php if ($streams > 999 && $streams < 1000000): ?>
+                                                     <?= round($streams / 1000,1);?> K
+                                                <?php elseif ($streams >= 1000000): ?>
+                                                     <?= round($streams / 1000000,1);?> M
+                                                <?php else: ?>
+                                                     <?= $streams;?>
+                                                <?php endif ?> 
+                                                <div class="spinner-grow spinner-grow-sm text-success" role="status" style="width: 10px;height: 10px;position: absolute;top: 7px;right: -15px;">
+                                                    <span class="visually-hidden">
+                                                        Loading...
+                                                    </span>
+                                                </div>
                                             <?php else: ?>
-                                                 <?= $streams;?> 
+                                                <?= notYet()?>         
                                             <?php endif ?> 
-                                            <div class="spinner-grow spinner-grow-sm text-success" role="status" style="width: 10px;height: 10px;position: absolute;top: 7px;right: -15px;">
-                                                <span class="visually-hidden">
-                                                    Loading...
-                                                </span>
-                                            </div>
                                         </span> 
                                     </div>
-                                    <div class="col-auto">
-                                        <div class="chart chart-sparkline p-1">
-                                            <canvas class="chart-canvas" id="graph_total_plays_gained">
-                                            </canvas>
+                                    <?php if($streams>0): ?>
+                                        <div class="col-auto">
+                                            <div class="chart chart-sparkline p-1">
+                                                <canvas class="chart-canvas" id="graph_total_plays_gained">
+                                                </canvas>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <?php endif ?>
                                 </div>
                                 <!-- / .row -->
                             </div>
@@ -163,21 +184,27 @@
                                             <?php 
                                             $inversion = $artistSummary->artist->inversion;
                                             ?>
-                                            <?php if ($inversion > 999 && $inversion < 1000000): ?>
-                                                 $<?= round($inversion / 1000,1);?> K
-                                            <?php elseif ($inversion >= 10000001): ?>
-                                                 $<?= round($inversion / 1000000,1);?> M
+                                            <?php if($inversion>0): ?>
+                                                <?php if ($inversion > 999 && $inversion < 1000000): ?>
+                                                     $<?= round($inversion / 1000,1);?> K
+                                                <?php elseif ($inversion >= 10000001): ?>
+                                                     $<?= round($inversion / 1000000,1);?> M
+                                                <?php else: ?>
+                                                     $<?= $inversion;?> 
+                                                <?php endif ?>
                                             <?php else: ?>
-                                                 $<?= $inversion;?> 
+                                                0
                                             <?php endif ?> 
                                         </span>
                                     </div>
-                                    <div class="col-auto">
-                                        <div class="chart chart-sparkline p-1">
-                                            <canvas class="chart-canvas" id="graph_total_spent">
-                                            </canvas>
+                                    <?php if($inversion>0): ?>
+                                        <div class="col-auto">
+                                            <div class="chart chart-sparkline p-1">
+                                                <canvas class="chart-canvas" id="graph_total_spent">
+                                                </canvas>
+                                            </div>
                                         </div>
-                                    </div>
+                                    <?php endif ?>
                                 </div>
                                 <!-- / .row -->
                             </div>
@@ -196,8 +223,12 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="chart">
-                                            <canvas class="chart-canvas" id="salesGraph">
-                                            </canvas>
+                                            <?php if ($reach>0): ?>
+                                                <canvas class="chart-canvas" id="salesGraph">
+                                                </canvas>
+                                            <?php else: ?>
+                                                <?= notStatsYetGraph("salesGraph","");?>
+                                            <?php endif ?>
                                         </div>
                                     </div>
                                 </div>
@@ -334,8 +365,12 @@
                                     <div class="card-body">
                                         <!-- Chart -->
                                         <div class="chart chart-appended">
-                                            <canvas class="chart-canvas" data-target="#trafficChartLegend" data-toggle="legend" id="trafficChart2">
-                                            </canvas>
+                                            <?php if ($reach>0): ?>
+                                                <canvas class="chart-canvas" data-target="#trafficChartLegend" data-toggle="legend" id="trafficChart2">
+                                                </canvas>
+                                            <?php else: ?>
+                                                <?= notStatsYetGraph("trafficChart2","");?>
+                                            <?php endif ?>
                                         </div>
                                         <!-- Legend -->
                                         <div class="chart-legend" id="trafficChartLegend">
@@ -354,8 +389,12 @@
                                     <div class="card-body">
                                         <div class="card-body">
                                             <div class="chart">
-                                                <canvas class="chart-canvas" id="salesGraph23">
-                                                </canvas>
+                                                <?php if ($reach>0): ?>
+                                                    <canvas class="chart-canvas" id="salesGraph23">
+                                                    </canvas>
+                                                <?php else: ?>
+                                                    <?= notStatsYetGraph("trafficChart2","");?>
+                                                <?php endif ?>
                                             </div>
                                         </div>
                                     </div>
@@ -472,8 +511,12 @@
                             </div>
                             <div class="card-body">
                                 <div class="chart">
-                                    <canvas class="chart-canvas" id="salesGraph3">
-                                    </canvas>
+                                     <?php if ($reach>0): ?>
+                                        <canvas class="chart-canvas" id="salesGraph3">
+                                        </canvas>
+                                    <?php else: ?>
+                                        <?= notStatsYetGraph("salesGraph3","");?>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </div> 
@@ -755,7 +798,16 @@
             dTotalSpent = total_spent_graph;
             slChart('graph_total_spent',dTotalSpent);
         </script>
-         <script></script>
+        <script>
+            $(document).ready(function(){
+                var urlActual = window.location;
+                if(String(urlActual).indexOf("summary")!==-1){
+                   $("#navlink-summary").addClass('active'); 
+                   $("#navlink-audience").removeClass('active'); 
+                   $("#navlink-catalogue").removeClass('active'); 
+                }
+            });
+        </script>
         <?php include ("includes/loading.php") ?>
     </body>
 </html>

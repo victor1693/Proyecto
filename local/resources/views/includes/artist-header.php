@@ -36,20 +36,20 @@
                     <!-- Nav -->
                     <ul class="nav nav-tabs nav-overflow header-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active" href="<?= Request::root();?>/artist-summary/<?= $artist_token;?>">
+                            <a class="nav-link active" id="navlink-summary" href="<?= Request::root();?>/artist-summary/<?= $artist_token;?>">
                                 Summary
                             </a>
                         </li>
                         <li class="nav-item"> 
                              <?php if ($artistSummary->artist->analysis_completed == 1): ?> 
-                                <a class="nav-link" href="<?= Request::root();?>/artist-audience-analysis/<?= $artist_token;?>">
+                                <a class="nav-link" id="navlink-audience" href="<?= Request::root();?>/artist-audience-analysis/<?= $artist_token;?>">
                                     Audience Analysis
                                     <span class="badge bg-primary-soft fw-bold">
                                         AI
                                     </span>
                                 </a>
                                 <?php else: ?>
-                                <a title="<?= $artistSummary->artist->name;?>"  class="nav-link loading-audience-analysis" href="<?= Request::root();?>/artist-audience-analysis/<?= $artist_token;?>">
+                                <a title="<?= $artistSummary->artist->name;?>" id="navlink-audience"  class="nav-link loading-audience-analysis" href="<?= Request::root();?>/artist-audience-analysis/<?= $artist_token;?>">
                                     Audience Analysis
                                     <span class="badge bg-primary-soft fw-bold">
                                         AI
@@ -59,11 +59,11 @@
                         </li>
                         <li class="nav-item">
                             <?php if ($artistSummary->artist->catalogue_completed == 1): ?> 
-                                <a class="nav-link" href="<?= Request::root();?>/artist-catalogue/<?= $artist_token;?>">
+                                <a class="nav-link" id="navlink-catalogue" href="<?= Request::root();?>/artist-catalogue/<?= $artist_token;?>">
                                     Catalogue
                                 </a>
                                 <?php else: ?>
-                                <a title="<?= $artistSummary->artist->name;?>" class="nav-link loading-catalogue" href="<?= Request::root();?>/artist-catalogue/<?= $artist_token;?>">
+                                <a title="<?= $artistSummary->artist->name;?>" id="navlink-catalogue" class="nav-link loading-catalogue" href="<?= Request::root();?>/artist-catalogue/<?= $artist_token;?>">
                                     Catalogue
                                 </a>
                             <?php endif ?>

@@ -236,6 +236,16 @@
         </script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
         </script>
+        <script>
+            $(document).ready(function(){
+                var urlActual = window.location;
+                if(String(urlActual).indexOf("catalogue")!==-1){
+                   $("#navlink-catalogue").addClass('active'); 
+                   $("#navlink-summary").removeClass('active'); 
+                   $("#navlink-audience").removeClass('active');
+                }
+            });
+        </script>
         <?php include ("includes/loading.php") ?>
     </body>
 </html>
