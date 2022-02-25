@@ -77,7 +77,17 @@
             }   
             return $response;
         } 
-         ?>
+
+        function notyet(){
+            return '<span style="font-size: 18px;">No stats yet</span> <span class="fe fe-info" style="font-size: 16px;cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="If your campaign just begun allow up to 48 hours to start seeing data. Data usually updates live, but some platforms only update their statistics once a day."></span>';
+        }
+
+        function notStatsYetGraph($id,$class,$display=false){
+            $dis = "";
+            if($display == true){$dis = "display:none;";}
+            return '<div style="padding-top: 50px;'.$dis.'" class="'.$class.'" id="'.$id.'"> <div class="text-center mb-2"> <span class="fe fe-bar-chart-2 text-primary" style="font-size: 48px"></span> </div><h2 class="text-center">No stats yet</h2> <p class="text-center mt-3 mb-0">You will see first results within 24-48 hours of campaign start.</p></div>';
+        }
+        ?>
         <?php include('includes/aside.php');?>
         <div class="main-content">
             <?php include('includes/campaign-header.php');?>
@@ -86,7 +96,7 @@
                     <div class="col-12">
                         <!-- Alert -->
                         <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                            This project is on track and forecasted to complete below budget!
+                            This campaign is on track and forecasted to complete below budget!
                             <!-- Close -->
                             <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button">
                             </button>
@@ -111,8 +121,12 @@
                             <div class="card-body">
                                 <!-- Chart -->
                                 <div class="chart">
-                                    <canvas class="chart-canvas" id="graph">
-                                    </canvas>
+                                    <?php if (count($data->total_conversion)>0): ?>
+                                        <canvas class="chart-canvas" id="graph">
+                                        </canvas>
+                                    <?php else: ?>
+                                        <?= notStatsYetGraph("grahp","");?>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +148,8 @@
                                         <span class="h2 mb-0">
                                            <?php if (count($data->total_reach)>0): ?>
                                                 <?= number_format($data->total_reach[0]->gained);?>
+                                            <?php else: ?>
+                                                <?= notYet()?>
                                             <?php endif ?> 
                                         </span> 
 
@@ -151,7 +167,7 @@
                     <div class="col-12 col-lg-6 col-xl">
                         <!-- Card -->
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body h-100">
                                 <div class="row align-items-center gx-0">
                                     <div class="col">
                                         <!-- Title -->
@@ -162,6 +178,8 @@
                                         <span class="h2 mb-0">
                                             <?php if (count($data->total_conversion)>0): ?>
                                                 <?= number_format($data->total_conversion[0]->gained);?>
+                                            <?php else: ?>
+                                                <?= notYet()?>
                                             <?php endif ?> 
                                         </span>
                                     </div>
@@ -178,7 +196,7 @@
                     <div class="col-12 col-lg-6 col-xl">
                         <!-- Card -->
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body h-100">
                                 <div class="row align-items-center gx-0">
                                     <div class="col">
                                         <!-- Title -->
@@ -201,15 +219,21 @@
                                                              $0
                                                          <?php endif ?>
                                                            / $<?= number_format($data->campaign[0]->inversion);?>
+                                                    <?php else: ?>
+                                                        <?= notYet()?>
                                                     <?php endif ?>   
                                                 </span>
                                             </div>
                                             <div class="col">
                                                 <!-- Progress -->
-                                                <div class="progress progress-sm me-4">
-                                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?= $budget_spent_graph;?>" class="progress-bar" role="progressbar" style="width: <?= $budget_spent_graph;?>%">
-                                                    </div>
-                                                </div>
+                                                <?php 
+                                                    $budget_spent_graph = 0;
+                                                    if (count($data->total_conversion)>0): ?>
+                                                        <div class="progress progress-sm me-4">
+                                                            <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="<?= $budget_spent_graph;?>" class="progress-bar" role="progressbar" style="width: <?= $budget_spent_graph;?>%">
+                                                            </div>
+                                                        </div>  
+                                                <?php endif ?>  
                                             </div>
                                         </div>
                                         <!-- / .row -->
@@ -242,6 +266,8 @@
                                               <?php else: ?>
                                                  $0
                                              <?php endif ?>
+                                        <?php else: ?>
+                                            <?= notYet()?>
                                         <?php endif ?> 
                                         </span>
                                     </div>
@@ -319,6 +345,8 @@
                                             <td>
                                                 <?php if (count($data->total_reach)>0): ?>
                                                       <?= number_format($data->total_reach[0]->gained);?>  
+                                                <?php else: ?>
+                                                    No stats yet
                                                 <?php endif ?> 
                                             </td>
                                             <td>
@@ -352,6 +380,8 @@
                                                         $0
                                                     <?php endif ?>
                                                     / $<?= number_format($data->campaign[0]->inversion);?>
+                                                    <?php else: ?>
+                                                        $0
                                                 <?php endif ?>  
                                                     
                                             </td>
@@ -375,7 +405,7 @@
                                                 Unavailable
                                             </td>
                                             <td>
-                                               0
+                                               No stats yet
                                             </td>
                                             <td>
                                                 <div class="row align-items-center g-0">
@@ -396,7 +426,7 @@
                                                 <!-- / .row -->
                                             </td>
                                             <td>
-                                                $0.00
+                                                $0
                                             </td>
                                         </tr>
                                         <tr>
@@ -418,7 +448,7 @@
                                                 Unavailable
                                             </td>
                                             <td>
-                                               0
+                                                No stats yet
                                             </td>
                                             <td>
                                                 <div class="row align-items-center g-0">
@@ -439,7 +469,7 @@
                                                 <!-- / .row -->
                                             </td>
                                             <td>
-                                                $0.00
+                                                $0
                                             </td>
                                         </tr>
                                         <tr>
@@ -461,7 +491,7 @@
                                                 Unavailable
                                             </td>
                                             <td>
-                                               0
+                                                No stats yet
                                             </td>
                                             <td>
                                                 <div class="row align-items-center g-0">
@@ -482,7 +512,7 @@
                                                 <!-- / .row -->
                                             </td>
                                             <td>
-                                                $0.00
+                                                $0
                                             </td>
                                         </tr>
                                         <tr>
@@ -504,7 +534,7 @@
                                                 Unavailable
                                             </td>
                                             <td>
-                                               0
+                                                No stats yet
                                             </td>
                                             <td>
                                                 <div class="row align-items-center g-0">
@@ -525,7 +555,7 @@
                                                 <!-- / .row -->
                                             </td>
                                             <td>
-                                                $0.00
+                                                $0
                                             </td>
                                         </tr>
                                     </tbody>
