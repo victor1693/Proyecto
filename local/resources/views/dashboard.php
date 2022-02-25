@@ -301,8 +301,10 @@
                                         <div class="row align-items-center">
                                             <div class="col-auto"> 
                                                 <a class="avatar avatar-4by3" href="<?= Request::root();?>/artist-summary/<?= $key->artist_token;?>">
-                                                    <img style="width: 50px;height: 50px;" class="avatar-img rounded-circle" src="<?= $key->artist_img_profile;?>">
-                                                    </img>
+                                                    <?php if ($key->artist_img_profile!=""): ?> 
+                                                        <img style="width: 50px;height: 50px;" class="avatar-img rounded-circle" src="<?= $key->artist_img_profile;?>">
+                                                        </img>
+                                                    <?php endif ?>
                                                 </a>
                                             </div>
                                             <div class="col ms-n2">
@@ -699,11 +701,8 @@
                 totalConversionReleaseLabel.push("<?= $key->track_name;?>");
             <?php endforeach ?>
             
-            barGraph('totalConversionRelease',totalConversionRelease,totalConversionReleaseLabel,'Release');
-
-
-        </script>
-       
+            barGraph('totalConversionRelease',totalConversionRelease,totalConversionReleaseLabel,'Release'); 
+        </script> 
         <script>
             // PARA GENERAR VALORES ALEATORIOS
             function rv(){
@@ -845,9 +844,9 @@
 	        	$("#text-1").fadeIn(2500); 
 	        }, 65000);
             });   
-        </script>
-
-        <?php include ("includes/loading.php") ?>
-                
+        </script> 
+        <script> 
+             <?php include ("includes/loading.php") ?> 
+        </script> 
     </body>
 </html>

@@ -24,25 +24,29 @@ class campaignDetails extends Controller
     public function createCampaign()
     {
          
-        if(!isset($_POST['id_track'])){
+         
+        if(!isset($_POST['track_id'])){
             return Redirect()->back()->with('info','Debe colocar el id del track.');
         }
-        else if($_POST['id_track'] == ""){
+        else if($_POST['track_id'] == ""){
             return Redirect()->back()->with('info','Debe colocar el id del track.');
         }
-        if(!isset($_POST['inversion'])){
+        else if(!isset($_POST['payment_amount'])){
             return Redirect()->back()->with('info','Debe colocar el monto.');
         }
-        else if($_POST['inversion'] == ""){
+        else if($_POST['payment_amount'] == ""){
             return Redirect()->back()->with('info','Debe colocar el monto.');
         }
-        if(!isset($_POST['date'])){
+        else if($_POST['payment_amount'] < 50){
+            return Redirect()->back()->with('info','La compra minima es de $50.');
+        }
+        else if(!isset($_POST['start_date'])){
             return Redirect()->back()->with('info','Debe colocar la fecha de inicio.');
         }
-        else if($_POST['date'] == ""){
+        else if($_POST['start_date'] == ""){
             return Redirect()->back()->with('info','Debe colocar la fecha de inicio.');
         } 
-        if(!isset($_POST['generos'])){
+        else if(!isset($_POST['generos'])){
             return Redirect()->back()->with('info','Debe colocar almenos un genero.');
         }
         else if($_POST['generos'] == ""){
@@ -56,23 +60,35 @@ class campaignDetails extends Controller
             array_push($generos, $g[0]);
         }
 
-        $generos = implode(",",$generos);
-
-        $data = array(
-            'id_track' => $_POST['id_track'],
-            'inversion' => $_POST['inversion'],
-            'date' => $_POST['date'],
-            'generos' => $generos,
-            'ac_token' => session()->get('ac_token')
+        $generos = implode(",",$generos); 
+        $data = array( 
+            'ac_token' => session()->get('ac_token'), 
+            "payment_flag" =>  $_POST['payment_flag'],
+            "track_id" =>  $_POST['track_id'],
+            "payment_amount" => $_POST['payment_amount'],
+            "payment_type" => $_POST['payment_type'],
+            "start_date" =>  $_POST['start_date'],
+            "generos" =>  $_POST['generos'],
+            "cupon_code" =>  $_POST['cupon_code'],
+            "cupon_amount" =>  $_POST['cupon_amount'],
+            "payment_status" =>  $_POST['payment_status'],
+            "balance" =>  $_POST['balance'],
         ); 
         
-        $campaign = json_decode(RQ::post("https://app.venbia.com/v1/campaign",$data)); 
-       
-        if($campaign->httpCode != "201"){   
-            return Redirect()->back()->with('error',$campaign->Error); 
+        $campaign = "";
+
+        if($_POST['payment_type'] == "balance"){
+            $campaign = json_decode(RQ::post("https://app.venbia.com/v1/pay-with-balance",$data)); 
+        }  
+
+        if($campaign->campaign->code != "201"){  
+            return Redirect()->back()->with('error','Ocurrio un error al crear la campaign.'); 
         } 
         else{
-            return Redirect('campaign-checkout/'.$campaign->data->campaign_token);
+            if(isset($campaign->campaign->info)){
+                return Redirect()->back()->with('error',$campaign->campaign->info); 
+            }
+            return Redirect('dashboard?load-information='.$campaign->campaign->items[0]->campaign_token);
         }
     }
 }
