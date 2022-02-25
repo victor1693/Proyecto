@@ -38,7 +38,11 @@
 		<h4 class="header-title mb-1 fade-in mt-n4">
 			Audience Analysis <span class="badge bg-primary-soft fw-bold">AI</span>
 		</h4>
-		<h5 class="mb-4">LOADING <span id="text-1"></span></h5>
+		<!--<h5 class="mb-4">LOADING <span id="text-1"></span></h5>-->
+		<div class="row" style="padding: 0px; margin:0px">
+			 <div class="col-6 px-1" style="padding: 0px; margin:0px"><h5 style="display:flex; float:right">LOADING</h5></div>
+			 <div class="col-6 px-1" style="padding: 0px; margin:0px"><h5 style="display:flex; float:left" id="text-1"></h5></div>
+		</div>
 		<!--<h5 class="mb-5" id="text-1"></h5>-->
       	<div class="spinner-border text-primary" style="width: 25px; height: 25px;" role="status">
 		  <span class="visually-hidden">Loading...</span>
@@ -55,6 +59,7 @@
 
 // LOADING AUDIENCE ANALISYS
 
+/*
 $(".loading-audience-analysis").click(function(){  
 
 	$("#lock-1").show();
@@ -129,6 +134,7 @@ $(".loading-audience-analysis").click(function(){
 		$("#text-1").fadeIn(2500); 
 	}, 65000);
 });
+*/
 
 
 $(".loading-catalogue").click(function(){  
