@@ -697,14 +697,14 @@
   {text: "Dolor", weight: 2.3},
   {text: "Sit", weight: 8},
   {text: "Amet", weight: 6.2},
-  {text: "Consectetur", weight: 7},
-  {text: "Adipisciadng", weight: 12},
-  {text: "Adicing", weight: 10},
-  {text: "Adipisfgcing", weight: 5},
-  {text: "Adifbdkjncing", weight: 9},
-  {text: "adknakn", weight: 3},
-  {text: "Testomatico", weight: 8},
-  {text: "Adejjscing", weight: 6.5},]*/
+  {text: "Consectetur", weight: 7.1},
+  {text: "Adipisciadng", weight: 4.2},
+  {text: "Adicing", weight: 3.3},
+  {text: "Adipisfgcing", weight: 5.6},
+  {text: "Adifbdkjncing", weight: 1.1},
+  {text: "adknakn", weight: 5.0},
+  {text: "Testomatico", weight: 2.5},
+  {text: "Adejjscing", weight: 6.4},]*/
 
             $(document).ready(function(){
                 var urlActual = window.location;
