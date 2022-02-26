@@ -80,24 +80,25 @@
                                             <?php echo number_format($hoy); ?>
                                         </span>
                                         <!-- Badge -->
-                                        <?php if (number_format($hoy)>=0 && number_format($ayer)>0): ?>
+                                        <?php
+                                        if (number_format($hoy)>0 && number_format($ayer)>0): ?>
                                             <?php if (number_format($hoy - $ayer)>0): ?> 
                                                 <span class="badge bg-success-soft mt-n1">
-                                                   <?php echo number_format(($hoy - $ayer)*100/$hoy);?>%
+                                                   <?php echo number_format(($hoy - $ayer)*100/$ayer);?>%
                                                 </span>
                                             <?php elseif(number_format($hoy - $ayer)<0): ?>
                                                 <span class="badge bg-danger-soft mt-n1">
-                                                    <?php echo number_format(($hoy - $ayer)*100/$hoy);?>%
+                                                    <?php echo number_format(($ayer - $hoy)*100/$ayer);?>%
                                                 </span>
                                             <?php elseif(number_format($hoy - $ayer)==0): ?>
                                                 <span class="badge bg-secondary-soft mt-n1">
                                                     0%
                                                 </span>
                                             <?php endif ?>
-                                        <?php elseif(number_format($hoy)>=0 && number_format($ayer)>=0): ?>
+                                        <?php elseif(number_format($hoy)==0 && number_format($ayer)>0): ?>
                                             <span class="badge bg-secondary-soft mt-n1">
                                                     0%
-                                                </span>    
+                                            </span>    
                                         <?php elseif(number_format($ayer)==0 && number_format($hoy)==0 ): ?>
                                             <span></span>   
                                         <?php endif ?>    
@@ -670,11 +671,40 @@
                         $("#wordGraph").jQCloud(response['data'],{ 
                             fontSize: function(width, height, step) {
                                 return (width / 100 * step) + 'px';
-                            }
+                            },
                         }); 
                     }); 
                 }
             }
+
+            /*PARA LA PRUEBA DEL jQCLOUD
+            
+            var words = [{text: "Lorem", weight: 13},
+  {text: "Ipsum", weight: 10.5},
+  {text: "Dolor", weight: 9.4},
+  {text: "Sit", weight: 8},
+  {text: "Amet", weight: 6.2},
+  {text: "Consectetur", weight: 7},
+  {text: "Adipisciadng", weight: 12},
+  {text: "Adicing", weight: 10},
+  {text: "Adipisfgcing", weight: 5},
+  {text: "Adifbdkjncing", weight: 9},
+  {text: "adknakn", weight: 3},
+  {text: "Testomatico", weight: 8},
+  {text: "Adejjscing", weight: 6.5},
+  {text: "Lorem", weight: 7.2},
+  {text: "Ipsum", weight: 4.6},
+  {text: "Dolor", weight: 2.3},
+  {text: "Sit", weight: 8},
+  {text: "Amet", weight: 6.2},
+  {text: "Consectetur", weight: 7},
+  {text: "Adipisciadng", weight: 12},
+  {text: "Adicing", weight: 10},
+  {text: "Adipisfgcing", weight: 5},
+  {text: "Adifbdkjncing", weight: 9},
+  {text: "adknakn", weight: 3},
+  {text: "Testomatico", weight: 8},
+  {text: "Adejjscing", weight: 6.5},]*/
 
             $(document).ready(function(){
                 var urlActual = window.location;
