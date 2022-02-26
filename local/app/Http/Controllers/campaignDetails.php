@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use View;
+use Cookie;
 class campaignDetails extends Controller
 {
     public function index()
@@ -81,14 +82,20 @@ class campaignDetails extends Controller
             $campaign = json_decode(RQ::post("https://app.venbia.com/v1/pay-with-balance",$data)); 
         }  
 
-        if($campaign->campaign->code != "201"){  
+        if($campaign->campaign->code != "201"){   
             return Redirect()->back()->with('error','Ocurrio un error al crear la campaign.'); 
         } 
         else{
             if(isset($campaign->campaign->info)){
-                return Redirect()->back()->with('error',$campaign->campaign->info); 
-            }
-            return Redirect('dashboard?load-information='.$campaign->campaign->items[0]->campaign_token);
+                return Redirect()->back()->with('info',$campaign->campaign->info); 
+            } 
+            Cookie::queue(Cookie::forget('balance'));
+            Cookie::queue(Cookie::forget('cupon_amount'));
+            Cookie::queue(Cookie::forget('cupon_code'));
+            Cookie::queue(Cookie::forget('cupon_percent'));
+            Cookie::queue(Cookie::forget('cupon_tipo')); 
+
+            return Redirect('dashboard?load-information='.$campaign->campaign->items->campaign_token);
         }
     }
 }

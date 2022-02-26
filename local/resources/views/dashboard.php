@@ -44,8 +44,7 @@
             }
         ?>
         <?php include('includes/aside.php');?>
-        <div class="main-content">   
-
+        <div class="main-content">    
             <!-- HEADER -->
             <div class="header">
                 <div class="container-fluid">
@@ -561,6 +560,35 @@
                 </div>
             </div>
         </div>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnModal"></button>
+        <div id="lock" style="position: absolute;background: #fff;width: 100%;height: 100%;z-index: 2000;top: 0;left: 0;display: none;opacity: 0;"> 
+        </div>
+
+        <div style="" data-backdrop="static" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="loading" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content"> 
+              <div class="modal-body  text-center"> 
+                <div class="mb-1 mt-n4">
+                    <object id="aside-icon" style="width: 218px; height:218px;" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/goloudrbrain.svg" type="image/svg+xml"></object>
+                </div>
+                <h4 class="header-title mb-1 fade-in mt-n4">
+                     
+                </h4>
+                <!--<h5 class="mb-4">LOADING <span id="text-1"></span></h5>-->
+                <div class="row" style="padding: 0px; margin:0px">
+                     <div class="col-6 px-1" style="padding: 0px; margin:0px"><h5 style="display:flex; float:right">LOADING</h5></div>
+                     <div class="col-6 px-1" style="padding: 0px; margin:0px"><h5 style="display:flex; float:left" id="text-1"></h5></div>
+                </div>
+                <!--<h5 class="mb-5" id="text-1"></h5>-->
+                <div class="spinner-border text-primary" style="width: 25px; height: 25px;" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+
+              </div> 
+            </div>
+          </div>
+        </div>
+
         <script src="<?= Request::root();?>/local/resources/views/assets/js/vendor.bundle.js">
         </script>
         <script src="<?= Request::root();?>/local/resources/views/assets/js/theme.bundle.js">
@@ -768,85 +796,146 @@
             <?php foreach ($data->totalSpentGraph as $key): ?>
                 dTotalSpent.push(<?= $key->spent/1000;?>);
             <?php endforeach ?>
-            slChart('graph_total_spent',dTotalSpent);
-
-            $(".audience-analysis-modal").click(function(){  
-
-	            $("#lock-1").show();
-	            $('#loading-1').modal('show'); 
-	            $("#text-1").text($(this).attr('title'));
-	            $("#text-1").fadeIn(2500);
-	            $("#text-1").fadeOut(2500);
-
-
-	        setTimeout(function(){ 
-		        $("#text-1").text("Socials");
-		        $("#text-1").fadeIn(2500);
-		        $("#text-1").fadeOut(2500);
-	        }, 5000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("Genres");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500);
-	        }, 10000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("Top Cities");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500);
-	        }, 15000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("Artist in Same Genres");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500);
-	        }, 20000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("Catalogue");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500); 
-	        }, 25000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("Markets of Opportunity");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500); 
-	        }, 30000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("AUDIENCE");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500); 
-	        }, 35000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("GROWTH POTENTIAL");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500); 
-	        }, 40000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("Artists with Similar Fanbases");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500); 
-	        }, 45000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("YOUR MONTHLY LISTENERS");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500); 
-	        }, 50000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("SIMILAR ARTISTS AVG. MONTHLY LISTENERS");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500); 
-	        }, 55000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text("POTENTIAL ACHIEVED");
-	        	$("#text-1").fadeIn(2500);
-	        	$("#text-1").fadeOut(2500); 
-	        }, 60000);
-	        setTimeout(function(){ 
-	        	$("#text-1").text(", almost ready...");
-	        	$("#text-1").fadeIn(2500); 
-	        }, 65000);
-            });   
+            slChart('graph_total_spent',dTotalSpent);  
         </script> 
         <script> 
-             <?php include ("includes/loading.php") ?> 
-        </script> 
+
+        <?php if (isset($_GET['load-information'])): ?>
+            <?php if ($_GET['load-information']!=""): ?> 
+
+                //$("#lock").show();
+                //$("#btnModal").click(); 
+
+                function loadArtistCatalogue(){   
+                    var settings = {
+                        "url": "<?= Request::root();?>/load-artist-catalogue/<?= $_GET['load-information'];?>",
+                        "method": "GET",
+                        "timeout": 60,
+                         async: false, 
+                    }; 
+                    $.ajax(settings).done(function (response) { 
+                    });
+                }
+
+                function loadAudienceAnalisys(){   
+                    var settings = {
+                        "url": "<?= Request::root();?>/load-artist-audience/<?= $_GET['load-information'];?>",
+                        "method": "GET",
+                        "timeout": 60,
+                         async: false, 
+                    }; 
+                    $.ajax(settings).done(function (response) { 
+                    });
+                }
+
+                function loadArtistSummary(){  
+                    var settings = {
+                        "url": "<?= Request::root();?>/load-artist-summary/<?= $_GET['load-information'];?>",
+                        "method": "GET",
+                        "timeout": 60,
+                         async: false, 
+                    }; 
+                    $.ajax(settings).done(function (response) { 
+                    });
+                }
+
+
+                function loadAudioAnalysis(){  
+                    var settings = {
+                        "url": "<?= Request::root();?>/load-audio-analysis/<?= $_GET['load-information'];?>",
+                        "method": "GET",
+                        "timeout": 60,
+                         async: false, 
+                    }; 
+                    $.ajax(settings).done(function (response) { 
+                    });
+                }
+
+                 
+                document.addEventListener('readystatechange', event => {   
+                    if (event.target.readyState === "complete") { 
+                        loadArtistSummary(); 
+                        loadArtistCatalogue();
+                        loadAudienceAnalisys();
+                        loadAudioAnalysis();
+
+                        $("#lock").hide();
+                        $("#exampleModal").modal("hide"); 
+                    }
+                }); 
+            <?php endif ?>
+        <?php endif ?>
+        function showModalLoad(){
+            
+             
+
+        setTimeout(function(){ 
+            $("#text-1").text("Socials");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500);
+        }, 5000);
+        setTimeout(function(){ 
+            $("#text-1").text("Genres");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500);
+        }, 10000);
+        setTimeout(function(){ 
+            $("#text-1").text("Top Cities");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500);
+        }, 15000);
+        setTimeout(function(){ 
+            $("#text-1").text("Artist in Same Genres");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500);
+        }, 20000);
+        setTimeout(function(){ 
+            $("#text-1").text("Catalogue");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500); 
+        }, 25000);
+        setTimeout(function(){ 
+            $("#text-1").text("Markets of Opportunity");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500); 
+        }, 30000);
+        setTimeout(function(){ 
+            $("#text-1").text("AUDIENCE");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500); 
+        }, 35000);
+        setTimeout(function(){ 
+            $("#text-1").text("GROWTH POTENTIAL");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500); 
+        }, 40000);
+        setTimeout(function(){ 
+            $("#text-1").text("Artists with Similar Fanbases");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500); 
+        }, 45000);
+        setTimeout(function(){ 
+            $("#text-1").text("YOUR MONTHLY LISTENERS");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500); 
+        }, 50000);
+        setTimeout(function(){ 
+            $("#text-1").text("SIMILAR ARTISTS AVG. MONTHLY LISTENERS");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500); 
+        }, 55000);
+        setTimeout(function(){ 
+            $("#text-1").text("POTENTIAL ACHIEVED");
+            $("#text-1").fadeIn(2500);
+            $("#text-1").fadeOut(2500); 
+        }, 60000);
+        setTimeout(function(){ 
+            $("#text-1").text(", almost ready...");
+            $("#text-1").fadeIn(2500); 
+        }, 65000);
+        }
+
+    </script>
+       
     </body>
 </html>

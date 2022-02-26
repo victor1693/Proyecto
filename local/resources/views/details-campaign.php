@@ -451,17 +451,31 @@
             <input type="hidden" name="balance" id="paid_with_balance">
          </form>
       </div>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    
     <script src="<?= Request::root();?>/local/resources/views/assets/js/vendor.bundle.js"></script>
     <script src="<?= Request::root();?>/local/resources/views/assets/js/theme.bundle.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
     <script src="https://js.stripe.com/v3/">
     </script>
     <script src="checkout/checkout.js">
     </script> 
     <script src="https://www.paypal.com/sdk/js?client-id=AWnPN3ca5Lms-Ek9yVe0txASM-TIsB-L80B9mB6zlJ9vFMug3a3N92xw0qri0xUX027IqkjW0wqYmLPR&disable-funding=credit">
     </script>
+    <!--Start of Tawk.to Script-->
+   <script type="text/javascript">
+   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+   (function(){
+   var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+   s1.async=true;
+   s1.src='https://embed.tawk.to/5b5a1e9ce21878736ba258bd/default';
+   s1.charset='UTF-8';
+   s1.setAttribute('crossorigin','*');
+   s0.parentNode.insertBefore(s1,s0);
+   })();
+   </script>
+   <!--End of Tawk.to Script-->
       <script> 
          $("#delete-balance").click(function(){
             $("#text_cupon").hide();
@@ -471,18 +485,25 @@
             loadInfo();
          });
 
+         <?php if (count($data->balance)>0): ?>
+            <?php if ($data->balance[0]->balance == ""): ?>
+                  Cookies.remove("balance");
+            <?php endif ?> 
+         <?php endif ?>
+
          loadInfo();
          total_a_pagar = 0; 
          function loadInfo() {
          
+
          if(typeof Cookies.get("track_date") !== "undefined"){
              $("#start_date").html('<i class="fe fe-calendar"></i>'+Cookies.get("track_date")+'</span>'); 
          }
-
+         inversion = 0;
          if(typeof Cookies.get("track_inversion") !== "undefined"){
              $("#sub_total").text("$"+$.number(Cookies.get("track_inversion"), 2, '.',','));
              total_a_pagar =  Cookies.get("track_inversion");
-
+             inversion =  Cookies.get("track_inversion"); 
          } 
 
          if(typeof Cookies.get("cupon_code") !== "undefined"){
@@ -505,7 +526,7 @@
                 $("#discount").text("$"+$.number(discount, 2, '.',','));
             }         
          } 
-         
+      
          if(typeof Cookies.get("balance") !== "undefined"){
             $("#balance_value").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
             $("#tx_balance_used").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
@@ -574,6 +595,7 @@
          // GESTION DE PAGOS
          $("#btnPayWithBalance").click(function(){
             if($("#input_balance").val() ==""){return 0;} 
+            if($("#cupon_amount").val()==""){$("#cupon_amount").val(0);} 
             
             if(parseFloat($("#input_balance").val()) < (inversion - parseFloat($("#cupon_amount").val()))){
                Cookies.set("balance",$("#input_balance").val());
@@ -589,11 +611,12 @@
                } 
             }
          });
+     
 
       <?php if (Session::has('info')): ?>
-         $.notify("<?= Session::get('info');?>", "primary");
+         $.notify("<?= Session::get('info');?>", "info");
       <?php elseif(Session::has('error')): ?> 
-         $.notify("<?= Session::get('info');?>", "danger");
+         $.notify("<?= Session::get('error');?>", "error");
       <?php endif ?>
       </script>
    </body>

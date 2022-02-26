@@ -15,7 +15,8 @@ class auth
      */
     public function handle($request, Closure $next)
     {
-        if(!(session()->get('email') !== null)){
+        
+        if(!(session()->get('ac_token') !== null)){
             return Redirect('signIn');
         }
         return $next($request);

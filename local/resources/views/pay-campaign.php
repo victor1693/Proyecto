@@ -438,7 +438,7 @@
                 $("#submit").addClass('btn btn-primary w-100 mt-4 mb-2'); 
                 deleteCookies();
             }); 
-            
+
             function deleteCookies(){
                 Cookies.remove("track_artist");
                 Cookies.remove("track_date");
@@ -460,8 +460,7 @@
                 else{
                     $(this).text("Hide Campaign Summary");
                 } 
-            });
-            
+            }); 
              
             $("#btn-payment-method").click(function(){ 
                 $(this).hide();
@@ -515,8 +514,7 @@
                          $("#form-pay-with-balance").submit();
                     }   
                 }  
-            });
-
+            }); 
 
             $("#btnpagoTemporal").click(function(){
                  $("#form-pay-with-balance").submit();

@@ -33,6 +33,7 @@ Route::middleware(['cors','auth'])->group(function () {
 # DASHBOARD
 Route::get('dashboard',"dashboard@index"); 
 
+
 # CAMPAIGNS
 Route::get('campaigns',"campaigns@index");
 Route::get('campaign-analytics/{token}',"campaignAnalitycs@index");
@@ -62,6 +63,10 @@ Route::get('logout',"customerInfo@logOut");
 Route::post('create-campaign',"campaignDetails@createCampaign"); # CREAMOS UNA CAMPANIA
 Route::post('payment/balance',"campaignCheckout@payWithBalance"); # PAGAMOS CON EL BALANCE
 Route::post('update-password',"signIn@updatePassword"); # ACTUALIZAMOS EL PASSWORD
-Route::post('account-update',"general@accountUpdate"); # ACTUALIZAMOS EL PASSWORD
+Route::post('account-update',"general@accountUpdate");
 
+Route::get('load-artist-catalogue/{id_artist}',"dashboard@loadArtistCatalogue");
+Route::get('load-artist-summary/{id_artist}',"dashboard@loadArtistSummary");
+Route::get('load-artist-audience/{id_artist}',"dashboard@loadAudienceAnalisys");
+Route::get('load-audio-analysis/{loadAudioAnalysis}',"dashboard@loadAudioAnalysis");
 });
