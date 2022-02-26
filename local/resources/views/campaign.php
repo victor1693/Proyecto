@@ -54,6 +54,59 @@
           $artist_img = "";
           $artist_name = "";
           $artist_token = "";
+          $track_name = "";
+          $lenght = "";
+          $bpm = "";
+          $key_name = "";
+          $loudness = "";
+          $popularity = "";
+          $danceability = "";
+          $energy = "";
+          $positiveness = "";
+          $speechiness = "";
+          $liveness = "";
+          $instrumentalness = "";
+          $album_name = "";
+          $release_date = "";
+          $isrc = "";
+          $track_number = "";
+          $explicit = "";  
+          $id_track = "";
+          $album_n_tracks = "";
+  
+          if(($data->track)>0){
+              $artist_name = $data->track[0]->artist_name;
+              $artist_cover = $data->track[0]->artist_cover;  
+              $track_name = $data->track[0]->name;
+              $id_track = $data->track[0]->id_track;
+              $lenght = $data->track[0]->duration_ms;
+              $bpm = $data->track[0]->bpm;
+              $key_name = $data->track[0]->key_name;
+              $loudness = $data->track[0]->loudness;
+              $popularity = $data->track[0]->popularity;
+              $danceability = $data->track[0]->danceability * 100;
+              $energy = $data->track[0]->energy * 100;
+              $positiveness = $data->track[0]->positiveness * 100;
+              $speechiness = $data->track[0]->speechiness * 100;
+              $liveness = $data->track[0]->liveness * 100;
+              $instrumentalness = $data->track[0]->instrumentalness * 100;
+              $album_name = $data->track[0]->album_name;
+              $release_date = $data->track[0]->release_date;
+              $isrc = $data->track[0]->isrc;
+              $track_number = $data->track[0]->track_number;
+              $explicit = $data->track[0]->explicit;
+              $album_n_tracks = $data->track[0]->album_n_tracks;
+              $mode = $data->track[0]->mode;
+          }
+
+          function lenght($tiempo_en_segundos) {
+            $tiempo_en_segundos = $tiempo_en_segundos / 1000;
+            $horas = floor($tiempo_en_segundos / 3600);
+            $minutos = floor(($tiempo_en_segundos - ($horas * 3600)) / 60);
+            $segundos = $tiempo_en_segundos - ($horas * 3600) - ($minutos * 60); 
+            return round($minutos,0) . ":" . round($segundos,0);
+            }
+
           function key_struc($key,$mode) {
             $response = "";
             if($key == 0){$response = "C";}
@@ -604,7 +657,10 @@
                                                 </h4>
                                                 <!-- Time -->
                                                 <p class="card-text small text-muted">
-                                                <?= key_struc($data->track[0]->key_name,$data->track[0]->mode)?>
+                                                Lenght: <?= lenght($lenght);?> | 
+                                                <?= $bpm;?>BPM |
+                                                <?= key_struc($key_name,$mode)?> |
+                                                <?= $loudness;?>db
                                                 </p>
                                             </div>
                                             <div class="col-auto">

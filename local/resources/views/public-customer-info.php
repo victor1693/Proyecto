@@ -149,7 +149,7 @@
                                             Phone
                                         </label>
                                         <!-- Input -->
-                                        <input maxlength="15" style="height: 40px;" id="telefono" name="telefono" class="form-control" type="text">
+                                        <input type="text" maxlength="15" style="height: 40px;" id="telefono" name="telefono" class="form-control">
                                         </input>
                                         <small class="form-text text-muted mt-2">
                                         </small>
@@ -244,6 +244,13 @@
               URL.revokeObjectURL(output.src) // free memory
             }
           };
+
+          $(document).ready(function(){
+              $('#telefono').on('input', function(evt){
+                  $(this).val($(this).val().replace(/[^0-9+]/g, ''));
+              })
+          });
+
         </script>
 
         <?php if (Session::has('info')): ?>
