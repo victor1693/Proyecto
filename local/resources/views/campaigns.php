@@ -61,7 +61,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="table-responsive" style="max-height: 410px;overflow: scroll;">
+                            <div class="scroll table-responsive" style="max-height: 410px; overflow: auto">
                                 <table class="table table-sm table-hover table-nowrap card-table text-center" id="table-active">
                                     <thead>
                                         <tr>
