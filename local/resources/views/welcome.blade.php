@@ -97,4 +97,10 @@
             </div>
         </div>
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+    <script>
+            $("html,.scroll").niceScroll({
+            cursorcolor:"#ddd"
+            });
+    </script>
 </html>

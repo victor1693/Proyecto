@@ -302,7 +302,13 @@
         </script>
         <script src="https://www.google-analytics.com/analytics.js">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
         <script>
+
+            $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+            });  
+
             barGraph([30,25,14,16],[8,48,96,17],"salesGraph",['Drake','Farruko','Adele','Bad Bunny']);
             barGraph([2,55,44,5],[1,48,7,8],"salesGraph3",['Mon','Tue','Web','Thu']);
             barGraph([30,25,14,16],[8,48,96,17],"salesGraph2",['Drake','Farruko','Adele','Bad Bunny']);

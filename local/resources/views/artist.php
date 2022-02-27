@@ -249,7 +249,7 @@
                                 </div>
                                 <!-- / .row -->
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive scroll">
                                 <table class="table table-sm table-hover table-nowrap text-center">
                                     <thead>
                                         <tr>
@@ -531,8 +531,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
         </script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
-        </script> 
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script> 
         <script> 
+            $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+            });  
+
             salesGraphLabels  = []; 
             salesGraphReach  = []; 
             salesGraphConversion  = []; 

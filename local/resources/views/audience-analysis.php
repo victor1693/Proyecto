@@ -400,7 +400,7 @@
                                     Artists with Similar Fanbases
                                 </h4>
                             </div>
-                            <div id="similar_fanbases" class="card-body" style="max-height: 478px;overflow-y: scroll;">
+                            <div id="similar_fanbases" class="card-body scroll" style="max-height: 478px;overflow-y: scroll;">
                                 <div class="table-responsive mb-0">
                                     <table class="table table-sm table-nowrap card-table">
                                         <thead>
@@ -507,9 +507,15 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
         </script> 
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.7.4/smooth-scrollbar.js"  ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.7.4/smooth-scrollbar.js"  ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.3/jqcloud.min.js"  ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
         <script>
+
+           $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+            });                                                     
+
             $(document).ready(function(){
                 getArtistByGenres($("#cbn_genero").val()); 
             });

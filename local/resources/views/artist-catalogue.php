@@ -236,7 +236,13 @@
         </script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
         <script>
+
+            $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+            });  
+
             $(document).ready(function(){
                 var urlActual = window.location;
                 if(String(urlActual).indexOf("catalogue")!==-1){

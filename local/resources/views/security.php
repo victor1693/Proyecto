@@ -139,8 +139,12 @@
         <script src="<?= Request::root();?>/local/resources/views/assets/js/theme.bundle.js">
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
         <script>
+            $("html,.scroll").niceScroll({
+            cursorcolor:"#ddd"
+            });
+            
             $("#btn-password").click(function(){
                 $("input").removeClass('text-primary');
 

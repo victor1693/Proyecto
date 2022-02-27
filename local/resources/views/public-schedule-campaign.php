@@ -153,7 +153,12 @@
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
         <script>
+            $("html,.scroll").niceScroll({
+            cursorcolor:"#ddd"
+            });
+            
             $(document).ready(function(){
              $('#generos_select').selectpicker();
            });

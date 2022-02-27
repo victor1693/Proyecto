@@ -520,7 +520,8 @@
                         <div class="alert alert-danger">
                             <i class="fe fe-info me-1">
                             </i>
-                            You are near your API limits.
+                            You're automatically enrolled in our Rewards Program
+                            <button type="button" class="btn btn-primary py-0 px-1" style="float: right;">LEARN MORE</button>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -531,7 +532,7 @@
                                             <div class="col">
                                                 <!-- Title -->
                                                 <h6 class="text-uppercase text-muted mb-2">
-                                                    Current plan
+                                                    Reward Level
                                                 </h6>
                                                 <!-- Heading -->
                                                 <span class="h2 mb-0">
@@ -557,7 +558,7 @@
                                             <div class="col">
                                                 <!-- Title -->
                                                 <h6 class="text-uppercase text-muted mb-2">
-                                                    API usage
+                                                    Total Funds Added
                                                     <i class="fe fe-info" data-bs-original-title="" data-bs-toggle="tooltip" data-title="Your limits renew on May 1, 2020" title="">
                                                     </i>
                                                 </h6>
@@ -825,7 +826,13 @@
         <script src="https://www.google-analytics.com/analytics.js">
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
         <script>
+
+                $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+                });
+
             $(document).ready(function(){
                 var urlActual = window.location;
                 if(String(urlActual).slice(-4)=="eral"){
