@@ -12,10 +12,11 @@ class campaignDetails extends Controller
     	$vista = View::make("details-campaign");
         $vista->artistAside = $this->getArtistAside(); 
         $vista->data = json_decode(RQ::get("https://app.venbia.com/v1/campaigns-details"));
+        $vista->aside = json_decode(RQ::get("https://app.venbia.com/v1/aside"));
     	return $vista;
     }
 
-     public function indexPublic()
+    public function indexPublic()
     {
     	$vista = View::make("public-details-campaign");
         $vista->artistAside = $this->getArtistAside(); 

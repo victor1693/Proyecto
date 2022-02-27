@@ -56,6 +56,19 @@
                 if($display == true){$dis = "display:none;";}
                 return '<div style="padding-top: 50px;'.$dis.'" class="'.$class.'" id="'.$id.'"> <div class="text-center mb-2"> <span class="fe fe-bar-chart-2 text-primary" style="font-size: 48px"></span> </div><h2 class="text-center">No stats yet</h2> <p class="text-center mt-3 mb-0">You will see first results within 24-48 hours of campaign start.</p></div>';
             }
+
+            function getAVGSimilar($data){
+                $total = 0;
+                $suma = 0;
+                foreach ($data as $key) {
+                    $total = $total + 1;
+                    $suma = $suma + $key->monthlyListeners;
+                }
+                if($total>0 && $suma>0){
+                    return ($suma / $total);
+                }
+                return 0;
+            }
         ?>
         <?php include('includes/aside.php');?>
         <div class="main-content">
@@ -132,8 +145,8 @@
                                             </i>
                                         </h6>
                                         <!-- Heading -->
-                                        <span class="h2 mb-0">
-                                            2.4M
+                                        <span class="h2 mb-0" id="growth_potential"> 
+                                            <?= number_format($artistSummary->growth_potential);?>
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -160,13 +173,19 @@
                                             <div class="col-auto">
                                                 <!-- Heading -->
                                                 <span class="h2 me-2 mb-0">
-                                                    1.02%
+                                                    <?php $percen = 0; ?>
+                                                    <?php if ($artistSummary->growth_potential > 0 && $hoy> 0): ?>
+                                                        <?= number_format(($hoy / $artistSummary->growth_potential) * 100,2);?>%
+                                                        <?php $percen = number_format($hoy / $artistSummary->growth_potential,2); ?>
+                                                    <?php else: ?>
+                                                        0%
+                                                    <?php endif ?> 
                                                 </span>
                                             </div>
                                             <div class="col">
                                                 <!-- Progress -->
                                                 <div class="progress progress-sm">
-                                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="1" class="progress-bar" role="progressbar" style="width: 1%">
+                                                    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="1" class="progress-bar" role="progressbar" style="width: <?= $percen * 100;?>%">
                                                     </div>
                                                 </div>
                                             </div>
@@ -195,7 +214,7 @@
                                         </h6>
                                         <!-- Heading -->
                                         <span class="h2 mb-0">
-                                            $85.50
+                                            <?= number_format(getAVGSimilar($artistSummary->related_artist));?> 
                                         </span>
                                     </div>
                                     <div class="col-auto">
@@ -446,7 +465,7 @@
                                                     <?= number_format($key->followers);?>
                                                 </td>
                                                 <td>
-                                                    
+                                                    <?= $key->best_market;?>
                                                 </td>
                                                 <td>
                                                     <?= number_format($key->monthlyListeners);?>
@@ -664,8 +683,8 @@
         </script>
         <script> 
         </script> 
-        <script>
 
+        <script> 
             var Word_global = []
             var control = [1,2,3,4,5]
             var a = []
@@ -692,11 +711,9 @@
                 }
             }
 
-            function izquierda(){
-  
+            function izquierda(){ 
                 var i = control[4];
-                var j = control[4];
-  
+                var j = control[4]; 
                 for(w=4; w>=0; w--){
     
                 if(w>0){
@@ -706,11 +723,8 @@
                 }
                 else{
                     control[4] = j;
-                }
-    
-                }
-
-                console.log(control[0])
+                } 
+                }  
             } 
 
             function partir(arreglo){
@@ -720,9 +734,7 @@
 
                 for(i=1; i<20; i++){
                     control[i] = arreglo[i];
-                }
-
-                console.log(control)
+                } 
                 return control;
             }
             function partir2(arreglo){
@@ -732,9 +744,7 @@
 
                 for(i=20; i<40; i++){
                     control[i-19] = arreglo[i];
-                }
-
-                console.log(control)
+                } 
                 return control;
             }
             function partir3(arreglo){
@@ -744,9 +754,7 @@
 
                 for(i=40; i<60; i++){
                     control[i-39] = arreglo[i];
-                }
-
-                console.log(control)
+                } 
                 return control;
             }
             function partir4(arreglo){
@@ -756,9 +764,7 @@
 
                 for(i=60; i<80; i++){
                     control[i-59] = arreglo[i];
-                }
-
-                console.log(control)
+                } 
                 return control;
             }
             function partir5(arreglo){
@@ -768,9 +774,7 @@
 
                 for(i=80; i<=99; i++){
                     control[i-79] = arreglo[i];
-                }
-
-                console.log(control)
+                } 
                 return control;
             }
 
@@ -788,8 +792,9 @@
                         $("#wordGraph").html("");
 
                         word_list = response['data'];
-                        Word_global = word_list;
-                        
+                        console.log(word_list);
+                        Word_global = word_list; 
+
                         a = partir(word_list);
                         b = partir2(word_list);
                         c = partir3(word_list);
