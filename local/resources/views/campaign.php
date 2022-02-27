@@ -657,7 +657,7 @@
                                                 </h4>
                                                 <!-- Time -->
                                                 <p class="card-text small text-muted">
-                                                Lenght: <?= lenght($lenght);?> | 
+                                                Length: <?= lenght($lenght);?> | 
                                                 <?= $bpm;?>BPM |
                                                 <?= key_struc($key_name,$mode)?> |
                                                 <?= $loudness;?>db
