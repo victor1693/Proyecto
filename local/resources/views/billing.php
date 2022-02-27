@@ -836,7 +836,7 @@
                                 <li>Level 2 until you reach $250 spent (we give you $25)</li>
                                 <li>Level 3 until you reach $500 spent (we give you $50)</li>
                                 <li>Level 4 until you reach $1,000 spent (we give you $100)</li>
-                                <li>Level 5 until you reach $1,250 spent (we're giving you $125)</li>
+                                <li>Level 5 until you reach $1,250 spent (we give you $125)</li>
                             </ul>
                         </div>
                     </div> 
