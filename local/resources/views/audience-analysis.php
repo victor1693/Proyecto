@@ -33,6 +33,12 @@
                 color: #335eea !important;
             } 
 
+            .visible{
+                display: initial;
+            }
+            .no-visible{
+                display: none;
+            }
         </style>
         <title>
             Audience Analysis
@@ -359,6 +365,9 @@
                                     <div class="card-body">
                                         <div data-scrollbar class="chart" id="wordGraph" style="">
                                         </div>
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary" onclick="cambiar()">See more</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -470,6 +479,7 @@
                 </div>
             </div>
         </div>
+        
         <script src="<?= Request::root();?>/local/resources/views/assets/js/vendor.bundle.js">
         </script>
         <script src="<?= Request::root();?>/local/resources/views/assets/js/theme.bundle.js">
@@ -655,6 +665,115 @@
         <script> 
         </script> 
         <script>
+
+            var Word_global = []
+            var control = [1,2,3,4,5]
+            var a = []
+            var b = []
+            var c = []
+            var d = []
+            var e = []
+
+            function derecha(){
+  
+                var i = control[0];
+                var j = control[0];
+  
+                for(w=0; w<=4; w++){
+    
+                if(w<4){
+                    var m = colores[w+1];
+                    colores[w+1] = j;
+                    j = m;
+                }
+                else{
+                    control[0] = j;
+                }  
+                }
+            }
+
+            function izquierda(){
+  
+                var i = control[4];
+                var j = control[4];
+  
+                for(w=4; w>=0; w--){
+    
+                if(w>0){
+                    var m = control[w-1];
+                    control[w-1] = j;
+                    j = m;
+                }
+                else{
+                    control[4] = j;
+                }
+    
+                }
+
+                console.log(control[0])
+            } 
+
+            function partir(arreglo){
+                var primero = arreglo[0];
+                var control = [];
+                control[0] = primero;
+
+                for(i=1; i<20; i++){
+                    control[i] = arreglo[i];
+                }
+
+                console.log(control)
+                return control;
+            }
+            function partir2(arreglo){
+                var primero = arreglo[0];
+                var control = [];
+                control[0] = primero;
+
+                for(i=20; i<40; i++){
+                    control[i-19] = arreglo[i];
+                }
+
+                console.log(control)
+                return control;
+            }
+            function partir3(arreglo){
+                var primero = arreglo[0];
+                var control = [];
+                control[0] = primero;
+
+                for(i=40; i<60; i++){
+                    control[i-39] = arreglo[i];
+                }
+
+                console.log(control)
+                return control;
+            }
+            function partir4(arreglo){
+                var primero = arreglo[0];
+                var control = [];
+                control[0] = primero;
+
+                for(i=60; i<80; i++){
+                    control[i-59] = arreglo[i];
+                }
+
+                console.log(control)
+                return control;
+            }
+            function partir5(arreglo){
+                var primero = arreglo[0];
+                var control = [];
+                control[0] = primero;
+
+                for(i=80; i<=99; i++){
+                    control[i-79] = arreglo[i];
+                }
+
+                console.log(control)
+                return control;
+            }
+
             function getArtistByGenres(genero) {
                 if(genero !=""){
                     var settings = {
@@ -668,7 +787,16 @@
                     $.ajax(settings).done(function (response) { 
                         $("#wordGraph").html("");
 
-                        $("#wordGraph").jQCloud(response['data'],{ 
+                        word_list = response['data'];
+                        Word_global = word_list;
+                        
+                        a = partir(word_list);
+                        b = partir2(word_list);
+                        c = partir3(word_list);
+                        d = partir4(word_list);
+                        e = partir5(word_list);
+
+                        $("#wordGraph").jQCloud(a,{ 
                             fontSize: function(width, height, step) {
                                 return (width / 100 * step) + 'px';
                             },
@@ -677,34 +805,57 @@
                 }
             }
 
-            /*PARA LA PRUEBA DEL jQCLOUD
-            
-            var words = [{text: "Lorem", weight: 13},
-  {text: "Ipsum", weight: 10.5},
-  {text: "Dolor", weight: 9.4},
-  {text: "Sit", weight: 8},
-  {text: "Amet", weight: 6.2},
-  {text: "Consectetur", weight: 7},
-  {text: "Adipisciadng", weight: 12},
-  {text: "Adicing", weight: 10},
-  {text: "Adipisfgcing", weight: 5},
-  {text: "Adifbdkjncing", weight: 9},
-  {text: "adknakn", weight: 3},
-  {text: "Testomatico", weight: 8},
-  {text: "Adejjscing", weight: 6.5},
-  {text: "Lorem", weight: 7.2},
-  {text: "Ipsum", weight: 4.6},
-  {text: "Dolor", weight: 2.3},
-  {text: "Sit", weight: 8},
-  {text: "Amet", weight: 6.2},
-  {text: "Consectetur", weight: 7.1},
-  {text: "Adipisciadng", weight: 4.2},
-  {text: "Adicing", weight: 3.3},
-  {text: "Adipisfgcing", weight: 5.6},
-  {text: "Adifbdkjncing", weight: 1.1},
-  {text: "adknakn", weight: 5.0},
-  {text: "Testomatico", weight: 2.5},
-  {text: "Adejjscing", weight: 6.4},]*/
+            function cambiar(){
+
+                izquierda();
+
+                var numero = control[0];
+
+                switch(numero){
+                    case 1: $('#wordGraph').empty();
+                $('#wordGraph').jQCloud('destroy');
+                $('#wordGraph').jQCloud(a, { 
+                            fontSize: function(width, height, step) {
+                                return (width / 100 * step) + 'px';
+                            },
+            });
+            break;
+                    case 2: $('#wordGraph').empty();
+                $('#wordGraph').jQCloud('destroy');
+                $('#wordGraph').jQCloud(b, { 
+                            fontSize: function(width, height, step) {
+                                return (width / 100 * step) + 'px';
+                            },
+            });
+            break;
+                    case 3: $('#wordGraph').empty();
+                $('#wordGraph').jQCloud('destroy');
+                $('#wordGraph').jQCloud(c, { 
+                            fontSize: function(width, height, step) {
+                                return (width / 100 * step) + 'px';
+                            },
+            });
+            break;
+                    case 4: $('#wordGraph').empty();
+                $('#wordGraph').jQCloud('destroy');
+                $('#wordGraph').jQCloud(e, { 
+                            fontSize: function(width, height, step) {
+                                return (width / 100 * step) + 'px';
+                            },
+            });
+            break;
+                    case 5: $('#wordGraph').empty();
+                $('#wordGraph').jQCloud('destroy');
+                $('#wordGraph').jQCloud(e, { 
+                            fontSize: function(width, height, step) {
+                                return (width / 100 * step) + 'px';
+                            },
+            });
+            break;
+                }
+
+                
+            }
 
             $(document).ready(function(){
                 var urlActual = window.location;
