@@ -274,7 +274,14 @@
         </script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+
         <script>
+
+                $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+                });
+
             $("#btn-active").click(function(){
                 $("a").removeClass('active');
                 $(this).addClass('active');

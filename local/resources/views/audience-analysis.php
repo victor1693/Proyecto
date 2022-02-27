@@ -488,9 +488,14 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js">
         </script> 
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.7.4/smooth-scrollbar.js"  ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.7.4/smooth-scrollbar.js"  ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.3/jqcloud.min.js"  ></script>
         <script>
+
+            $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+            });                                                     
+
             $(document).ready(function(){
                 getArtistByGenres($("#cbn_genero").val()); 
             });

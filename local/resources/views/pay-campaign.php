@@ -431,6 +431,12 @@
         </script> 
         <script src="https://www.paypal.com/sdk/js?client-id=AWnPN3ca5Lms-Ek9yVe0txASM-TIsB-L80B9mB6zlJ9vFMug3a3N92xw0qri0xUX027IqkjW0wqYmLPR&disable-funding=credit">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+        <script>
+            $("html,.scroll").niceScroll({
+            cursorcolor:"#ddd"
+            });
+        </script>
         <script>
 
             $(document).ready(function(){ 

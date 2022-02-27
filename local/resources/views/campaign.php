@@ -804,8 +804,13 @@ A measure on how intense a track sounds, through measuring the dynamic range, lo
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js">
         </script> 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
 
         <script>
+
+                $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+                });
 
             reach = [];
             conversion = [];

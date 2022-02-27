@@ -249,8 +249,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/5.0.1/smooth-scrollbar.js">
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
         <script>
+
             Scrollbar.initAll();
+
+            $("html,.scroll").niceScroll({
+                cursorcolor:"#ddd"
+                });
+
             $("#btn-add-song").click(function(){
                 $("#search-box").show();
                  $("#search-box-2").show();

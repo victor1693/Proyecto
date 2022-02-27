@@ -771,5 +771,11 @@
         </script>
         <script src="https://www.google-analytics.com/analytics.js">
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+        <script>
+            $("html,.scroll").niceScroll({
+            cursorcolor:"#ddd"
+            });
+        </script>
     </body>
 </html>
