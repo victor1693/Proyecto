@@ -522,7 +522,7 @@
                             </div>
                         </div>
                         <!-- Alert -->
-                        <div class="alert alert-danger">
+                        <div class="alert alert-primary">
                             <i class="fe fe-info me-1">
                             </i>
                             You're automatically enrolled in our Rewards Program
@@ -534,21 +534,21 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row align-items-center">
-                                            <div class="col">
+                                            <div class="col-5">
                                                 <!-- Title -->
                                                 <h6 class="text-uppercase text-muted mb-2">
                                                     Reward Level
                                                 </h6>
                                                 <!-- Heading -->
                                                 <span class="h2 mb-0">
-                                                    $29/mo
+                                                    BETA
                                                 </span>
                                             </div>
-                                            <div class="col-auto">
-                                                <!-- Icon -->
-                                                <a class="btn btn-sm btn-primary" href="pricing.html">
-                                                    Upgrade
-                                                </a>
+                                            <div class="col-7">
+                                                <div class="progress progress-sm mt-3">
+                                                    <div id="estimated-level" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" class="progress-bar" role="progressbar" style="width: 10%">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- / .row -->
@@ -842,7 +842,7 @@
                                     <div class="col-auto">
     
                                         <!-- Avatar -->
-                                        <object id="aside-icon" style="margin-bottom: -7px;height: 50px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/BLUE-TIER.svg" type="image/svg+xml"></object>
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/BLUE-TIER.svg" type="image/svg+xml"></object>
                     
                                     </div>
                                     <div class="col ms-n2">
@@ -865,7 +865,7 @@
                                     <div class="col-auto">
     
                                         <!-- Avatar -->
-                                        <object id="aside-icon" style="margin-bottom: -7px;height: 50px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/GOLD-TIER.svg" type="image/svg+xml"></object>
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/GOLD-TIER.svg" type="image/svg+xml"></object>
                     
                                     </div>
                                     <div class="col ms-n2">
@@ -888,7 +888,7 @@
                                     <div class="col-auto">
     
                                         <!-- Avatar -->
-                                        <object id="aside-icon" style="margin-bottom: -7px;height: 50px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/PLATINUM-TIER.svg" type="image/svg+xml"></object>
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/PLATINUM-TIER.svg" type="image/svg+xml"></object>
                     
                                     </div>
                                     <div class="col ms-n2">
@@ -911,7 +911,7 @@
                                     <div class="col-auto">
     
                                         <!-- Avatar -->
-                                        <object id="aside-icon" style="margin-bottom: -7px;height: 50px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/RUBY-TIER.svg" type="image/svg+xml"></object>
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/RUBY-TIER.svg" type="image/svg+xml"></object>
                     
                                     </div>
                                     <div class="col ms-n2">
@@ -934,7 +934,7 @@
                                     <div class="col-auto">
     
                                         <!-- Avatar -->
-                                        <object id="aside-icon" style="margin-bottom: -7px;height: 50px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/DIAMOND-TIER.svg" type="image/svg+xml"></object>
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/DIAMOND-TIER.svg" type="image/svg+xml"></object>
                     
                                     </div>
                                     <div class="col ms-n2">
@@ -1007,6 +1007,17 @@
                    $("#navlink-security").addClass('active'); 
                 }
             });
+
+            /*
+
+            ESTA FUNCION ES PARA EL PROGRESS BAR - SE DESARROLLA LUEGO
+
+            $(document).ready(function(){
+                var a = document.getElementById('número').innerHTML;
+                $('#estimated-level').css('width',a+"%");
+            });
+            */
+
         </script>
     </body>
 </html>
