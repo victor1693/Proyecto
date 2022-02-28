@@ -12,6 +12,11 @@
         <link href="<?= Request::root();?>/local/resources/views/assets/css/theme-dark.bundle.css" id="stylesheetDark" rel="stylesheet"/>
         <style>
             body{display: none;}
+
+            .scrollbar::-webkit-scrollbar{
+                width: 20px;
+                color: #ddd;
+            }
         </style>
         <title>
             Dashboard
@@ -517,7 +522,7 @@
                             </div>
                         </div>
                         <!-- Alert -->
-                        <div class="alert alert-danger">
+                        <div class="alert alert-primary">
                             <i class="fe fe-info me-1">
                             </i>
                             You're automatically enrolled in our Rewards Program
@@ -529,21 +534,21 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row align-items-center">
-                                            <div class="col">
+                                            <div class="col-5">
                                                 <!-- Title -->
                                                 <h6 class="text-uppercase text-muted mb-2">
                                                     Reward Level
                                                 </h6>
                                                 <!-- Heading -->
                                                 <span class="h2 mb-0">
-                                                    $29/mo
+                                                    BETA
                                                 </span>
                                             </div>
-                                            <div class="col-auto">
-                                                <!-- Icon -->
-                                                <a class="btn btn-sm btn-primary" href="pricing.html">
-                                                    Upgrade
-                                                </a>
+                                            <div class="col-7">
+                                                <div class="progress progress-sm mt-3">
+                                                    <div id="estimated-level" aria-valuemax="100" aria-valuemin="0" aria-valuenow="10" class="progress-bar" role="progressbar" style="width: 10%">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <!-- / .row -->
@@ -823,23 +828,134 @@
         <div style="" class="modal" id="billing-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-	                <div class="modal-header">
-                        <h2 class="modal-title">About</h2>
-                        <button type="button" class="btn" onclick="hideModal()">
-                            <span aria-hidden="true"><i class="fe fe-x"></i></span>
-                        </button>
-                    </div> 
-                    <div class="modal-body "> 
-      	                <div class="my-1 mx-1">
-			                <ul>
-                                <li>Level 1 until you spend the first $100 (when you spend the first 100 dollars we give away $10 of balance)</li>
-                                <li>Level 2 until you reach $250 spent (we give you $25)</li>
-                                <li>Level 3 until you reach $500 spent (we give you $50)</li>
-                                <li>Level 4 until you reach $1,000 spent (we give you $100)</li>
-                                <li>Level 5 until you reach $1,250 spent (we give you $125)</li>
-                            </ul>
-                        </div>
-                    </div> 
+                    <div class="modal-card card">
+                        <div class="card-header">
+                            <h4 class="modal-header-title">About</h4>
+                            <button type="button" class="btn" onclick="hideModal()">
+                                <span aria-hidden="true"><i class="fe fe-x"></i></span>
+                            </button>
+                        </div> 
+                        <div class="card-body scrollbar py-3">
+                        <ul class="list-group list-group-flush list my-n3">
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+    
+                                        <!-- Avatar -->
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/BLUE-TIER.svg" type="image/svg+xml"></object>
+                    
+                                    </div>
+                                    <div class="col ms-n2">
+    
+                                        <!-- Title -->
+                                        <h4 class="mb-1 name">
+                                            Level 1
+                                        </h4>
+    
+                                        <!-- Definition -->
+                                        <p class="small mb-0">
+                                            <span class="">●</span> Until you spend the first $100 (when you spend the first 100 dollars we give away $10 of balance)
+                                        </p>
+    
+                                    </div>
+                                </div> <!-- / .row -->
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+    
+                                        <!-- Avatar -->
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/GOLD-TIER.svg" type="image/svg+xml"></object>
+                    
+                                    </div>
+                                    <div class="col ms-n2">
+    
+                                        <!-- Title -->
+                                        <h4 class="mb-1 name">
+                                            Level 2
+                                        </h4>
+    
+                                        <!-- Definition -->
+                                        <p class="small mb-0">
+                                            <span class="">●</span> Until you reach $250 spent (we give you $25)
+                                        </p>
+    
+                                    </div>
+                                </div> <!-- / .row -->
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+    
+                                        <!-- Avatar -->
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/PLATINUM-TIER.svg" type="image/svg+xml"></object>
+                    
+                                    </div>
+                                    <div class="col ms-n2">
+    
+                                        <!-- Title -->
+                                        <h4 class="mb-1 name">
+                                            Level 3
+                                        </h4>
+    
+                                        <!-- Definition -->
+                                        <p class="small mb-0">
+                                            <span class="">●</span> Until you reach $500 spent (we give you $50)
+                                        </p>
+    
+                                    </div>
+                                </div> <!-- / .row -->
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+    
+                                        <!-- Avatar -->
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/RUBY-TIER.svg" type="image/svg+xml"></object>
+                    
+                                    </div>
+                                    <div class="col ms-n2">
+    
+                                        <!-- Title -->
+                                        <h4 class="mb-1 name">
+                                            Level 4
+                                        </h4>
+    
+                                        <!-- Definition -->
+                                        <p class="small mb-0">
+                                            <span class="">●</span> Until you reach $1,000 spent (we give you $100)
+                                        </p>
+    
+                                    </div>
+                                </div> <!-- / .row -->
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+    
+                                        <!-- Avatar -->
+                                        <object id="aside-icon" style="margin-bottom: -7px;height: 30px;margin-top: -3px;position: relative; z-index: 1" data="<?= Request::root();?>/local/resources/views/assets/svg_icons/Level/DIAMOND-TIER.svg" type="image/svg+xml"></object>
+                    
+                                    </div>
+                                    <div class="col ms-n2">
+    
+                                        <!-- Title -->
+                                        <h4 class="mb-1 name">
+                                            Level 5
+                                        </h4>
+    
+                                        <!-- Definition -->
+                                        <p class="small mb-0">
+                                            <span class="">●</span> Until you reach $1,250 spent (we give you $125)
+                                        </p>
+    
+                                    </div>
+                                </div> <!-- / .row -->
+                            </li>
+                        </ul>
+                        </div> 
+                    </div>
+	                
                 </div>
             </div>
         </div>
@@ -858,10 +974,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
         <script>
 
-                $("html,.scroll").niceScroll({
-                cursorcolor:"#ddd"
-                });
-
+            $(document).ready(function () {
+                if ($(window).width() >= 992) {
+                    $("html,.scroll").niceScroll({
+                        cursorcolor:"#ddd"
+                    });
+                }
+                else{
+                }     
+            });
                 
                 $(".billing-modal").click(function(){  
 
@@ -892,6 +1013,17 @@
                    $("#navlink-security").addClass('active'); 
                 }
             });
+
+            /*
+
+            ESTA FUNCION ES PARA EL PROGRESS BAR - SE DESARROLLA LUEGO
+
+            $(document).ready(function(){
+                var a = document.getElementById('número').innerHTML;
+                $('#estimated-level').css('width',a+"%");
+            });
+            */
+
         </script>
     </body>
 </html>

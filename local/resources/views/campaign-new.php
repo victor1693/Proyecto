@@ -254,9 +254,15 @@
 
             Scrollbar.initAll();
 
-            $("html,.scroll").niceScroll({
-                cursorcolor:"#ddd"
-                });
+            $(document).ready(function () {
+                if ($(window).width() >= 992) {
+                    $("html,.scroll").niceScroll({
+                        cursorcolor:"#ddd"
+                    });
+                }
+                else{
+                }     
+            });
 
             $("#btn-add-song").click(function(){
                 $("#search-box").show();

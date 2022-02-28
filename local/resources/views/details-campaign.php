@@ -130,7 +130,7 @@
                                     </div>
                                     <div class="col-8">
                                        <div class="row">
-                                          <div class="col-6">
+                                          <div class="col-md-6 col-sm-12">
                                              <h4 class="card-header-title mb-2">
                                                 Reach
                                                 <i class="fe fe-info fs-5 fw-bold" style="font-size: 16px;cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="This is the number of people we estimate you'll reach in your genre throughout your campaign. This has to do with factors like your budget, genre, playlist size and ad placements. Your actual reach may be higher or lower than this estimate.">
@@ -146,7 +146,7 @@
                                                 </div>
                                              </div>
                                           </div>
-                                          <div class="col-6">
+                                          <div class="col-md-6 col-sm-12">
                                              <h4 class="card-header-title mb-2">
                                                 Conversions
                                                 <i class="fe fe-info fs-5 fw-bold" style="font-size: 16px;cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="This is the number of plays, streams, likes, saves, playlist adds, comments, etc that we estimate you can get from your campaign based on your performance and estimated daily reach. The actual number of conversions you get may be higher or lower than this estimate.">
@@ -474,16 +474,61 @@
    s1.setAttribute('crossorigin','*');
    s0.parentNode.insertBefore(s1,s0);
    })();
-   </script>
-    <!--End of Tawk.to Script-->
-    <script> 
-    $("#delete-balance").click(function(){
-    $("#text_cupon").hide();
-    $("#tx_balance_used").text("");
-    $("#paid_with_balance").val("");
-    Cookies.remove("balance");
-    loadInfo();
-    });
+   </script> 
+      <script> 
+
+         $(document).ready(function () {
+                if ($(window).width() >= 992) {
+                    $("html,.scroll").niceScroll({
+                        cursorcolor:"#ddd"
+                    });
+                }
+                else{
+            }     
+         });
+
+         $("#delete-balance").click(function(){
+            $("#text_cupon").hide();
+            $("#tx_balance_used").text("");
+            $("#paid_with_balance").val("");
+            Cookies.remove("balance");
+            loadInfo();
+         });
+
+         <?php if (count($data->balance)>0): ?>
+            <?php if ($data->balance[0]->balance == ""): ?>
+                  Cookies.remove("balance");
+            <?php endif ?> 
+         <?php endif ?>
+
+         loadInfo();
+         total_a_pagar = 0; 
+         function loadInfo() {
+         
+
+         if(typeof Cookies.get("track_date") !== "undefined"){
+             $("#start_date").html('<i class="fe fe-calendar"></i>'+Cookies.get("track_date")+'</span>'); 
+         }
+         inversion = 0;
+         if(typeof Cookies.get("track_inversion") !== "undefined"){
+             $("#sub_total").text("$"+$.number(Cookies.get("track_inversion"), 2, '.',','));
+             total_a_pagar =  Cookies.get("track_inversion");
+             inversion =  Cookies.get("track_inversion"); 
+         } 
+
+         if(typeof Cookies.get("cupon_code") !== "undefined"){
+            $("#start_date,#cupon_code").val(Cookies.get("cupon_code"));
+
+            if(typeof Cookies.get("cupon_percent") !== "undefined" && Cookies.get("cupon_percent") !=0){
+                inversion = $.number(Cookies.get("track_inversion"));
+                discount = Cookies.get("cupon_percent");
+                discount = inversion * (discount / 100);
+                total_a_pagar = inversion - discount;
+                $("#cupon_amount").val(discount);
+                $("#discount").text("$"+$.number(discount, 2, '.',','));
+              }
+         }
+         
 
     <?php if (count($data->balance)>0): ?>
     <?php if ($data->balance[0]->balance == ""): ?>
