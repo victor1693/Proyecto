@@ -169,7 +169,7 @@
             </div>
             <?php if (isset($data->user)): ?> 
                 <?php if (count($data->user)>0): ?> 
-                <div class="navbar-user d-none d-md-flex" id="sidebarUser"> 
+                <div class="navbar-user d-flex" id="sidebarUser"> 
                     <?php if ($data->user[0]->img!=""): ?>  
                         <a href="#" role="button">
                             <div class="avatar avatar-sm avatar-online">
