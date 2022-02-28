@@ -707,8 +707,8 @@
                 for(w=0; w<=4; w++){
     
                 if(w<4){
-                    var m = colores[w+1];
-                    colores[w+1] = j;
+                    var m = control[w+1];
+                    control[w+1] = j;
                     j = m;
                 }
                 else{
@@ -722,16 +722,18 @@
                 var j = control[4]; 
                 for(w=4; w>=0; w--){
     
-                if(w>0){
-                    var m = control[w-1];
-                    control[w-1] = j;
-                    j = m;
-                }
-                else{
-                    control[4] = j;
-                } 
-                }  
-            } 
+                    if(w>0){
+                        var m = control[w-1];
+                        control[w-1] = j;
+                        j = m;
+                    }
+                    else{
+                        control[4] = j;
+     
+                    } 
+                }   
+            }
+     
 
             function partir(arreglo){
                 var primero = arreglo[0];

@@ -521,7 +521,7 @@
                             <i class="fe fe-info me-1">
                             </i>
                             You're automatically enrolled in our Rewards Program
-                            <button type="button" class="btn btn-primary py-0 px-1" style="float: right;">LEARN MORE</button>
+                            <button type="button" class="btn btn-primary py-0 px-1 billing-modal" style="float: right;">LEARN MORE</button>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6">
@@ -817,6 +817,35 @@
                 <!-- / .row -->
             </div>
         </div>
+
+        <!-- ESTE ES EL MODAL DE LEARN MORE -->
+
+        <div style="" class="modal" id="billing-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+	                <div class="modal-header">
+                        <h2 class="modal-title">About</h2>
+                        <button type="button" class="btn" onclick="hideModal()">
+                            <span aria-hidden="true"><i class="fe fe-x"></i></span>
+                        </button>
+                    </div> 
+                    <div class="modal-body "> 
+      	                <div class="my-1 mx-1">
+			                <ul>
+                                <li>Level 1 until you spend the first $100 (when you spend the first 100 dollars we give away $10 of balance)</li>
+                                <li>Level 2 until you reach $250 spent (we give you $25)</li>
+                                <li>Level 3 until you reach $500 spent (we give you $50)</li>
+                                <li>Level 4 until you reach $1,000 spent (we give you $100)</li>
+                                <li>Level 5 until you reach $1,250 spent (we give you $125)</li>
+                            </ul>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div id="billing-lock" style="background: #fff;width: 100%;height: 100%;z-index: 2000;top: 0;left: 0;display: none;opacity: 0;"> 
+        </div>
+
         <script src="<?= Request::root();?>/local/resources/views/assets/js/vendor.bundle.js">
         </script>
         <script src="<?= Request::root();?>/local/resources/views/assets/js/theme.bundle.js">
@@ -832,6 +861,18 @@
                 $("html,.scroll").niceScroll({
                 cursorcolor:"#ddd"
                 });
+
+                
+                $(".billing-modal").click(function(){  
+
+                    $("#billing-lock").show();
+                    $('#billing-modal').modal('show'); 
+
+                });
+
+                function hideModal(){
+                    $('#billing-modal').modal('hide');
+                }
 
             $(document).ready(function(){
                 var urlActual = window.location;
