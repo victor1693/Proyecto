@@ -475,61 +475,26 @@
    s0.parentNode.insertBefore(s1,s0);
    })();
    </script> 
-      <script> 
+    <!--End of Tawk.to Script-->
+    <script> 
+    $("#delete-balance").click(function(){
+    $("#text_cupon").hide();
+    $("#tx_balance_used").text("");
+    $("#paid_with_balance").val("");
+    Cookies.remove("balance");
+    loadInfo();
+    });
 
-         $(document).ready(function () {
-                if ($(window).width() >= 992) {
-                    $("html,.scroll").niceScroll({
-                        cursorcolor:"#ddd"
-                    });
-                }
-                else{
-            }     
-         });
-
-         $("#delete-balance").click(function(){
-            $("#text_cupon").hide();
-            $("#tx_balance_used").text("");
-            $("#paid_with_balance").val("");
-            Cookies.remove("balance");
-            loadInfo();
-         });
-
-         <?php if (count($data->balance)>0): ?>
-            <?php if ($data->balance[0]->balance == ""): ?>
-                  Cookies.remove("balance");
-            <?php endif ?> 
-         <?php endif ?>
-
-         loadInfo();
-         total_a_pagar = 0; 
-         function loadInfo() {
-         
-
-         if(typeof Cookies.get("track_date") !== "undefined"){
-             $("#start_date").html('<i class="fe fe-calendar"></i>'+Cookies.get("track_date")+'</span>'); 
-         }
-         inversion = 0;
-         if(typeof Cookies.get("track_inversion") !== "undefined"){
-             $("#sub_total").text("$"+$.number(Cookies.get("track_inversion"), 2, '.',','));
-             total_a_pagar =  Cookies.get("track_inversion");
-             inversion =  Cookies.get("track_inversion"); 
-         } 
-
-         if(typeof Cookies.get("cupon_code") !== "undefined"){
-            $("#start_date,#cupon_code").val(Cookies.get("cupon_code"));
-
-            if(typeof Cookies.get("cupon_percent") !== "undefined" && Cookies.get("cupon_percent") !=0){
-                inversion = $.number(Cookies.get("track_inversion"));
-                discount = Cookies.get("cupon_percent");
-                discount = inversion * (discount / 100);
-                total_a_pagar = inversion - discount;
-                $("#cupon_amount").val(discount);
-                $("#discount").text("$"+$.number(discount, 2, '.',','));
-              }
-         }
-         
-
+    $(document).ready(function () {
+      if ($(window).width() >= 992) {
+        $("html,.scroll").niceScroll({
+        cursorcolor:"#ddd"
+        });
+      }
+      else{
+      }     
+    }); 
+     
     <?php if (count($data->balance)>0): ?>
     <?php if ($data->balance[0]->balance == ""): ?>
     Cookies.remove("balance");

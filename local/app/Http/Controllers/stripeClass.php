@@ -30,6 +30,6 @@ class stripeClass extends Controller
     {
     	Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $paymentIntent = Stripe\paymentIntent::retrieve ($_POST['pi'],[]);  
-	    echo json_encode($output); 
+	    //echo json_encode($output); 
     }
 }
