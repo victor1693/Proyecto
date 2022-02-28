@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 				 ## RUTAS PUBLICAS ##
 
 Route::middleware(['cors'])->group(function () {
+Route::post('test_stripe',"stripeClass@PaymentIntent");
+Route::post('paymentVerify',"stripeClass@PaymentIntentVerify");
 #************* RUTAS DE LAS VISTAS DEL SISTEMA **************# 
 
 # ACCOUNT 
@@ -24,8 +26,8 @@ Route::get('track/search',"campaignNew@buscarTrack");
 # TRANSANCIONES
 Route::post('account',"customerInfo@createAccount");
 
-});
-  
+}); 
+
 				  ## RUTAS PRIVADAS ##
 Route::middleware(['cors','auth'])->group(function () { 
 #************* RUTAS DE LAS VISTAS DEL SISTEMA **************#   

@@ -366,22 +366,16 @@
                            </button>
                         </h2>
                         <div aria-labelledby="headingOne2" class="accordion-collapse collapse show" data-bs-parent="#accordionExample2" id="collapseOne2">
-                           <div class="accordion-body" style="border-bottom: 1px solid #e3ebf6;">
-                              <!-- Display a payment form -->
-                              <form id="payment-form">
-                                 <div id="payment-element">
-                                    <!--Stripe.js injects the Payment Element-->
-                                 </div>
-                                 <button id="submit">
-                                    <div class="spinner hidden" id="spinner">
-                                    </div>
-                                    <span id="button-text" style="">
-                                    Pay now
-                                    </span>
-                                 </button>
-                                 <div class="hidden" id="payment-message">
-                                 </div>
-                              </form>
+                           <div class="accordion-body" style="border-bottom: 1px solid #e3ebf6;"> 
+                            <form id="payment-form">
+                              <div id="payment-element"> 
+                              </div>
+                              <button id="submit" class="btn btn-primary form-control mt-3">
+                                <div class="spinner hidden" id="spinner"></div>
+                                <span id="button-text">Pay now</span>
+                              </button>
+                              <div id="payment-message" class="hidden"></div>
+                            </form>
                            </div>
                         </div>
                      </div>
@@ -458,8 +452,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
     <script src="https://js.stripe.com/v3/">
-    </script>
-    <script src="checkout/checkout.js">
     </script> 
     <script src="https://www.paypal.com/sdk/js?client-id=AWnPN3ca5Lms-Ek9yVe0txASM-TIsB-L80B9mB6zlJ9vFMug3a3N92xw0qri0xUX027IqkjW0wqYmLPR&disable-funding=credit">
     </script>
@@ -483,149 +475,262 @@
    s0.parentNode.insertBefore(s1,s0);
    })();
    </script>
-   <!--End of Tawk.to Script-->
-      <script> 
-         $("#delete-balance").click(function(){
-            $("#text_cupon").hide();
-            $("#tx_balance_used").text("");
-            $("#paid_with_balance").val("");
-            Cookies.remove("balance");
-            loadInfo();
-         });
+    <!--End of Tawk.to Script-->
+    <script> 
+    $("#delete-balance").click(function(){
+    $("#text_cupon").hide();
+    $("#tx_balance_used").text("");
+    $("#paid_with_balance").val("");
+    Cookies.remove("balance");
+    loadInfo();
+    });
 
-         <?php if (count($data->balance)>0): ?>
-            <?php if ($data->balance[0]->balance == ""): ?>
-                  Cookies.remove("balance");
-            <?php endif ?> 
-         <?php endif ?>
+    <?php if (count($data->balance)>0): ?>
+    <?php if ($data->balance[0]->balance == ""): ?>
+    Cookies.remove("balance");
+    <?php endif ?> 
+    <?php endif ?>
 
-         loadInfo();
-         total_a_pagar = 0; 
-         function loadInfo() {
-         
+    loadInfo();
+    total_a_pagar = 0; 
+    function loadInfo() {
 
-         if(typeof Cookies.get("track_date") !== "undefined"){
-             $("#start_date").html('<i class="fe fe-calendar"></i>'+Cookies.get("track_date")+'</span>'); 
-         }
-         inversion = 0;
-         if(typeof Cookies.get("track_inversion") !== "undefined"){
-             $("#sub_total").text("$"+$.number(Cookies.get("track_inversion"), 2, '.',','));
-             total_a_pagar =  Cookies.get("track_inversion");
-             inversion =  Cookies.get("track_inversion"); 
-         } 
 
-         if(typeof Cookies.get("cupon_code") !== "undefined"){
-            $("#start_date,#cupon_code").val(Cookies.get("cupon_code"));
+    if(typeof Cookies.get("track_date") !== "undefined"){
+    $("#start_date").html('<i class="fe fe-calendar"></i>'+Cookies.get("track_date")+'</span>'); 
+    }
+    inversion = 0;
+    if(typeof Cookies.get("track_inversion") !== "undefined"){
+    $("#sub_total").text("$"+$.number(Cookies.get("track_inversion"), 2, '.',','));
+    total_a_pagar =  Cookies.get("track_inversion");
+    inversion =  Cookies.get("track_inversion"); 
+    } 
 
-            if(typeof Cookies.get("cupon_percent") !== "undefined" && Cookies.get("cupon_percent") !=0){
-                inversion = $.number(Cookies.get("track_inversion"));
-                discount = Cookies.get("cupon_percent");
-                discount = inversion * (discount / 100);
-                total_a_pagar = inversion - discount;
-                $("#cupon_amount").val(discount);
-                $("#discount").text("$"+$.number(discount, 2, '.',','));
+    if(typeof Cookies.get("cupon_code") !== "undefined"){
+    $("#start_date,#cupon_code").val(Cookies.get("cupon_code"));
 
-            }
-            else if(typeof Cookies.get("cupon_amount") !== "undefined" && Cookies.get("cupon_amount") !=0){
-                inversion = $.number(Cookies.get("track_inversion"));
-                discount = Cookies.get("cupon_amount");
-                total_a_pagar = inversion - discount;
-                $("#cupon_amount").val(discount);
-                $("#discount").text("$"+$.number(discount, 2, '.',','));
-            }         
-         } 
-      
-         if(typeof Cookies.get("balance") !== "undefined"){
-            $("#balance_value").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
-            $("#tx_balance_used").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
-            $("#text_cupon").show();
-            $("#paid_with_balance").val($.number(Cookies.get("balance"), 2, '.',','));
-            total_a_pagar = total_a_pagar - Cookies.get("balance");
-         }
-         
-         $("#total_amount").text("$" + $.number(total_a_pagar, 2, '.',','));
-         
-         if(typeof Cookies.get("track_img") !== "undefined"){
-             $("#track-img").attr('src',Cookies.get('track_img'));
-         }
-         
-         if(typeof Cookies.get("track_id") !== "undefined"){
-             $("#id_track").val(Cookies.get('track_id'));
-         }
+    if(typeof Cookies.get("cupon_percent") !== "undefined" && Cookies.get("cupon_percent") !=0){
+    inversion = $.number(Cookies.get("track_inversion"));
+    discount = Cookies.get("cupon_percent");
+    discount = inversion * (discount / 100);
+    total_a_pagar = inversion - discount;
+    $("#cupon_amount").val(discount);
+    $("#discount").text("$"+$.number(discount, 2, '.',','));
 
-         if(typeof Cookies.get("track_name") !== "undefined"){
-             $("#track-name").text(Cookies.get('track_name'));
-         }
-         
-         if(typeof Cookies.get("track_inversion") !== "undefined"){
-             $("#inversion").val(Cookies.get('track_inversion'));
-         }
-         if(typeof Cookies.get("track_generos") !== "undefined"){
-             $("#generos").val(JSON.parse(Cookies.get('track_generos')).toString());
-         }
-         if(typeof Cookies.get("track_date") !== "undefined"){
-             $("#date").val(Cookies.get('track_date'));
-         }
-         if(typeof Cookies.get("track_artist") !== "undefined"){
-             $("#track-artist").text(Cookies.get('track_artist'));
-         }
-         
-         if(typeof Cookies.get("track_reach") !== "undefined"){
-             $("#track-reach").text(Cookies.get('track_reach'));
-         }
-         if(typeof Cookies.get("track_streams") !== "undefined"){
-             $("#track-streams").text(Cookies.get('track_streams'));
-         }
-         if(typeof Cookies.get("track_stream_porcent") !== "undefined"){ 
-             $("#stream_p").css('width',Cookies.get('track_stream_porcent'));
-         }
-         if(typeof Cookies.get("track_reach_porcent") !== "undefined"){
-             $("#reach_p").css('width',Cookies.get('track_reach_porcent'));
-         } 
-         if(typeof Cookies.get("track_generos") !== "undefined"){
-             generos = Cookies.get("track_generos"); 
-             generos = JSON.parse(generos);
-             generos_tags = "";
-             $.each( generos, function( key, value ) {
-               genero_text = value.split("_");
-               generos_tags = generos_tags + '<span class="text-capitalize badge bg-primary-soft fw-bold ms-2">'+ genero_text[1] +'</span>'; 
-             });
-             $("#track-generos").html(generos_tags);  
-         }  
-         } 
-         
-         $("#btn-continue").click(function(){
-         $("#form-campaign").submit();
-         }); 
-      </script>
+    }
+    else if(typeof Cookies.get("cupon_amount") !== "undefined" && Cookies.get("cupon_amount") !=0){
+    inversion = $.number(Cookies.get("track_inversion"));
+    discount = Cookies.get("cupon_amount");
+    total_a_pagar = inversion - discount;
+    $("#cupon_amount").val(discount);
+    $("#discount").text("$"+$.number(discount, 2, '.',','));
+    }         
+    } 
 
-      <script>
-         // GESTION DE PAGOS
-         $("#btnPayWithBalance").click(function(){
-            if($("#input_balance").val() ==""){return 0;} 
-            if($("#cupon_amount").val()==""){$("#cupon_amount").val(0);} 
-            
-            if(parseFloat($("#input_balance").val()) < (inversion - parseFloat($("#cupon_amount").val()))){
-               Cookies.set("balance",$("#input_balance").val());
-               $("#balance_value").text("$" + $.number($("#input_balance").val(), 2, '.',','));
-               loadInfo(); 
-            }
+    if(typeof Cookies.get("balance") !== "undefined"){
+    $("#balance_value").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
+    $("#tx_balance_used").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
+    $("#text_cupon").show();
+    $("#paid_with_balance").val($.number(Cookies.get("balance"), 2, '.',','));
+    total_a_pagar = total_a_pagar - Cookies.get("balance");
+    }
 
-            if(parseFloat($("#input_balance").val()) >= (inversion - parseFloat($("#cupon_amount").val()))){   
-               if (confirm("Esta seguro que desea pagar este campaign con su balance?") == true) {
-                  $("#paid_with_balance").val($("#input_balance").val());
-                  $("#payment_type").val("balance");
-                  $("#form-campaign").submit();
-               } 
-            }
-         });
-     
+    $("#total_amount").text("$" + $.number(total_a_pagar, 2, '.',','));
 
-      <?php if (Session::has('info')): ?>
-         $.notify("<?= Session::get('info');?>", "info");
-      <?php elseif(Session::has('error')): ?> 
-         $.notify("<?= Session::get('error');?>", "error");
-      <?php endif ?>
-      </script>
+    if(typeof Cookies.get("track_img") !== "undefined"){
+    $("#track-img").attr('src',Cookies.get('track_img'));
+    }
+
+    if(typeof Cookies.get("track_id") !== "undefined"){
+    $("#id_track").val(Cookies.get('track_id'));
+    }
+
+    if(typeof Cookies.get("track_name") !== "undefined"){
+    $("#track-name").text(Cookies.get('track_name'));
+    }
+
+    if(typeof Cookies.get("track_inversion") !== "undefined"){
+    $("#inversion").val(Cookies.get('track_inversion'));
+    }
+    if(typeof Cookies.get("track_generos") !== "undefined"){
+    $("#generos").val(JSON.parse(Cookies.get('track_generos')).toString());
+    }
+    if(typeof Cookies.get("track_date") !== "undefined"){
+    $("#date").val(Cookies.get('track_date'));
+    }
+    if(typeof Cookies.get("track_artist") !== "undefined"){
+    $("#track-artist").text(Cookies.get('track_artist'));
+    }
+
+    if(typeof Cookies.get("track_reach") !== "undefined"){
+    $("#track-reach").text(Cookies.get('track_reach'));
+    }
+    if(typeof Cookies.get("track_streams") !== "undefined"){
+    $("#track-streams").text(Cookies.get('track_streams'));
+    }
+    if(typeof Cookies.get("track_stream_porcent") !== "undefined"){ 
+    $("#stream_p").css('width',Cookies.get('track_stream_porcent'));
+    }
+    if(typeof Cookies.get("track_reach_porcent") !== "undefined"){
+    $("#reach_p").css('width',Cookies.get('track_reach_porcent'));
+    } 
+    if(typeof Cookies.get("track_generos") !== "undefined"){
+    generos = Cookies.get("track_generos"); 
+    generos = JSON.parse(generos);
+    generos_tags = "";
+    $.each( generos, function( key, value ) {
+    genero_text = value.split("_");
+    generos_tags = generos_tags + '<span class="text-capitalize badge bg-primary-soft fw-bold ms-2">'+ genero_text[1] +'</span>'; 
+    });
+    $("#track-generos").html(generos_tags);  
+    }  
+    } 
+
+    $("#btn-continue").click(function(){
+    $("#form-campaign").submit();
+    }); 
+    </script> 
+    <script>
+    // GESTION DE PAGOS
+    $("#btnPayWithBalance").click(function(){
+    if($("#input_balance").val() ==""){return 0;} 
+    if($("#cupon_amount").val()==""){$("#cupon_amount").val(0);} 
+
+    if(parseFloat($("#input_balance").val()) < (inversion - parseFloat($("#cupon_amount").val()))){
+    Cookies.set("balance",$("#input_balance").val());
+    $("#balance_value").text("$" + $.number($("#input_balance").val(), 2, '.',','));
+    loadInfo(); 
+    }
+
+    if(parseFloat($("#input_balance").val()) >= (inversion - parseFloat($("#cupon_amount").val()))){   
+    if (confirm("Esta seguro que desea pagar este campaign con su balance?") == true) {
+    $("#paid_with_balance").val($("#input_balance").val());
+    $("#payment_type").val("balance");
+    $("#form-campaign").submit();
+    } 
+    }
+    }); 
+    <?php if (Session::has('info')): ?>
+    $.notify("<?= Session::get('info');?>", "info");
+    <?php elseif(Session::has('error')): ?> 
+    $.notify("<?= Session::get('error');?>", "error");
+    <?php endif ?>
+    </script>
+
+    <script>
+
+      const cs = "pk_test_51IcHMdLBCvwwtaP2SeTJ9ylRkneOvXmXUZ1D4nbtR4v1izKxWLSHuO9sQfKDqT5V9f4lTPc3YX8t6fCLWlerCf8h00ycAH0Vyo";
+      const stripe = Stripe(cs);
+
+      // The items the customer wants to buy
+      const items = [{id: "xl-tshirt"}]; 
+      let elements;
+
+      initialize();
+      checkStatus();
+
+      document.querySelector("#payment-form").addEventListener("submit", handleSubmit);
+
+      async function initialize() {
+          const {
+              clientSecret
+          } = await fetch("<?= Request::root();?>/test_stripe", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  items
+              }),
+          }).then((r) => r.json());
+
+          elements = stripe.elements({
+              clientSecret
+          });
+
+          const paymentElement = elements.create("payment");
+          paymentElement.mount("#payment-element");
+      }
+
+      async function handleSubmit(e) {
+          e.preventDefault();
+          setLoading(true);
+
+          const {
+              error
+          } = await stripe.confirmPayment({
+              elements,
+              confirmParams: {
+                  return_url: "<?= Request::root();?>/campaign-details",
+              },
+          });
+
+          if (error.type === "card_error" || error.type === "validation_error") {
+              showMessage(error.message);
+          } else {
+              showMessage("An unexpected error occured.");
+          }
+
+          setLoading(false);
+      }
+
+      // Fetches the payment intent status after payment submission
+      async function checkStatus() {
+          const clientSecret = new URLSearchParams(window.location.search).get(
+              "payment_intent_client_secret"
+          );
+
+          if (!clientSecret) {
+              return;
+          }
+
+          const {
+              paymentIntent
+          } = await stripe.retrievePaymentIntent(clientSecret);
+
+          switch (paymentIntent.status) {
+              case "succeeded":
+                  showMessage("Payment succeeded!");
+                  break;
+              case "processing":
+                  showMessage("Your payment is processing.");
+                  break;
+              case "requires_payment_method":
+                  showMessage("Your payment was not successful, please try again.");
+                  break;
+              default:
+                  showMessage("Something went wrong.");
+                  break;
+          }
+      }
+
+      // ------- UI helpers -------
+
+      function showMessage(messageText) {
+          const messageContainer = document.querySelector("#payment-message");
+
+          messageContainer.classList.remove("hidden");
+          messageContainer.textContent = messageText;
+
+          setTimeout(function() {
+              messageContainer.classList.add("hidden");
+              messageText.textContent = "";
+          }, 4000);
+      }
+
+      // Show a spinner on payment submission
+      function setLoading(isLoading) {
+          if (isLoading) {
+              // Disable the button and show a spinner
+              document.querySelector("#submit").disabled = true;
+              document.querySelector("#spinner").classList.remove("hidden");
+              document.querySelector("#button-text").classList.add("hidden");
+          } else {
+              document.querySelector("#submit").disabled = false;
+              document.querySelector("#spinner").classList.add("hidden");
+              document.querySelector("#button-text").classList.remove("hidden");
+          }
+      }
+    </script>>
    </body>
 </html>
