@@ -808,9 +808,15 @@ A measure on how intense a track sounds, through measuring the dynamic range, lo
 
         <script>
 
-                $("html,.scroll").niceScroll({
-                cursorcolor:"#ddd"
-                });
+            $(document).ready(function () {
+                if ($(window).width() >= 992) {
+                    $("html,.scroll").niceScroll({
+                        cursorcolor:"#ddd"
+                    });
+                }
+                else{
+                }     
+            });
 
             reach = [];
             conversion = [];

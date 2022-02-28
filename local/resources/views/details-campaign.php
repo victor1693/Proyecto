@@ -130,7 +130,7 @@
                                     </div>
                                     <div class="col-8">
                                        <div class="row">
-                                          <div class="col-6">
+                                          <div class="col-md-6 col-sm-12">
                                              <h4 class="card-header-title mb-2">
                                                 Reach
                                                 <i class="fe fe-info fs-5 fw-bold" style="font-size: 16px;cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="This is the number of people we estimate you'll reach in your genre throughout your campaign. This has to do with factors like your budget, genre, playlist size and ad placements. Your actual reach may be higher or lower than this estimate.">
@@ -146,7 +146,7 @@
                                                 </div>
                                              </div>
                                           </div>
-                                          <div class="col-6">
+                                          <div class="col-md-6 col-sm-12">
                                              <h4 class="card-header-title mb-2">
                                                 Conversions
                                                 <i class="fe fe-info fs-5 fw-bold" style="font-size: 16px;cursor: pointer;" data-bs-toggle="tooltip" data-bs-placement="top" title="This is the number of plays, streams, likes, saves, playlist adds, comments, etc that we estimate you can get from your campaign based on your performance and estimated daily reach. The actual number of conversions you get may be higher or lower than this estimate.">
@@ -485,6 +485,17 @@
    </script>
    <!--End of Tawk.to Script-->
       <script> 
+
+         $(document).ready(function () {
+                if ($(window).width() >= 992) {
+                    $("html,.scroll").niceScroll({
+                        cursorcolor:"#ddd"
+                    });
+                }
+                else{
+            }     
+         });
+
          $("#delete-balance").click(function(){
             $("#text_cupon").hide();
             $("#tx_balance_used").text("");
