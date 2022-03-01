@@ -13,7 +13,8 @@ class general extends Controller
     {
     	$vista = View::make("general");
     	$vista->artistAside = $this->getArtistAside();
-    	$vista->data = json_decode(RQ::get("https://app.venbia.com/v1/general"));    
+    	$vista->data = json_decode(RQ::get("https://app.venbia.com/v1/general"));
+        $vista->aside = json_decode(RQ::get("https://app.venbia.com/v1/aside"));    
     	return $vista;
     }
 

@@ -11,7 +11,8 @@ class dashboard extends Controller
 
     	$vista = View::make("dashboard");
     	$vista->artistAside = $this->getArtistAside(); 
-    	$vista->data = json_decode(RQ::get("https://app.venbia.com/v1/dashboard"));
+    	$vista->data = json_decode(RQ::get("https://app.venbia.com/v1/dashboard")); 
+        $vista->aside = json_decode(RQ::get("https://app.venbia.com/v1/aside"));
     	return $vista;
     }
 

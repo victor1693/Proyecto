@@ -160,8 +160,8 @@
                  <div style="padding: 13px;text-align: center;font-size: 14px;border: 1px solid #335eea;border-radius: 5px;color: #335eea">
                     <i class="fe fe-briefcase me-2">
                     </i>
-                    <?php if (isset($data->balance)): ?>
-                        Balance: $<?= number_format($data->balance[0]->balance,2);?>
+                    <?php if (isset($aside->balance)): ?>
+                        Balance: $<?= number_format($aside->balance[0]->balance,2);?>
                     <?php else: ?> 
                         Balance: $0.00
                     <?php endif ?>
@@ -173,7 +173,7 @@
                     <?php if ($data->user[0]->img!=""): ?>  
                         <a href="#" role="button">
                             <div class="avatar avatar-sm avatar-online">
-                                <img class="avatar-img rounded-circle" src="<?= Request::root();?>/local/storage/app/profile_img/<?= $data->user[0]->img;?>">  
+                                <img class="avatar-img rounded-circle" src="<?= Request::root();?>/local/storage/app/profile_img/<?= $aside->account[0]->img;?>">  
                             </div>
                         </a> 
                     <?php else: ?>
@@ -185,10 +185,10 @@
                     <?php endif ?> 
                 </div>
                 <p class="text-dark text-center mt-2 fw-bold mb-0 fs-3">
-                   <?= $data->user[0]->nombre;?> <?= $data->user[0]->apellido;?>
+                   <?= $aside->account[0]->nombre;?> <?= $aside->account[0]->apellido;?>
                 </p>
                 <p class="text-muted text-uppercase mt-0 text-center fs-5">
-                    <?= $data->user[0]->role;?>
+                    <?= $aside->account[0]->role;?>
                 </p>
                 <?php endif ?>
             <?php endif ?>
