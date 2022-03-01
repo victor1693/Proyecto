@@ -250,7 +250,7 @@
                                 <!-- / .row -->
                             </div>
                             <div class="table-responsive scroll">
-                                <table class="table table-sm table-hover table-nowrap text-center">
+                                <table class="table table-sm table-hover table-nowrap text-center" style="overflow-x: scroll;">
                                     <thead>
                                         <tr>
                                             <th>
