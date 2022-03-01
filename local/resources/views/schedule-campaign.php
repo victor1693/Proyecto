@@ -157,13 +157,13 @@
                                     The accuracy of estimates is based on factors like past campaign data, the budget you entered, market data, targeting criteria and ad placements. Numbers are provided to give you an idea of performance for your budget, but are only estimates and don't guarantee results.
                                 </p>
 
-                                 <h4 class="card-header-title mb-2">
-                                    Discount Code
+                                <h4 class="card-header-title mb-2">
+                                    Gift Card or Discount Code
                                 </h4>
                                 <div class="input-group mb-3"> 
-                                  <input id="cupon" type="text" class="form-control" placeholder="Your code here: ##########" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                  <input id="cupon" type="text" class="form-control" placeholder="Gift Card or Discount Code" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                   <div class="input-group-append">
-                                    <button id="btn-cupon" class="btn btn-primary" style="border-top-left-radius: 0;border-bottom-left-radius: 0;" type="button">Apply</button>
+                                    <button id="btn-cupon" class="btn btn-primary" style="border-top-left-radius: 0;border-bottom-left-radius: 0;" type="button"><i class="fe fe-arrow-right"></i></button>
                                   </div>
                                 </div>
                                 <p class="mb-0 badge bg-light fs-4" id="text_cupon"><span class="fw-bold text-primary text-uppercase" id="text_cupon_value"></span> <i id="delete-discount" title="Remove coupon" class="fe fe-x-circle text-secondary" style="cursor: pointer;"></i></p>
