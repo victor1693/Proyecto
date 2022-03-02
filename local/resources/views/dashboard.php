@@ -355,7 +355,7 @@
                                 </div>
                                 <!-- / .row -->
                             </div>
-                            <div class="table-responsive scroll" style="max-height: 390px;">
+                            <div class="table-responsive scroll" style="max-height: 390px; overflow-x:scroll;">
                                 <table class="table table-sm table-hover table-nowrap card-table text-center">
                                     <thead>
                                         <tr>
