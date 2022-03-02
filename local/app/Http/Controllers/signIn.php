@@ -37,6 +37,7 @@ class signIn extends Controller
 			'email' => $_POST['email'],
 			'password' => $_POST['password'],
             'user_agent' => $request->header('user-agent'),
+            'customer_id' => '', 
 		); 
         
 		$auth = json_decode(RQ::post("https://app.venbia.com/v1/auth",$data)); 

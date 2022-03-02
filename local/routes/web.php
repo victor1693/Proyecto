@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
-				 ## RUTAS PUBLICAS ##
+ 
 
 Route::middleware(['cors'])->group(function () {
-Route::post('test_stripe',"stripeClass@PaymentIntent");
-Route::post('paymentVerify',"stripeClass@PaymentIntentVerify");
+
+Route::post('clientSecret',"payment@updatePaymentIntent");
+Route::get('paymentVerify',"stripeClass@PaymentIntentVerify");
 #************* RUTAS DE LAS VISTAS DEL SISTEMA **************# 
 
 # ACCOUNT 

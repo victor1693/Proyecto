@@ -11,6 +11,12 @@ class customerInfo extends Controller
 	public $name;
 	public $role;
 	public $ac_token;
+	public $stripe;
+	public $customer_id;
+	function __construct()
+	{
+		$this->stripe = new stripeClass();
+	}
 
 	public function index()
 	{
@@ -25,8 +31,8 @@ class customerInfo extends Controller
 	# CREAMOS UNA CUENTA NUEVA
 	public function createAccount()
 	{ 	
-		# VALIDACIONES
 		
+		# VALIDACIONES 
 		if(!isset($_POST['name'])){
 			return Redirect()->back()->with('info','Debe colocar su nombre.');
 		}
@@ -63,13 +69,22 @@ class customerInfo extends Controller
 		else if($_POST['telefono'] == ""){
 			return Redirect()->back()->with('info','Debe colocar su telefono.');
 		}
+
+		$this->stripe->email = $_POST['correo'];
+		$customer_id = $this->stripe->createCustomer();
+
+		if($customer_id == ""){
+			return Redirect()->back()->with('info','Ocurrio un error al crear el Customer ID.');
+		}
+		$this->customer_id = $customer_id;
 		$data = array(
 			'nombre' => $_POST['name'],
 			'apellido' => $_POST['apellido'],
 			'email' => $_POST['correo'],
 			'telefono' => $_POST['telefono'],
 			'pais' => $_POST['pais'],
-			'role' => $_POST['role']
+			'role' => $_POST['role'],
+			'customer_id' => $customer_id
 		);
 
 		$account = json_decode(RQ::post("https://app.venbia.com/v1/user",$data)); 
@@ -93,6 +108,7 @@ class customerInfo extends Controller
 		session()->put('name',$this->name);
 		session()->put('role',$this->role);
 		session()->put('ac_token',$this->ac_token);
+		session()->put('customer_id',$this->customer_id);
 	}
 
 	# LOGOUT

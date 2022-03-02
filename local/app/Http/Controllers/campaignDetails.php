@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use View;
+use View; 
 use Cookie;
 class campaignDetails extends Controller
 {
@@ -13,6 +13,7 @@ class campaignDetails extends Controller
         $vista->artistAside = $this->getArtistAside(); 
         $vista->data = json_decode(RQ::get("https://app.venbia.com/v1/campaigns-details"));
         $vista->aside = json_decode(RQ::get("https://app.venbia.com/v1/aside"));
+        $vista->client_secret = "";
     	return $vista;
     }
 

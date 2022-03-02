@@ -435,19 +435,14 @@
          <form id="form-campaign" method="POST" action="<?= Request::root();?>/create-campaign">
             <input type="hidden" name="payment_flag" id="payment_flag">
             <input type="hidden" name="track_id" id="id_track">
-            
+            <input type="hidden" name="payment_amount" id="inversion">
             <input type="hidden" name="payment_type" id="payment_type">
             <input type="hidden" name="start_date" id="date">
             <input type="hidden" name="generos" id="generos">
+            <input type="hidden" name="cupon_code" id="cupon_code">
+            <input type="hidden" name="cupon_amount" id="cupon_amount">
             <input type="hidden" name="payment_status" id="payment_status">
-
-
-            <input type="hidden" name="cupon_code" id="cupon_code" value="">
-            <input type="hidden" name="cupon_amount" id="cupon_amount" value="0">
-            <input type="hidden" name="payment_amount" id="inversion" value="0">
-            <input type="hidden" name="balance" id="paid_with_balance" value="0">
-
-            <input type="hidden" name="clientSecret" id="clientSecret">
+            <input type="hidden" name="balance" id="paid_with_balance">
          </form>
       </div>
     
@@ -466,223 +461,286 @@
          cursorcolor:"#ddd"
       });
    </script>
-  
+
+    <!--Start of Tawk.to Script-->
+   <script type="text/javascript">
+   var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+   (function(){
+   var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+   s1.async=true;
+   s1.src='https://embed.tawk.to/5b5a1e9ce21878736ba258bd/default';
+   s1.charset='UTF-8';
+   s1.setAttribute('crossorigin','*');
+   s0.parentNode.insertBefore(s1,s0);
+   })();
+   </script> 
+    <!--End of Tawk.to Script-->
     <script> 
-       $("#delete-balance").click(function(){
-       $("#text_cupon").hide();
-       $("#tx_balance_used").text("");
-       $("#paid_with_balance").val("");
-       Cookies.remove("balance");
-       loadInfo();
-       });
+    $("#delete-balance").click(function(){
+    $("#text_cupon").hide();
+    $("#tx_balance_used").text("");
+    $("#paid_with_balance").val("");
+    Cookies.remove("balance");
+    loadInfo();
+    });
 
-       $(document).ready(function () {
-         loadInfo();
-         if ($(window).width() >= 992) {
-           $("html,.scroll").niceScroll({
-             cursorcolor:"#ddd"
-           });
-         }
-         else{
-
-         }     
-       }); 
-        
-       <?php if (count($data->balance)>0): ?>
-       <?php if ($data->balance[0]->balance == ""): ?>
-       Cookies.remove("balance");
-       <?php endif ?> 
-       <?php endif ?>
-
-       
-       total_a_pagar = 0; 
-       function loadInfo() {
-      
-
-       if(typeof Cookies.get("track_date") !== "undefined"){
-       $("#start_date").html('<i class="fe fe-calendar"></i>'+Cookies.get("track_date")+'</span>'); 
-       }
-       inversion = 0;
-       if(typeof Cookies.get("track_inversion") !== "undefined"){
-       $("#sub_total").text("$"+$.number(Cookies.get("track_inversion"), 2, '.',','));
-       total_a_pagar =  Cookies.get("track_inversion");
-       inversion =  Cookies.get("track_inversion"); 
-       } 
-
-       if(typeof Cookies.get("cupon_code") !== "undefined"){
-       $("#start_date,#cupon_code").val(Cookies.get("cupon_code"));
-
-       if(typeof Cookies.get("cupon_percent") !== "undefined" && Cookies.get("cupon_percent") !=0){
-       inversion = $.number(Cookies.get("track_inversion"));
-       discount = Cookies.get("cupon_percent");
-       discount = inversion * (discount / 100);
-       total_a_pagar = inversion - discount;
-       $("#cupon_amount").val(discount);
-       $("#discount").text("$"+$.number(discount, 2, '.',','));
-
-       }
-       else if(typeof Cookies.get("cupon_amount") !== "undefined" && Cookies.get("cupon_amount") !=0){
-       inversion = $.number(Cookies.get("track_inversion"));
-       discount = Cookies.get("cupon_amount");
-       total_a_pagar = inversion - discount;
-       $("#cupon_amount").val(discount);
-       $("#discount").text("$"+$.number(discount, 2, '.',','));
-       }         
-       } 
-
-       if(typeof Cookies.get("balance") !== "undefined"){
-       $("#balance_value").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
-       $("#tx_balance_used").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
-       $("#text_cupon").show();
-       $("#paid_with_balance").val($.number(Cookies.get("balance"), 2, '.',','));
-       total_a_pagar = total_a_pagar - Cookies.get("balance");
-       }
-
-
-
-       $("#total_amount").text("$" + $.number(total_a_pagar, 2, '.',','));
-
-       if(typeof Cookies.get("track_img") !== "undefined"){
-       $("#track-img").attr('src',Cookies.get('track_img'));
-       }
-
-       if(typeof Cookies.get("track_id") !== "undefined"){
-       $("#id_track").val(Cookies.get('track_id'));
-       }
-
-       if(typeof Cookies.get("track_name") !== "undefined"){
-       $("#track-name").text(Cookies.get('track_name'));
-       }
-
-       if(typeof Cookies.get("track_inversion") !== "undefined"){
-       $("#inversion").val(Cookies.get('track_inversion'));
-       }
-       if(typeof Cookies.get("track_generos") !== "undefined"){
-       $("#generos").val(JSON.parse(Cookies.get('track_generos')).toString());
-       }
-       if(typeof Cookies.get("track_date") !== "undefined"){
-       $("#date").val(Cookies.get('track_date'));
-       }
-       if(typeof Cookies.get("track_artist") !== "undefined"){
-       $("#track-artist").text(Cookies.get('track_artist'));
-       }
-
-       if(typeof Cookies.get("track_reach") !== "undefined"){
-       $("#track-reach").text(Cookies.get('track_reach'));
-       }
-       if(typeof Cookies.get("track_streams") !== "undefined"){
-       $("#track-streams").text(Cookies.get('track_streams'));
-       }
-       if(typeof Cookies.get("track_stream_porcent") !== "undefined"){ 
-       $("#stream_p").css('width',Cookies.get('track_stream_porcent'));
-       }
-       if(typeof Cookies.get("track_reach_porcent") !== "undefined"){
-       $("#reach_p").css('width',Cookies.get('track_reach_porcent'));
-       } 
-       if(typeof Cookies.get("track_generos") !== "undefined"){
-       generos = Cookies.get("track_generos"); 
-       generos = JSON.parse(generos);
-       generos_tags = "";
-       $.each( generos, function( key, value ) {
-       genero_text = value.split("_");
-       generos_tags = generos_tags + '<span class="text-capitalize badge bg-primary-soft fw-bold ms-2">'+ genero_text[1] +'</span>'; 
-       });
-       $("#track-generos").html(generos_tags);  
-       }  
-       }  
-       $("#btn-continue").click(function(){
-       $("#form-campaign").submit();
-       }); 
-    </script> 
-
-    <script>
-       // GESTION DE PAGOS
-       $("#btnPayWithBalance").click(function(){
-       if($("#input_balance").val() ==""){return 0;} 
-       if($("#cupon_amount").val()==""){$("#cupon_amount").val(0);} 
-
-       if(parseFloat($("#input_balance").val()) < (inversion - parseFloat($("#cupon_amount").val()))){
-          Cookies.set("balance",$("#input_balance").val());
-          $("#balance_value").text("$" + $.number($("#input_balance").val(), 2, '.',','));
-          loadInfo(); 
-       }
-
-       if(parseFloat($("#input_balance").val()) >= (inversion - parseFloat($("#cupon_amount").val()))){   
-          if (confirm("Esta seguro que desea pagar este campaign con su balance?") == true) {
-             $("#paid_with_balance").val($("#input_balance").val());
-             $("#payment_type").val("balance");
-             $("#form-campaign").submit();
-          } 
-       }
-       getCs();
-       });  
-    </script>
-
-    <script> 
-      const pk = "pk_test_51IcHMdLBCvwwtaP2SeTJ9ylRkneOvXmXUZ1D4nbtR4v1izKxWLSHuO9sQfKDqT5V9f4lTPc3YX8t6fCLWlerCf8h00ycAH0Vyo";
-      const stripe = Stripe(pk); 
-      let elements; 
-      let paymentElement;
-
-      $(document).ready(function(){
-         getCs();
-      });
-
-      function getCs() { 
-
-         cupon_amount = $("#cupon_amount").val();
-         inversion = $("#inversion").val();
-         paid_with_balance = $("#paid_with_balance").val();
-         total = inversion - cupon_amount - paid_with_balance;
-
-         var form = new FormData();
-         form.append("monto", total);
-
-         var settings = {
-            "url": "<?= Request::root();?>/clientSecret",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {},
-            "processData": false,
-            "mimeType": "multipart/form-data",
-            "contentType": false,
-            "data": form
-         };
-
-          $.ajax(settings).done(function (response) {
-            response = jQuery.parseJSON(response);   
-            $("#clientSecret").val(response.clientSecret);
-            renderPaymentForm();
-         }); 
-      }
-
-      function renderPaymentForm(){
-
-         if($("#clientSecret").val()==""){
-            alert("Ocurrio un error al cargar el formulario.");
-         }
-         else{   
-            elements = stripe.elements({clientSecret: $("#clientSecret").val()});  
-            paymentElement = elements.create('payment'); 
-            paymentElement.mount("#payment-element");   
-         }
-      }
-
-      document.querySelector("#payment-form").addEventListener('submit', async (event) => {
-
-        stripe.confirmPayment({
-          elements,
-          confirmParams: {
-            return_url: '<?= Request::root();?>/paymentVerify', 
-          },
-        }).then(function(result) {
-          if (result.error) { 
-            alert("error");
-          }
+    $(document).ready(function () {
+      loadInfo();
+      if ($(window).width() >= 992) {
+        $("html,.scroll").niceScroll({
+          cursorcolor:"#ddd"
         });
-      });
+      }
+      else{
+
+      }     
+    }); 
+     
+    <?php if (count($data->balance)>0): ?>
+    <?php if ($data->balance[0]->balance == ""): ?>
+    Cookies.remove("balance");
+    <?php endif ?> 
+    <?php endif ?>
+
+    
+    total_a_pagar = 0; 
+    function loadInfo() {
+   
+
+    if(typeof Cookies.get("track_date") !== "undefined"){
+    $("#start_date").html('<i class="fe fe-calendar"></i>'+Cookies.get("track_date")+'</span>'); 
+    }
+    inversion = 0;
+    if(typeof Cookies.get("track_inversion") !== "undefined"){
+    $("#sub_total").text("$"+$.number(Cookies.get("track_inversion"), 2, '.',','));
+    total_a_pagar =  Cookies.get("track_inversion");
+    inversion =  Cookies.get("track_inversion"); 
+    } 
+
+    if(typeof Cookies.get("cupon_code") !== "undefined"){
+    $("#start_date,#cupon_code").val(Cookies.get("cupon_code"));
+
+    if(typeof Cookies.get("cupon_percent") !== "undefined" && Cookies.get("cupon_percent") !=0){
+    inversion = $.number(Cookies.get("track_inversion"));
+    discount = Cookies.get("cupon_percent");
+    discount = inversion * (discount / 100);
+    total_a_pagar = inversion - discount;
+    $("#cupon_amount").val(discount);
+    $("#discount").text("$"+$.number(discount, 2, '.',','));
+
+    }
+    else if(typeof Cookies.get("cupon_amount") !== "undefined" && Cookies.get("cupon_amount") !=0){
+    inversion = $.number(Cookies.get("track_inversion"));
+    discount = Cookies.get("cupon_amount");
+    total_a_pagar = inversion - discount;
+    $("#cupon_amount").val(discount);
+    $("#discount").text("$"+$.number(discount, 2, '.',','));
+    }         
+    } 
+
+    if(typeof Cookies.get("balance") !== "undefined"){
+    $("#balance_value").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
+    $("#tx_balance_used").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
+    $("#text_cupon").show();
+    $("#paid_with_balance").val($.number(Cookies.get("balance"), 2, '.',','));
+    total_a_pagar = total_a_pagar - Cookies.get("balance");
+    }
+
+
+
+    $("#total_amount").text("$" + $.number(total_a_pagar, 2, '.',','));
+
+    if(typeof Cookies.get("track_img") !== "undefined"){
+    $("#track-img").attr('src',Cookies.get('track_img'));
+    }
+
+    if(typeof Cookies.get("track_id") !== "undefined"){
+    $("#id_track").val(Cookies.get('track_id'));
+    }
+
+    if(typeof Cookies.get("track_name") !== "undefined"){
+    $("#track-name").text(Cookies.get('track_name'));
+    }
+
+    if(typeof Cookies.get("track_inversion") !== "undefined"){
+    $("#inversion").val(Cookies.get('track_inversion'));
+    }
+    if(typeof Cookies.get("track_generos") !== "undefined"){
+    $("#generos").val(JSON.parse(Cookies.get('track_generos')).toString());
+    }
+    if(typeof Cookies.get("track_date") !== "undefined"){
+    $("#date").val(Cookies.get('track_date'));
+    }
+    if(typeof Cookies.get("track_artist") !== "undefined"){
+    $("#track-artist").text(Cookies.get('track_artist'));
+    }
+
+    if(typeof Cookies.get("track_reach") !== "undefined"){
+    $("#track-reach").text(Cookies.get('track_reach'));
+    }
+    if(typeof Cookies.get("track_streams") !== "undefined"){
+    $("#track-streams").text(Cookies.get('track_streams'));
+    }
+    if(typeof Cookies.get("track_stream_porcent") !== "undefined"){ 
+    $("#stream_p").css('width',Cookies.get('track_stream_porcent'));
+    }
+    if(typeof Cookies.get("track_reach_porcent") !== "undefined"){
+    $("#reach_p").css('width',Cookies.get('track_reach_porcent'));
+    } 
+    if(typeof Cookies.get("track_generos") !== "undefined"){
+    generos = Cookies.get("track_generos"); 
+    generos = JSON.parse(generos);
+    generos_tags = "";
+    $.each( generos, function( key, value ) {
+    genero_text = value.split("_");
+    generos_tags = generos_tags + '<span class="text-capitalize badge bg-primary-soft fw-bold ms-2">'+ genero_text[1] +'</span>'; 
+    });
+    $("#track-generos").html(generos_tags);  
+    }
+     initialize();  
+    } 
+
+    $("#btn-continue").click(function(){
+    $("#form-campaign").submit();
+    }); 
+    </script> 
+    <script>
+    // GESTION DE PAGOS
+    $("#btnPayWithBalance").click(function(){
+    if($("#input_balance").val() ==""){return 0;} 
+    if($("#cupon_amount").val()==""){$("#cupon_amount").val(0);} 
+
+    if(parseFloat($("#input_balance").val()) < (inversion - parseFloat($("#cupon_amount").val()))){
+    Cookies.set("balance",$("#input_balance").val());
+    $("#balance_value").text("$" + $.number($("#input_balance").val(), 2, '.',','));
+    loadInfo(); 
+    }
+
+    if(parseFloat($("#input_balance").val()) >= (inversion - parseFloat($("#cupon_amount").val()))){   
+    if (confirm("Esta seguro que desea pagar este campaign con su balance?") == true) {
+    $("#paid_with_balance").val($("#input_balance").val());
+    $("#payment_type").val("balance");
+    $("#form-campaign").submit();
+    } 
+    }
+    }); 
+   
     </script>
 
+    <script> 
+      const cs = "pk_test_51IcHMdLBCvwwtaP2SeTJ9ylRkneOvXmXUZ1D4nbtR4v1izKxWLSHuO9sQfKDqT5V9f4lTPc3YX8t6fCLWlerCf8h00ycAH0Vyo";
+      const stripe = Stripe(cs);
+
+      
+      // The items the customer wants to buy
+      let elements; 
+      checkStatus();
+
+      document.querySelector("#payment-form").addEventListener("submit", handleSubmit);
+
+      async function initialize() {
+          const items = [{inversion: total_a_pagar}]; 
+          const {
+              clientSecret
+          } = await fetch("<?= Request::root();?>/test_stripe", {
+              method: "POST",
+              headers: {
+                'Accept': 'application/json',
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  items
+              }),
+          }).then((r) => r.json());
+
+          elements = stripe.elements({
+              clientSecret
+          });
+
+          const paymentElement = elements.create("payment");
+          paymentElement.mount("#payment-element");
+      }
+
+      async function handleSubmit(e) {
+          e.preventDefault();
+          setLoading(true);
+
+          const {
+              error
+          } = await stripe.confirmPayment({
+              elements,
+              confirmParams: {
+                  return_url: "<?= Request::root();?>/paymentVerify",
+              },
+          });
+
+          if (error.type === "card_error" || error.type === "validation_error") {
+              showMessage(error.message);
+          } else {
+              showMessage("An unexpected error occured.");
+          }
+
+          setLoading(false);
+      }
+
+      // Fetches the payment intent status after payment submission
+      async function checkStatus() {
+          const clientSecret = new URLSearchParams(window.location.search).get(
+              "payment_intent_client_secret"
+          );
+
+          if (!clientSecret) {
+              return;
+          }
+
+          const {
+              paymentIntent
+          } = await stripe.retrievePaymentIntent(clientSecret);
+
+          switch (paymentIntent.status) {
+              case "succeeded":
+                  showMessage("Payment succeeded!");
+                  break;
+              case "processing":
+                  showMessage("Your payment is processing.");
+                  break;
+              case "requires_payment_method":
+                  showMessage("Your payment was not successful, please try again.");
+                  break;
+              default:
+                  showMessage("Something went wrong.");
+                  break;
+          }
+      }
+
+      // ------- UI helpers -------
+
+      function showMessage(messageText) {
+          const messageContainer = document.querySelector("#payment-message");
+
+          messageContainer.classList.remove("hidden");
+          messageContainer.textContent = messageText;
+
+          setTimeout(function() {
+              messageContainer.classList.add("hidden");
+              messageText.textContent = "";
+          }, 4000);
+      }
+
+      // Show a spinner on payment submission
+      function setLoading(isLoading) {
+          if (isLoading) {
+              // Disable the button and show a spinner
+              document.querySelector("#submit").disabled = true;
+              document.querySelector("#spinner").classList.remove("hidden");
+              document.querySelector("#button-text").classList.add("hidden");
+          } else {
+              document.querySelector("#submit").disabled = false;
+              document.querySelector("#spinner").classList.add("hidden");
+              document.querySelector("#button-text").classList.remove("hidden");
+          }
+      }
+    </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
     <script>
