@@ -266,14 +266,16 @@
 
             $("#btn-add-song").click(function(){
                 $("#search-box").show();
-                 $("#search-box-2").show();
+                $("#search-box-2").show();
                 $("#track-selected").hide();
+                $("html").getNiceScroll().resize();
             });
 
             $(".select-track").click(function(){
                 $("#search-box").hide();
                 $("#search-box-2").hide();
                 $("#track-selected").show();
+                $("html").getNiceScroll().resize();
             });
         </script>
 
