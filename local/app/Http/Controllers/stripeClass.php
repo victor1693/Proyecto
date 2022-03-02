@@ -11,14 +11,16 @@ class stripeClass extends Controller
 	public $customer;
 	public $monto;	
     public $email;
-    # CREAR UN CUSTOMER ID PARA STRIPE
-    # CREAMOS UN PAYMENT INTENT
-    # VERIFICAMOS UN PAGO   
- 
+    private $privateKey; 
+
+    function __construct()
+     {
+         $this->privateKey = "sk_test_51IcHMdLBCvwwtaP25ICF7loGqL9DcPwMKBAEQFTnl6PiGtkhqJLTbND3jxleJ3GB3qO89AXVI1XlC0bapXi7tY8700E3kbe8kW";
+     } 
 
     public function PaymentIntent()
     { 
-    	Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+    	Stripe\Stripe::setApiKey($this->privateKey);
         $paymentIntent = Stripe\PaymentIntent::create ([
         		'amount' => $this->monto,
                 'currency' => 'usd',
@@ -39,8 +41,8 @@ class stripeClass extends Controller
     	else if ($_GET['payment_intent'] == "") {
     		return Redirect()->back()->with('info','Es necesario que coloque el PI');
     	}
-
-    	Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+     
+    	Stripe\Stripe::setApiKey($this->privateKey);
         $paymentIntent = Stripe\paymentIntent::retrieve ($_GET['payment_intent'],[]);
         
         if(!$paymentIntent->status == "succeeded"){
