@@ -409,7 +409,7 @@
                 var x = document.getElementById('flag_inversion').value;
                 $('#campaign_reach').attr('value',''); 
                 $('#campaign_reach').attr('value',x); 
-                console.log(a);
+                console.log(x);
             });
 
         </script>
