@@ -21,7 +21,7 @@ class stripeClass extends Controller
     public function PaymentIntent()
     { 
     	Stripe\Stripe::setApiKey($this->privateKey);
-        $paymentIntent = Stripe\PaymentIntent::create ([
+        $paymentIntent = Stripe\PaymentIntent::create([
         		'amount' => $this->monto,
                 'currency' => 'usd',
 		        'customer' => session()->get('customer_id'), 
@@ -35,7 +35,8 @@ class stripeClass extends Controller
 
     public function PaymentIntentVerify()
     {
-    	if (!$_GET['payment_intent']) {
+         
+    	if (!(isset($_GET['payment_intent']))) {
     		return Redirect()->back()->with('info','Es necesario que coloque el PI');
     	}
     	else if ($_GET['payment_intent'] == "") {
@@ -43,7 +44,7 @@ class stripeClass extends Controller
     	}
      
     	Stripe\Stripe::setApiKey($this->privateKey);
-        $paymentIntent = Stripe\paymentIntent::retrieve ($_GET['payment_intent'],[]);
+        $paymentIntent = Stripe\PaymentIntent::retrieve($_GET['payment_intent'],[]);
         
         if(!$paymentIntent->status == "succeeded"){
         	return Redirect()->back()->with('info','Ocurrio un error al procesar el pago.'); 
