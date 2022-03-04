@@ -109,8 +109,17 @@
                                 <h4 class="card-header-title mb-2">
                                     Budget
                                 </h4>
-                                <span><i class="fe fe-dollar-sign"></i></span><input class="form-input h1 mb-1" id="flag_inversion" value="<?= number_format(50, 2, ',', ' ');?>" style="border: none;">
-                                </input>
+                                <div class="input-group input-group-merge">
+                                    <span><i class="fe fe-dollar-sign"></i></span>
+                                    <input class="form-input h1 mb-1" id="flag_inversion" value="<?= number_format(50, 2, ',', ' ');?>" style="background: none; color: inherit; border: none; padding: 0; outline: inherit; width:20%">
+                                        <span class="input-group-text">
+                                            <button type="button" style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;" onclick="">
+                                                <i class="fe fe-info">
+                                            </i>
+                                            </button>
+                                        </span>
+                                    </input>
+                                </div>
                                 <input value="49" id="campaign_reach" style="cursor: pointer;width: 100%" name="inversion" class="mb-4 form-control-range" type="range" value="0" max="1300" min="49" step="1">
                                 </input>
                                 
@@ -400,17 +409,33 @@
 
             $('#campaign_reach').change(function(){
                 var x = document.getElementById('campaign_reach').value;
-                $('#flag_inversion').attr('value','');
-                $('#flag_inversion').attr('value',x); 
+                document.getElementById('flag_inversion').value = x;
                 console.log(x);
             });
 
             $('#flag_inversion').change(function(){
                 var x = document.getElementById('flag_inversion').value;
-                $('#campaign_reach').attr('value',''); 
-                $('#campaign_reach').attr('value',x); 
+                document.getElementById('campaign_reach').value = x;
                 console.log(x);
             });
+
+            /*
+            $("#campaign_reach").bind("keyup keydown change", function(){
+
+                var x = document.getElementById('campaign_reach').value;
+                $('#flag_inversion').attr('value','');
+                $('#flag_inversion').attr('value',x); 
+
+            });
+
+            $("#flag_inversion").bind("keyup keydown change", function(){
+
+                var x = document.getElementById('flag_inversion').value;
+                $('#campaign_reach').attr('value',''); 
+                $('#campaign_reach').attr('value',x); 
+
+            });
+            */
 
         </script>
     </body>
