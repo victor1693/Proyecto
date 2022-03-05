@@ -47,6 +47,24 @@
             .new-secundary{
                 color: #bababa;
             }
+
+            .budget-initial{
+                background: none; 
+                color: inherit; 
+                border: none; 
+                padding: 0; 
+                outline: inherit;
+                cursor: context-menu;
+            }
+
+            .budget-focus{
+                background: none; 
+                color: inherit;
+                padding: 0; 
+                outline: inherit;
+                border: 1px solid gray;
+                border-radius: 15px;
+            }
  
         </style>
         <title>
@@ -109,17 +127,20 @@
                                 <h4 class="card-header-title mb-2">
                                     Budget
                                 </h4>
-                                <div class="input-group input-group-merge">
-                                    <span><i class="fe fe-dollar-sign"></i></span>
-                                    <input class="form-input h1 mb-1" id="flag_inversion" value="<?= number_format(50, 2, ',', ' ');?>" style="background: none; color: inherit; border: none; padding: 0; outline: inherit; width:20%">
-                                        <span class="input-group-text">
-                                            <button type="button" style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;" onclick="">
-                                                <i class="fe fe-info">
-                                            </i>
+                                <div class="input-group input-group-merge" style="float:left;">
+                                    <span style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit; align-items:center;"><i class="fe fe-dollar-sign"></i></span>
+                                    <input class="form-input h1 mb-1 budget-initial" id="flag_inversion" value="<?= number_format(50, 2, ',', ' ');?>" 
+                                    style="width:17%;"
+                                    onfocus="budgetFocus()">
+                                        <span class="input-group-text" style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;">
+                                            <button type="button" class="btn" style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;" onclick="changeBudget()">
+                                                <i class="fe fe-edit-2">
+                                                </i>
                                             </button>
                                         </span>
                                     </input>
                                 </div>
+                                
                                 <input value="49" id="campaign_reach" style="cursor: pointer;width: 100%" name="inversion" class="mb-4 form-control-range" type="range" value="0" max="1300" min="49" step="1">
                                 </input>
                                 
@@ -407,35 +428,44 @@
                 }   
             }
 
+            //CÓDIGO PARA EL BUDGET BAR Y BUDGET INPUT
+
+            var x_global = 1;
+
             $('#campaign_reach').change(function(){
                 var x = document.getElementById('campaign_reach').value;
                 document.getElementById('flag_inversion').value = x;
                 console.log(x);
+                x_global = 1;
+                $('#flag_inversion').removeClass('budget-focus');
+                $('#flag_inversion').addClass('budget-initial')
             });
 
             $('#flag_inversion').change(function(){
                 var x = document.getElementById('flag_inversion').value;
                 document.getElementById('campaign_reach').value = x;
                 console.log(x);
+                x_global = 1;
+                $('#flag_inversion').removeClass('budget-focus');
+                $('#flag_inversion').addClass('budget-initial')
             });
 
-            /*
-            $("#campaign_reach").bind("keyup keydown change", function(){
+            function budgetFocus(){
+                if(x_global==1){
+                    $('#flag_inversion').blur()
+                }
+                else{
+                    $('#flag_inversion').focus()
+                }
+            }
 
-                var x = document.getElementById('campaign_reach').value;
-                $('#flag_inversion').attr('value','');
-                $('#flag_inversion').attr('value',x); 
-
-            });
-
-            $("#flag_inversion").bind("keyup keydown change", function(){
-
-                var x = document.getElementById('flag_inversion').value;
-                $('#campaign_reach').attr('value',''); 
-                $('#campaign_reach').attr('value',x); 
-
-            });
-            */
+            function changeBudget(){
+                x_global=0;
+                $('#flag_inversion').removeClass('budget-initial');
+                $('#flag_inversion').addClass('budget-focus')
+                $('#flag_inversion').focus()
+                
+            }
 
         </script>
     </body>
