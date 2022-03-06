@@ -72,8 +72,8 @@
                 padding: 0; 
                 outline: inherit;
                 margin-top: -2px;
-                border: 1px solid rgb(244, 123, 130);
-                color:rgb(244, 123, 130);
+                border: 1px solid rgb(220, 53, 69);
+                color:rgb(220, 53, 69);
             }
 
             .form-control-range{
@@ -464,6 +464,31 @@
                 document.getElementById('campaign_reach').value = x;
                 budgetRange(x);
             });
+
+            input.oninput = function(){
+                if(this.value>=49&&this.value<=1300){
+                    input.style.color = 'rgb(40, 167, 69)';
+                    input.style.borderColor = 'rgb(40, 167, 69)';
+                }
+                else{
+                    input.style.color = 'rgb(220, 53, 69)';
+                    input.style.borderColor = 'rgb(220, 53, 69)';
+                }
+            }
+            input.onchange = function(){
+                if(this.value>=49&&this.value<=1300){
+                    input.style.color = 'black';
+                    input.style.borderColor = 'black';
+                }
+                else{
+                    input.style.color = 'rgb(220, 53, 69)';
+                    input.style.borderColor = 'rgb(220, 53, 69)';
+                }
+            }
+            input.onfocus = function(){
+                input.style.color = 'rgb(51, 94, 234)';
+                input.style.borderColor = 'rgb(51, 94, 234)';
+            }
 
             //Función para determinar si el input tendrá focus o no
             function budgetFocus(){
