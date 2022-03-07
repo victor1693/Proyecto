@@ -145,7 +145,7 @@
                                 <div class="input-group input-group-merge" style="">
                                     <div class="py-1 px-0" style="background: none; color: inherit; border: none; font: inherit; outline: inherit;"><i class="fe fe-dollar-sign"></i></div>
                                     <input class="form-input h1 px-1 mx-1 mb-1 budget-initial" id="flag_inversion" value="<?= number_format(49, 0, ',', ' ');?>" 
-                                    style="width:17%; border-radius:5px"
+                                    style="width:12%; border-radius:5px"
                                     onfocus="budgetFocus()">
                                     <span class="input-group-text" style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;">
                                         <button type="button" class="btn" style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;" onclick="changeBudget()">
