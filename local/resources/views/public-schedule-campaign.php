@@ -181,7 +181,7 @@
                                 </a>
                             </div>
                             <div class="col-6" style="text-align: right;">
-                                <a class="btn btn-primary" href="public-details-campaign.php" style="width: 120px;">
+                                <a class="btn btn-primary" id="continue-public" href="public-details-campaign.php" style="width: 120px;">
                                     Continue
                                 </a>
                             </div>
@@ -299,7 +299,7 @@
                     $('#flag_inversion').removeClass('budget-focus');
                     $('#flag_inversion').removeClass('budget-error');
                     $('#flag_inversion').addClass('budget-initial');
-                    $('#continue').removeClass('disabled');
+                    $('#continue-public').removeClass('disabled');
                     $("html").getNiceScroll().resize();
                 }
                 else{
@@ -307,7 +307,7 @@
                     $('#flag_inversion').removeClass('budget-initial');
                     $('#flag_inversion').removeClass('budget-focus');
                     $('#flag_inversion').addClass('budget-error');
-                    $('#continue').addClass('disabled');
+                    $('#continue-public').addClass('disabled');
                     $("html").getNiceScroll().resize();
                 }
             }
@@ -404,7 +404,7 @@
                         $('#flag_inversion').removeClass('budget-focus');
                         $('#flag_inversion').removeClass('budget-error');
                         $('#flag_inversion').addClass('budget-initial');
-                        $('#continue').removeClass('disabled');
+                        $('#continue-public').removeClass('disabled');
                         $("html").getNiceScroll().resize();
                     }
                     else{
@@ -412,7 +412,7 @@
                         $('#flag_inversion').removeClass('budget-initial');
                         $('#flag_inversion').removeClass('budget-focus');
                         $('#flag_inversion').addClass('budget-error');
-                        $('#continue').addClass('disabled');
+                        $('#continue-public').addClass('disabled');
                         $("html").getNiceScroll().resize();
                     }
                 }
