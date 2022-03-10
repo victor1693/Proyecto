@@ -432,22 +432,25 @@
                </div>
             </div>
          </div>
-         <form id="form-campaign" method="POST" action="<?= Request::root();?>/create-campaign">
-            <input type="hidden" name="payment_flag" id="payment_flag">
-            <input type="hidden" name="track_id" id="id_track">
+         <form id="form-campaign" method="get" action="<?= Request::root();?>/pay">
             
-            <input type="hidden" name="payment_type" id="payment_type">
+            <input type="hidden" name="id_track" id="id_track"> 
             <input type="hidden" name="start_date" id="date">
-            <input type="hidden" name="generos" id="generos">
-            <input type="hidden" name="payment_status" id="payment_status">
-
-
-            <input type="hidden" name="cupon_code" id="cupon_code" value="">
-            <input type="hidden" name="cupon_amount" id="cupon_amount" value="0">
-            <input type="hidden" name="payment_amount" id="inversion" value="0">
+            <input type="hidden" name="generos" id="generos">   
             <input type="hidden" name="balance" id="paid_with_balance" value="0">
+            <input type="hidden" name="discount" id="cupon_code" value="">
+            <input type="hidden" name="card_amount" id="card_amount">
 
+            <input type="hidden" name="k_card" id="k_card">
+            <input type="hidden" name="k_balance" id="k_balance"> 
+            <input type="hidden" name="k_discount" id="k_discount">
+
+
+
+            <input type="hidden" name="cupon_amount" id="cupon_amount" value="0">
+            <input type="hidden" name="payment_amount" id="inversion" value="0"> 
             <input type="hidden" name="clientSecret" id="clientSecret">
+
          </form>
       </div>
     
@@ -464,17 +467,16 @@
    <script>
       $("html,.scroll").niceScroll({
          cursorcolor:"#ddd"
+      }); 
+
+      $("#delete-balance").click(function(){
+        $("#text_cupon").hide();
+        $("#tx_balance_used").text("");
+        $("#paid_with_balance").val("");
+        Cookies.remove("balance");
+        loadInfo();
+        getCs();
       });
-   </script>
-  
-    <script> 
-       $("#delete-balance").click(function(){
-       $("#text_cupon").hide();
-       $("#tx_balance_used").text("");
-       $("#paid_with_balance").val("");
-       Cookies.remove("balance");
-       loadInfo();
-       });
 
        $(document).ready(function () {
          loadInfo();
@@ -482,140 +484,137 @@
            $("html,.scroll").niceScroll({
              cursorcolor:"#ddd"
            });
-         }
-         else{
-
-         }     
+         }  
        }); 
         
        <?php if (count($data->balance)>0): ?>
-       <?php if ($data->balance[0]->balance == ""): ?>
-       Cookies.remove("balance");
-       <?php endif ?> 
+          <?php if ($data->balance[0]->balance == ""): ?>
+            Cookies.remove("balance");
+          <?php endif ?> 
        <?php endif ?>
 
        
-       total_a_pagar = 0; 
-       function loadInfo() {
-      
+       total_a_pagar = 0;
 
-       if(typeof Cookies.get("track_date") !== "undefined"){
-       $("#start_date").html('<i class="fe fe-calendar"></i>'+Cookies.get("track_date")+'</span>'); 
-       }
-       inversion = 0;
-       if(typeof Cookies.get("track_inversion") !== "undefined"){
-       $("#sub_total").text("$"+$.number(Cookies.get("track_inversion"), 2, '.',','));
-       total_a_pagar =  Cookies.get("track_inversion");
-       inversion =  Cookies.get("track_inversion"); 
-       } 
+      function loadInfo() {
 
-       if(typeof Cookies.get("cupon_code") !== "undefined"){
-       $("#start_date,#cupon_code").val(Cookies.get("cupon_code"));
+          if (typeof Cookies.get("track_date") !== "undefined") {
+              $("#start_date").html('<i class="fe fe-calendar"></i>' + Cookies.get("track_date") + '</span>');
+          }
+          inversion = 0;
+          if (typeof Cookies.get("track_inversion") !== "undefined") {
+              $("#sub_total").text("$" + $.number(Cookies.get("track_inversion"), 2, '.', ','));
+              total_a_pagar = Cookies.get("track_inversion");
+              inversion = Cookies.get("track_inversion");
+          }
 
-       if(typeof Cookies.get("cupon_percent") !== "undefined" && Cookies.get("cupon_percent") !=0){
-       inversion = $.number(Cookies.get("track_inversion"));
-       discount = Cookies.get("cupon_percent");
-       discount = inversion * (discount / 100);
-       total_a_pagar = inversion - discount;
-       $("#cupon_amount").val(discount);
-       $("#discount").text("$"+$.number(discount, 2, '.',','));
+          if (typeof Cookies.get("cupon_code") !== "undefined") {
+              $("#start_date,#cupon_code").val(Cookies.get("cupon_code"));
+              $("#k_discount").val("true");
+              if (typeof Cookies.get("cupon_percent") !== "undefined" && Cookies.get("cupon_percent") != 0) {
+                  inversion = $.number(Cookies.get("track_inversion"));
+                  discount = Cookies.get("cupon_percent");
+                  discount = inversion * (discount / 100);
+                  total_a_pagar = inversion - discount;
+                  $("#cupon_amount").val(discount);
+                  $("#discount").text("$" + $.number(discount, 2, '.', ','));
 
-       }
-       else if(typeof Cookies.get("cupon_amount") !== "undefined" && Cookies.get("cupon_amount") !=0){
-       inversion = $.number(Cookies.get("track_inversion"));
-       discount = Cookies.get("cupon_amount");
-       total_a_pagar = inversion - discount;
-       $("#cupon_amount").val(discount);
-       $("#discount").text("$"+$.number(discount, 2, '.',','));
-       }         
-       } 
+              } else if (typeof Cookies.get("cupon_amount") !== "undefined" && Cookies.get("cupon_amount") != 0) {
+                  inversion = $.number(Cookies.get("track_inversion"));
+                  discount = Cookies.get("cupon_amount");
+                  total_a_pagar = inversion - discount;
+                  $("#cupon_amount").val(discount);
+                  $("#discount").text("$" + $.number(discount, 2, '.', ','));
+              }
+          }
 
-       if(typeof Cookies.get("balance") !== "undefined"){
-       $("#balance_value").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
-       $("#tx_balance_used").text("$" + $.number(Cookies.get("balance"), 2, '.',','));
-       $("#text_cupon").show();
-       $("#paid_with_balance").val($.number(Cookies.get("balance"), 2, '.',','));
-       total_a_pagar = total_a_pagar - Cookies.get("balance");
-       }
+          if (typeof Cookies.get("balance") !== "undefined") {
+              $("#k_balance").val("true");
+              $("#balance_value").text("$" + $.number(Cookies.get("balance"), 2, '.', ','));
+              $("#tx_balance_used").text("$" + $.number(Cookies.get("balance"), 2, '.', ','));
+              $("#text_cupon").show();
+              $("#paid_with_balance").val($.number(Cookies.get("balance"), 2, '.', ','));
+              total_a_pagar = total_a_pagar - Cookies.get("balance");
+          }
 
 
 
-       $("#total_amount").text("$" + $.number(total_a_pagar, 2, '.',','));
+          $("#total_amount").text("$" + $.number(total_a_pagar, 2, '.', ','));
 
-       if(typeof Cookies.get("track_img") !== "undefined"){
-       $("#track-img").attr('src',Cookies.get('track_img'));
-       }
+          if (typeof Cookies.get("track_img") !== "undefined") {
+              $("#track-img").attr('src', Cookies.get('track_img'));
+          }
 
-       if(typeof Cookies.get("track_id") !== "undefined"){
-       $("#id_track").val(Cookies.get('track_id'));
-       }
+          if (typeof Cookies.get("track_id") !== "undefined") {
+              $("#id_track").val(Cookies.get('track_id'));
+          }
 
-       if(typeof Cookies.get("track_name") !== "undefined"){
-       $("#track-name").text(Cookies.get('track_name'));
-       }
+          if (typeof Cookies.get("track_name") !== "undefined") {
+              $("#track-name").text(Cookies.get('track_name'));
+          }
 
-       if(typeof Cookies.get("track_inversion") !== "undefined"){
-       $("#inversion").val(Cookies.get('track_inversion'));
-       }
-       if(typeof Cookies.get("track_generos") !== "undefined"){
-       $("#generos").val(JSON.parse(Cookies.get('track_generos')).toString());
-       }
-       if(typeof Cookies.get("track_date") !== "undefined"){
-       $("#date").val(Cookies.get('track_date'));
-       }
-       if(typeof Cookies.get("track_artist") !== "undefined"){
-       $("#track-artist").text(Cookies.get('track_artist'));
-       }
+          if (typeof Cookies.get("track_inversion") !== "undefined") {
+              $("#inversion").val(Cookies.get('track_inversion'));
+          }
+          if (typeof Cookies.get("track_generos") !== "undefined") {
+              $("#generos").val(JSON.parse(Cookies.get('track_generos')).toString());
+          }
+          if (typeof Cookies.get("track_date") !== "undefined") {
+              $("#date").val(Cookies.get('track_date'));
+          }
+          if (typeof Cookies.get("track_artist") !== "undefined") {
+              $("#track-artist").text(Cookies.get('track_artist'));
+          }
 
-       if(typeof Cookies.get("track_reach") !== "undefined"){
-       $("#track-reach").text(Cookies.get('track_reach'));
-       }
-       if(typeof Cookies.get("track_streams") !== "undefined"){
-       $("#track-streams").text(Cookies.get('track_streams'));
-       }
-       if(typeof Cookies.get("track_stream_porcent") !== "undefined"){ 
-       $("#stream_p").css('width',Cookies.get('track_stream_porcent'));
-       }
-       if(typeof Cookies.get("track_reach_porcent") !== "undefined"){
-       $("#reach_p").css('width',Cookies.get('track_reach_porcent'));
-       } 
-       if(typeof Cookies.get("track_generos") !== "undefined"){
-       generos = Cookies.get("track_generos"); 
-       generos = JSON.parse(generos);
-       generos_tags = "";
-       $.each( generos, function( key, value ) {
-       genero_text = value.split("_");
-       generos_tags = generos_tags + '<span class="text-capitalize badge bg-primary-soft fw-bold ms-2">'+ genero_text[1] +'</span>'; 
-       });
-       $("#track-generos").html(generos_tags);  
-       }  
-       }  
-       $("#btn-continue").click(function(){
-       $("#form-campaign").submit();
-       }); 
-    </script> 
+          if (typeof Cookies.get("track_reach") !== "undefined") {
+              $("#track-reach").text(Cookies.get('track_reach'));
+          }
+          if (typeof Cookies.get("track_streams") !== "undefined") {
+              $("#track-streams").text(Cookies.get('track_streams'));
+          }
+          if (typeof Cookies.get("track_stream_porcent") !== "undefined") {
+              $("#stream_p").css('width', Cookies.get('track_stream_porcent'));
+          }
+          if (typeof Cookies.get("track_reach_porcent") !== "undefined") {
+              $("#reach_p").css('width', Cookies.get('track_reach_porcent'));
+          }
+          if (typeof Cookies.get("track_generos") !== "undefined") {
+              generos = Cookies.get("track_generos");
+              generos = JSON.parse(generos);
+              generos_tags = "";
+              $.each(generos, function(key, value) {
+                  genero_text = value.split("_");
+                  generos_tags = generos_tags + '<span class="text-capitalize badge bg-primary-soft fw-bold ms-2">' + genero_text[1] + '</span>';
+              });
+              $("#track-generos").html(generos_tags);
+          }
+      }
 
-    <script>
-       // GESTION DE PAGOS
-       $("#btnPayWithBalance").click(function(){
-       if($("#input_balance").val() ==""){return 0;} 
-       if($("#cupon_amount").val()==""){$("#cupon_amount").val(0);} 
+      // GESTION DE PAGOS
+      $("#btnPayWithBalance").click(function() {
+          if ($("#input_balance").val() == "") {
+              return 0;
+          }
+          if ($("#cupon_amount").val() == "") {
+              $("#cupon_amount").val(0);
+          }
 
-       if(parseFloat($("#input_balance").val()) < (inversion - parseFloat($("#cupon_amount").val()))){
-          Cookies.set("balance",$("#input_balance").val());
-          $("#balance_value").text("$" + $.number($("#input_balance").val(), 2, '.',','));
-          loadInfo(); 
-       }
+          if (parseFloat($("#input_balance").val()) < (inversion - parseFloat($("#cupon_amount").val()))) {
+              Cookies.set("balance", $("#input_balance").val());
+              $("#balance_value").text("$" + $.number($("#input_balance").val(), 2, '.', ','));
+              loadInfo();
+          }
 
-       if(parseFloat($("#input_balance").val()) >= (inversion - parseFloat($("#cupon_amount").val()))){   
-          if (confirm("Esta seguro que desea pagar este campaign con su balance?") == true) {
-             $("#paid_with_balance").val($("#input_balance").val());
-             $("#payment_type").val("balance");
-             $("#form-campaign").submit();
-          } 
-       }
-       getCs();
-       });  
+          if (parseFloat($("#input_balance").val()) >= (inversion - parseFloat($("#cupon_amount").val()))) {
+              if (confirm("Esta seguro que desea pagar este campaign con su balance?") == true) {
+                  var balan = $("#input_balance").val(); 
+                  $("#paid_with_balance").val((inversion - parseFloat($("#cupon_amount").val())));
+                  $("#k_balance").val("true");
+                  $("#form-campaign").submit();
+              }
+          }
+          getCs();
+      });
     </script>
 
     <script> 
@@ -650,16 +649,17 @@
          };
 
           $.ajax(settings).done(function (response) {
-            response = jQuery.parseJSON(response);   
-            $("#clientSecret").val(response.clientSecret);
+            response = jQuery.parseJSON(response);
+            console.log(response); 
+            $("#card_amount").val(response.data.amount);
+            $("#clientSecret").val(response.data.clientSecret); 
             renderPaymentForm();
          }); 
       }
 
-      function renderPaymentForm(){
-
+      function renderPaymentForm(){ 
          if($("#clientSecret").val()==""){
-            alert("Ocurrio un error al cargar el formulario.");
+            console.log("Ocurrio un error al cargar el formulario.");
          }
          else{   
             elements = stripe.elements({clientSecret: $("#clientSecret").val()});  
@@ -669,25 +669,25 @@
       }
 
       document.querySelector("#payment-form").addEventListener('submit', async (event) => {
-
+       $("#k_card").val("true"); 
         stripe.confirmPayment({
           elements,
           confirmParams: {
-            return_url: '<?= Request::root();?>/paymentVerify', 
+            return_url: '<?= Request::root();?>/pay?' + $("#form-campaign").serialize(), 
           },
         }).then(function(result) {
-          if (result.error) { 
-            alert("error");
-          }
+            console.log(result);
         });
       });
     </script>
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script> 
     <script>
+       $.notify("Ejemplo", "info");
       <?php if (Session::has('info')): ?>
-        $.notify("<?= Session::get('info');?>", "info");
+         alert("<?= Session::get('info');?>");
+         $.notify("<?= Session::get('info');?>", "info");
       <?php elseif(Session::has('error')): ?> 
         $.notify("<?= Session::get('error');?>", "error");
       <?php endif ?>

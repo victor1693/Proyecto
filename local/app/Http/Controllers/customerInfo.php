@@ -65,7 +65,7 @@ class customerInfo extends Controller
 		}
 		else if(!isset($_POST['telefono'])){
 			return Redirect()->back()->with('info','Debe colocar su telefono.');
-		}
+		} 
 		else if($_POST['telefono'] == ""){
 			return Redirect()->back()->with('info','Debe colocar su telefono.');
 		}

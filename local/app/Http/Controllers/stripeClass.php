@@ -12,6 +12,8 @@ class stripeClass extends Controller
 	public $monto;	
     public $email;
     private $privateKey; 
+    public $paymentIntent; 
+    private $metodo;
 
     function __construct()
      {
@@ -20,40 +22,14 @@ class stripeClass extends Controller
 
     public function PaymentIntent()
     { 
-    	Stripe\Stripe::setApiKey($this->privateKey);
-        $paymentIntent = Stripe\PaymentIntent::create([
-        		'amount' => $this->monto,
-                'currency' => 'usd',
-		        'customer' => session()->get('customer_id'), 
-		        'automatic_payment_methods' => [
-		            'enabled' => true,
-		        ],
-        ]);  
-        $output = ['clientSecret' => $paymentIntent->client_secret];
-	    return $output;
+        $this->metodo = 'PaymentIntent';
+        return $this->executeStripe();  
     }
 
-    public function PaymentIntentVerify()
+    public function PaymentIntentVerify() 
     {
-         
-    	if (!(isset($_GET['payment_intent']))) {
-    		return Redirect()->back()->with('info','Es necesario que coloque el PI');
-    	}
-    	else if ($_GET['payment_intent'] == "") {
-    		return Redirect()->back()->with('info','Es necesario que coloque el PI');
-    	}
-     
-    	Stripe\Stripe::setApiKey($this->privateKey);
-        $paymentIntent = Stripe\PaymentIntent::retrieve($_GET['payment_intent'],[]);
-        
-        if(!$paymentIntent->status == "succeeded"){
-        	return Redirect()->back()->with('info','Ocurrio un error al procesar el pago.'); 
-        }    
-
-        # AQUI PROCESAMOS LA COMPRA CORRECTAMENTE
-        return Redirect('dashboard');
-
-	    return Response()->json($paymentIntent); 
+        $this->metodo = 'PaymentIntentVerify';
+        return $this->executeStripe();
     }
 
     public function createCustomer()
@@ -62,4 +38,47 @@ class stripeClass extends Controller
         $customer = Stripe\customer::create (['email' => $this->email]);  
         return $customer->id; 
     }
+
+    public function executeStripe()
+    {
+        try {
+            Stripe\Stripe::setApiKey($this->privateKey);  
+
+            # OBTENEMOS UN PI FROM STRIPE
+            if($this->metodo == "PaymentIntentVerify"){    
+                $paymentIntent = Stripe\PaymentIntent::retrieve($this->paymentIntent,[]);
+                return array('status' => true,'data' => $paymentIntent->status); 
+                return $paymentIntent->status; 
+            }
+            # CREAMOS UN PI
+            else if($this->metodo == "PaymentIntent"){     
+                $paymentIntent = Stripe\PaymentIntent::create([
+                    'amount' => $this->monto,
+                    'currency' => 'usd',
+                    'customer' => session()->get('customer_id'), 
+                    'automatic_payment_methods' => [
+                    'enabled' => true,
+                    ],
+                ]);  
+                $output = ['clientSecret' => $paymentIntent->client_secret,'amount' => $paymentIntent->amount / 100];
+                return array('status' => true,'data' =>  $output);  
+            }
+
+            #return Response()->json($paymentIntent); 
+        } catch(\Stripe\Exception\CardException $e) {
+          return array('status' => false,'msj' => $e->getError()->message);           
+        } catch (\Stripe\Exception\RateLimitException $e) {
+          return array('status' => false,'msj' => $e->getError()->message);   
+        } catch (\Stripe\Exception\InvalidRequestException $e) {
+          return array('status' => false,'msj' => $e->getError()->message);   
+        } catch (\Stripe\Exception\AuthenticationException $e) {
+          return array('status' => false,'msj' => $e->getError()->message);   
+        } catch (\Stripe\Exception\ApiConnectionException $e) {
+          return array('status' => false,'msj' => $e->getError()->message);   
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+          return array('status' => false,'msj' => $e->getError()->message);   
+        } catch (Exception $e) {
+          return array('status' => false,'msj' => $e->getError()->message);   
+        }
+    } 
 }

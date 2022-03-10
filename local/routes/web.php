@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['cors'])->group(function () {
 
 Route::post('clientSecret',"payment@updatePaymentIntent");
-Route::get('paymentVerify',"stripeClass@PaymentIntentVerify");
+Route::get('pay',"payment@pay");
 #************* RUTAS DE LAS VISTAS DEL SISTEMA **************# 
 
 # ACCOUNT 
@@ -72,4 +72,7 @@ Route::get('load-artist-catalogue/{id_artist}',"dashboard@loadArtistCatalogue");
 Route::get('load-artist-summary/{id_artist}',"dashboard@loadArtistSummary");
 Route::get('load-artist-audience/{id_artist}',"dashboard@loadAudienceAnalisys");
 Route::get('load-audio-analysis/{loadAudioAnalysis}',"dashboard@loadAudioAnalysis");
+
+
 });
+Route::get('pay',"payment@pay");

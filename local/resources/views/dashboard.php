@@ -807,54 +807,63 @@
         <script> 
 
         <?php if (isset($_GET['load-information'])): ?>
-            <?php if ($_GET['load-information']!=""): ?> 
+            <?php if ($_GET['load-information']!=""): ?>  
 
-                //$("#lock").show();
-                //$("#btnModal").click(); 
-
-                function loadArtistCatalogue(){   
-                    var settings = {
-                        "url": "<?= Request::root();?>/load-artist-catalogue/<?= $_GET['load-information'];?>",
-                        "method": "GET",
-                        "timeout": 60,
-                         async: false, 
-                    }; 
-                    $.ajax(settings).done(function (response) { 
+                async function loadArtistCatalogue(){
+                    let promise = new Promise((resolve, reject) => {
+                       
+                        var settings = {
+                            "url": "<?= Request::root();?>/load-artist-catalogue/<?= $_GET['load-information'];?>",
+                            "method": "GET",
+                            "timeout": 60,
+                             async: false, 
+                        };   
+                        $.ajax(settings).done(function (response){});
                     });
+                    let result = await promise; 
                 }
 
-                function loadAudienceAnalisys(){   
-                    var settings = {
-                        "url": "<?= Request::root();?>/load-artist-audience/<?= $_GET['load-information'];?>",
-                        "method": "GET",
-                        "timeout": 60,
-                         async: false, 
-                    }; 
-                    $.ajax(settings).done(function (response) { 
-                    });
+                async function loadAudienceAnalisys(){
+                    let promise = new Promise((resolve, reject) => {   
+                        var settings = {
+                            "url": "<?= Request::root();?>/load-artist-audience/<?= $_GET['load-information'];?>",
+                            "method": "GET",
+                            "timeout": 60,
+                             async: false, 
+                        }; 
+                        $.ajax(settings).done(function (response) { 
+                        });
+                    }); 
+                    let result = await promise;
                 }
 
-                function loadArtistSummary(){  
-                    var settings = {
-                        "url": "<?= Request::root();?>/load-artist-summary/<?= $_GET['load-information'];?>",
-                        "method": "GET",
-                        "timeout": 60,
-                         async: false, 
-                    }; 
-                    $.ajax(settings).done(function (response) { 
-                    });
+                async function loadArtistSummary(){
+                    let promise = new Promise((resolve, reject) => {  
+                        var settings = {
+                            "url": "<?= Request::root();?>/load-artist-summary/<?= $_GET['load-information'];?>",
+                            "method": "GET",
+                            "timeout": 60,
+                             async: false, 
+                        }; 
+                        $.ajax(settings).done(function (response) { 
+                        });
+                    }); 
+                    let result = await promise;
                 }
 
 
-                function loadAudioAnalysis(){  
-                    var settings = {
-                        "url": "<?= Request::root();?>/load-audio-analysis/<?= $_GET['load-information'];?>",
-                        "method": "GET",
-                        "timeout": 60,
-                         async: false, 
-                    }; 
-                    $.ajax(settings).done(function (response) { 
-                    });
+                async function loadAudioAnalysis(){
+                    let promise = new Promise((resolve, reject) => {  
+                        var settings = {
+                            "url": "<?= Request::root();?>/load-audio-analysis/<?= $_GET['load-information'];?>",
+                            "method": "GET",
+                            "timeout": 60,
+                             async: false, 
+                        }; 
+                        $.ajax(settings).done(function (response) { 
+                        });
+                    }); 
+                    let result = await promise;
                 }
 
                  
