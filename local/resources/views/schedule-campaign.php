@@ -47,6 +47,38 @@
             .new-secundary{
                 color: #bababa;
             }
+
+            .budget-initial{
+                background: none; 
+                color: inherit; 
+                border: none; 
+                padding: 0; 
+                outline: inherit;
+                cursor: context-menu;
+            }
+
+            .budget-focus{
+                background: none; 
+                color: inherit;
+                padding: 0; 
+                outline: inherit;
+                margin-top: -2px;
+                border: 1px solid rgb(210, 221, 236);
+                color:rgb(51, 94, 234)
+            }
+            .budget-error{
+                background: none; 
+                color: inherit;
+                padding: 0; 
+                outline: inherit;
+                margin-top: -2px;
+                border: 1px solid rgb(220, 53, 69);
+                color:rgb(220, 53, 69);
+            }
+
+            .form-control-range{
+                border-color:none;
+            }
  
         </style>
         <title>
@@ -109,18 +141,21 @@
                                 <h4 class="card-header-title mb-2">
                                     Budget
                                 </h4>
-                                <div class="input-group input-group-merge">
-                                    <span><i class="fe fe-dollar-sign"></i></span>
-                                    <input class="form-input h1 mb-1" id="flag_inversion" value="<?= number_format(50, 2, ',', ' ');?>" style="background: none; color: inherit; border: none; padding: 0; outline: inherit; width:20%">
-                                        <span class="input-group-text">
-                                            <button type="button" style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;" onclick="">
-                                                <i class="fe fe-info">
+
+                                <div class="input-group input-group-merge" style="">
+                                    <div class="py-1 px-0" style="background: none; color: inherit; border: none; font: inherit; outline: inherit;"><i class="fe fe-dollar-sign"></i></div>
+                                    <input class="form-input h1 px-1 mx-1 mb-1 budget-initial" id="flag_inversion" value="<?= number_format(49, 0, ',', ' ');?>" 
+                                    style="width:12%; border-radius:5px"
+                                    onfocus="budgetFocus()">
+                                    <span class="input-group-text" style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;">
+                                        <button type="button" class="btn" style="background: none; color: inherit; border: none; padding: 0; font: inherit; outline: inherit;" onclick="changeBudget()">
+                                            <i class="fe fe-edit-2">
                                             </i>
-                                            </button>
-                                        </span>
-                                    </input>
+                                        </button>
+                                    </span>
                                 </div>
-                                <input value="49" id="campaign_reach" style="cursor: pointer;width: 100%" name="inversion" class="mb-4 form-control-range" type="range" value="0" max="1300" min="49" step="1">
+                                
+                                <input value="49" id="campaign_reach" style="cursor: pointer;width: 100%;" name="inversion" class="mb-4 form-control-range" type="range" value="0" max="1300" min="49" step="1">
                                 </input>
                                 
                                 <div class="row">
@@ -407,35 +442,110 @@
                 }   
             }
 
-            $('#campaign_reach').change(function(){
-                var x = document.getElementById('campaign_reach').value;
-                document.getElementById('flag_inversion').value = x;
-                console.log(x);
-            });
+            //CÓDIGO PARA EL BUDGET BAR Y BUDGET INPUT
+
+            var x_global = 1;
+
+
+            //funciones de cambio de valor del Slider y de la Barra
+            
+            var slider = document.getElementById('campaign_reach');
+            var input = document.getElementById('flag_inversion');
+
+            input.value = slider.value
+
+            slider.oninput = function(){
+                input.value = this.value
+                budgetRange(input.value)
+            }
 
             $('#flag_inversion').change(function(){
                 var x = document.getElementById('flag_inversion').value;
                 document.getElementById('campaign_reach').value = x;
-                console.log(x);
+                budgetRange(x);
             });
 
-            /*
-            $("#campaign_reach").bind("keyup keydown change", function(){
+            input.oninput = function(){
+                if(this.value>=49&&this.value<=1300){
+                    input.style.color = 'rgb(40, 167, 69)';
+                    input.style.borderColor = 'rgb(40, 167, 69)';
+                }
+                else{
+                    input.style.color = 'rgb(220, 53, 69)';
+                    input.style.borderColor = 'rgb(220, 53, 69)';
+                }
+            }
+            input.onchange = function(){
+                if(this.value>=49&&this.value<=1300){
+                    input.style.color = 'black';
+                    input.style.borderColor = 'black';
+                }
+                else{
+                    input.style.color = 'rgb(220, 53, 69)';
+                    input.style.borderColor = 'rgb(220, 53, 69)';
+                }
+            }
+            input.onfocus = function(){
+                input.style.color = 'rgb(51, 94, 234)';
+                input.style.borderColor = 'rgb(51, 94, 234)';
+            }
 
-                var x = document.getElementById('campaign_reach').value;
-                $('#flag_inversion').attr('value','');
-                $('#flag_inversion').attr('value',x); 
+            //Función para determinar si el input tendrá focus o no
+            function budgetFocus(){
+                if(x_global==1){
+                    $('#flag_inversion').blur()
+                }
+                else{
+                    $('#flag_inversion').focus()
+                }
+            }
 
+            //Función para cambiar el estilo del input cuando tiene focus
+            function changeBudget(){
+                x_global=0;
+                $('#flag_inversion').removeClass('budget-initial');
+                $('#flag_inversion').addClass('budget-focus')
+                $('#flag_inversion').focus();
+                
+            }
+
+            //Función para que el input tome el valor al presionar enter
+            var input = document.getElementById("flag_inversion");
+            input.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    x_global = 1;
+                    $('#flag_inversion').blur();
+                }
             });
 
-            $("#flag_inversion").bind("keyup keydown change", function(){
+            //Función para validar el rango del budget
 
-                var x = document.getElementById('flag_inversion').value;
-                $('#campaign_reach').attr('value',''); 
-                $('#campaign_reach').attr('value',x); 
+            function budgetRange(valor){
+                if(valor>=49&&valor<=1300){
+                    x_global = 1;
+                    $('#flag_inversion').removeClass('budget-focus');
+                    $('#flag_inversion').removeClass('budget-error');
+                    $('#flag_inversion').addClass('budget-initial');
+                    $('#continue').removeClass('disabled');
+                    $("html").getNiceScroll().resize();
+                }
+                else{
+                    x_global = 1;
+                    $('#flag_inversion').removeClass('budget-initial');
+                    $('#flag_inversion').removeClass('budget-focus');
+                    $('#flag_inversion').addClass('budget-error');
+                    $('#continue').addClass('disabled');
+                    $("html").getNiceScroll().resize();
+                }
+            }
 
-            });
-            */
+            //Validación del budget para que solo acepte números
+            $(document).ready(function(){
+              $('#flag_inversion').on('input', function(evt){
+                  $(this).val($(this).val().replace(/[^0-9]/g, ''));
+              })
+           });
 
         </script>
     </body>
