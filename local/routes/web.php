@@ -68,10 +68,17 @@ Route::post('payment/balance',"campaignCheckout@payWithBalance"); # PAGAMOS CON 
 Route::post('update-password',"signIn@updatePassword"); # ACTUALIZAMOS EL PASSWORD
 Route::post('account-update',"general@accountUpdate");
 
+
+Route::get('loading-artist-catalogue/{id_campaign}',"loading@loadArtistCatalogue");
+Route::get('loading-artist-summary/{id_campaign}',"loading@loadArtistSummary");
+Route::get('loading-artist-audience/{id_campaign}',"loading@loadAudienceAnalisys");
+Route::get('loading-artist-analysis/{id_campaign}',"loading@loadAudioAnalysis");
+
 Route::get('load-artist-catalogue/{id_artist}',"dashboard@loadArtistCatalogue");
 Route::get('load-artist-summary/{id_artist}',"dashboard@loadArtistSummary");
 Route::get('load-artist-audience/{id_artist}',"dashboard@loadAudienceAnalisys");
 Route::get('load-audio-analysis/{loadAudioAnalysis}',"dashboard@loadAudioAnalysis");
+
 
 
 });

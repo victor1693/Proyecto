@@ -186,7 +186,7 @@ class payment extends Controller
 			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.'); 
 		}
 		$this->cleanCookie(); 
-		return Redirect('dashboard?load-information='.$campaign->data->campaign_token); 
+		return Redirect('loading-artist-summary/'.$campaign->data->campaign_token); 
 	}
 
 	public function payWithCardAndBalance()
@@ -251,7 +251,7 @@ class payment extends Controller
 			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.'); 
 		} 
 		$this->cleanCookie();
-		return Redirect('dashboard?load-information='.$campaign->data->campaign_token);
+		return Redirect('loading-artist-summary/'.$campaign->data->campaign_token);
 
 	}
 
@@ -271,7 +271,7 @@ class payment extends Controller
 			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.');  
 		}
 		$this->cleanCookie(); 
-		return Redirect('dashboard?load-information='.$campaign->data->campaign_token);
+		return Redirect('loading-artist-summary/'.$campaign->data->campaign_token);
 	}
 
 	public function payWithBalanceAndDiscount()
@@ -295,7 +295,7 @@ class payment extends Controller
 			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.'); 
 		} 
 		$this->cleanCookie();
-		return Redirect('dashboard?load-information='.$campaign->data->campaign_token);
+		return Redirect('loading-artist-summary/'.$campaign->data->campaign_token);
 	 
 	}
 
@@ -344,7 +344,7 @@ class payment extends Controller
 			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.'); 
 		} 
 		$this->cleanCookie();
-		return Redirect('dashboard?load-information='.$campaign->data->campaign_token); 
+		return Redirect('loading-artist-summary/'.$campaign->data->campaign_token); 
 	}
 
 	public function payWithCardAndBalanceDiscount()
@@ -401,7 +401,7 @@ class payment extends Controller
 			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.'); 
 		} 
 		$this->cleanCookie();
-		return Redirect('dashboard?load-information='.$campaign->data->campaign_token); 
+		return Redirect('loading-artist-summary/'.$campaign->data->campaign_token); 
 	}
 
 

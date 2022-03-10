@@ -595,6 +595,9 @@
           if ($("#input_balance").val() == "") {
               return 0;
           }
+          if ($("#input_balance").val() <=0) {
+              return 0;
+          }
           if ($("#cupon_amount").val() == "") {
               $("#cupon_amount").val(0);
           }
