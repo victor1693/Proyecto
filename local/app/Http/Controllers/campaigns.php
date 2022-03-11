@@ -11,8 +11,7 @@ class campaigns extends Controller
 
 	public $inversion;
 	public $id_track;
- 
-	public $balance;
+  
 	public $pi;
 	public $discount;
 

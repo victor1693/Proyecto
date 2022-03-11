@@ -488,7 +488,7 @@
                             <div class="card-body">
                                 <div class="card-body">
                                     <div class="chart">
-                                        <canvas class="chart-canvas" id="salesGraph3">
+                                        <canvas class="chart-canvas" id="market_oportunity_graph">
                                         </canvas>
                                     </div>
                                 </div>
@@ -580,8 +580,8 @@
                 });
                 m2 = parseFloat(m2 / 1000).toFixed(2);
             }
-
-            barGraph(market_oportunity_values,[],"salesGraph3",market_oportunity_labels,m2,market_symbol);
+            console.log(market_oportunity_values);
+            barGraph(market_oportunity_values,[],"market_oportunity_graph",market_oportunity_labels,m2,market_symbol);
 
             lineGraph([35,0,0,70],[],"salesGraph2",['01-Jan','02-Jan','03-Jan','04-Jan'],'$'); 
             
