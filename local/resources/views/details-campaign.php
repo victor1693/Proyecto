@@ -440,12 +440,11 @@
             <input type="hidden" name="balance" id="paid_with_balance" value="0">
             <input type="hidden" name="discount" id="cupon_code" value="">
             <input type="hidden" name="card_amount" id="card_amount">
-            <input type="hidden" name="paypal_amount" id="paypal_amount">
-            <input type="hidden" name="paypal_id" id="paypal_id">
+
             <input type="hidden" name="k_card" id="k_card">
             <input type="hidden" name="k_balance" id="k_balance"> 
             <input type="hidden" name="k_discount" id="k_discount">
-            <input type="hidden" name="k_paypal" id="k_paypal">
+
 
 
             <input type="hidden" name="cupon_amount" id="cupon_amount" value="0">
@@ -461,42 +460,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/df-number-format/2.1.6/jquery.number.min.js"></script> 
     <script src="https://js.stripe.com/v3/">
     </script> 
-    
-    <script src="https://www.paypal.com/sdk/js?client-id=ARxp-kac74H7Ac4uvzQeYhZY-kio4-xTqQuvtljLlBrTN78kTtdxZ1qLKz5NEegkEMZFjcVLmYp7Tlx2&disable-funding=credit">
+    <script src="https://www.paypal.com/sdk/js?client-id=AWnPN3ca5Lms-Ek9yVe0txASM-TIsB-L80B9mB6zlJ9vFMug3a3N92xw0qri0xUX027IqkjW0wqYmLPR&disable-funding=credit">
     </script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
 
-    <script>
-      paypal.Buttons({  
-        createOrder: function(data, actions) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {value: $("#paypal_amount").val()}
-            }]
-          });
-        },
- 
-        onApprove: function(data, actions) {
-          return actions.order.capture().then(function(orderData) { 
-                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                var transaction = orderData.purchase_units[0].payments.captures[0];
-                $("#k_paypal").val("true");
-                if(transaction.status == "COMPLETED"){ 
-                  $("#paypal_amount").val(transaction.amount.value);
-                  $("#paypal_id").val(transaction.id);
-                  $("#form-campaign").submit();
-                }
-                else{
-                  alert("Ocurrio un error al procesar el pago.");
-                } 
-          });
-        }
-      }).render('#paypal-button-container');
-
-    </script>
-
-    <script>
+   <script>
       $("html,.scroll").niceScroll({
          cursorcolor:"#ddd"
       }); 
@@ -662,13 +630,12 @@
          getCs();
       });
 
-      function getCs() {  
+      function getCs() { 
 
          cupon_amount = $("#cupon_amount").val();
          inversion = $("#inversion").val();
          paid_with_balance = $("#paid_with_balance").val();
          total = inversion - cupon_amount - paid_with_balance;
-         $("#paypal_amount").val(total.toFixed(2));
 
          var form = new FormData();
          form.append("monto", total);
@@ -685,7 +652,8 @@
          };
 
           $.ajax(settings).done(function (response) {
-            response = jQuery.parseJSON(response); 
+            response = jQuery.parseJSON(response);
+            console.log(response); 
             $("#card_amount").val(response.data.amount);
             $("#clientSecret").val(response.data.clientSecret); 
             renderPaymentForm();
@@ -718,7 +686,8 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script> 
-    <script> 
+    <script>
+       $.notify("Ejemplo", "info");
       <?php if (Session::has('info')): ?>
          alert("<?= Session::get('info');?>");
          $.notify("<?= Session::get('info');?>", "info");

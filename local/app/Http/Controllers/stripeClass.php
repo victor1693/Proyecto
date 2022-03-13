@@ -34,7 +34,7 @@ class stripeClass extends Controller
 
     public function createCustomer()
     {
-    	Stripe\Stripe::setApiKey($this->privateKey);
+    	Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $customer = Stripe\Customer::create (['email' => $this->email]);  
         return $customer->id; 
     }

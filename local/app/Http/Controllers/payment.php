@@ -47,7 +47,6 @@ class payment extends Controller
 		$card = false;
 		$balance = false;
 		$discount = false;
-		$paypal = false;
 
 		if (!isset($_GET['id_track'])) {
 			return Redirect()->back()->with('info','');
@@ -103,14 +102,10 @@ class payment extends Controller
 				$card = true;
 			}
 		} 
-		if(isset($_GET['k_paypal'])){
-			if($_GET['k_paypal']!=""){
-				$paypal = true;
-			}
-		}
+
 		if ($card == true && $balance == false && $discount == false) { # CARD
 			return $this->payWithCard();
-		} 
+		}
 
 		else if ($card == false && $balance == true && $discount == false) { # BALANCE
 			return $this->payWithBalance();
@@ -132,24 +127,6 @@ class payment extends Controller
 		else if ($card == true && $balance == true && $discount == true) { # BALANCE DISCOUNT CARD
 			return $this->payWithCardAndBalanceDiscount();
 		}
-
-
-		else if ($paypal == true && $balance == false && $discount == false && $card == false) { # PAYPAL
-			return $this->payWithPaypal();
-		}
-
-		else if ($paypal == true && $balance == true && $discount == false && $card == false) { # PAYPAL BALANCE
-			 return $this->payWithPaypalAndBalance();
-		}
-
-		else if ($paypal == true && $balance == false && $discount == true && $card == false) { # PAYPAL DISCOUNT
-			return $this->payWithPaypalAndDiscount();
-		} 
-
-		else if ($paypal == true && $balance == true && $discount == true && $card == false) { # BALANCE DISCOUNT PAYPAL
-			return $this->payWithPaypalAndBalanceDiscount();
-		}
-
 		$this->cleanCookie();
 		return Redirect()->back()->with('info',''); 
 	}
@@ -202,37 +179,6 @@ class payment extends Controller
 		
 		# ACTIVAMOS EL CAMPAIGN
 	
-		
-		$campaign = $this->activateCampaign(); 
-		 
-		if($campaign->httpCode != "201"){
-			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.'); 
-		}
-		$this->cleanCookie(); 
-		return Redirect('loading-artist-summary/'.$campaign->data->campaign_token); 
-	}
-
-	public function payWithPaypal()
-	{
-		if (!isset($_GET['paypal_id'])) {
-			return Redirect()->back()->with('info','No existe el PI'); 
-		} 
-		else if ($_GET['paypal_id']=="") {
-			return Redirect()->back()->with('info','La variable PI no puede estar vacia.'); 
-		} 
-		
-		$paypal = $this->getPaypalTransactionStatus($_GET['paypal_id']);
-
-		if($paypal == ""){
-			return Redirect()->back()->with('info','Ocurrio un error al verificar si pago.'); 
-		}
-
-		$paypal = json_decode($paypal); 
-		if($paypal->status != 'COMPLETED'){
-			return Redirect()->back()->with('info','No se pudo procesar su pago correctamente, coloquese en contacto con nosotros.'); 
-		}
- 
-		# ACTIVAMOS EL CAMPAIGN 
 		
 		$campaign = $this->activateCampaign(); 
 		 
@@ -485,7 +431,11 @@ class payment extends Controller
 		}
 		return array('status' => true, 'balance' => $balance[0]->balance);
 	}
- 
+
+	private function processPaymentWithBalance()
+	{
+		#Procesar pago con Balance
+	}
 
 	private function verifyDiscount()
 	{
@@ -532,82 +482,10 @@ class payment extends Controller
 			'discount' => $_GET['discount'],
 			'balance' => $_GET['balance'],
 			'card_amount' => $_GET['card_amount'],
-			'paypal_id' => $_GET['paypal_id'],
-			'paypal_amount' => $_GET['paypal_amount'],
 			'pi' => $pi
 		);
-		
+
 		$campaign = json_decode(RQ::post("https://app.venbia.com/v1/campaign",$data));
 		return $campaign;
-	} 
-
-	public function getPaypalTransactionStatus($id_transaction)
-	{
-		$token = $this->getPaypalToken();
-		if($token == ""){return "";}
-		$token = json_decode($token);
-		$token = $token->access_token;
-
-		$curl = curl_init();
-
-		curl_setopt_array($curl, array(
-		  CURLOPT_URL => 'https://api-m.sandbox.paypal.com/v2/payments/captures/'.$id_transaction,
-		  CURLOPT_RETURNTRANSFER => true,
-		  CURLOPT_ENCODING => '',
-		  CURLOPT_MAXREDIRS => 10,
-		  CURLOPT_TIMEOUT => 0,
-		  CURLOPT_FOLLOWLOCATION => true,
-		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		  CURLOPT_CUSTOMREQUEST => 'GET',
-		  CURLOPT_HTTPHEADER => array(
-		    'Content-Type: application/json',
-		    'Authorization: Bearer ' . $token,
-		  ),
-		));
-
-		$response = curl_exec($curl);  
-		$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		
-		if($httpcode!="200"){
-			curl_close($curl);
-			return ""; 
-		}
-
-		return $response;
-
-	}
-
-	public function getPaypalToken()
-	{
-		
-		$curl = curl_init(); 
-		curl_setopt_array($curl, array(
-		  CURLOPT_URL => 'https://api-m.sandbox.paypal.com/v1/oauth2/token',
-		  CURLOPT_RETURNTRANSFER => true,
-		  CURLOPT_ENCODING => '',
-		  CURLOPT_MAXREDIRS => 10,
-		  CURLOPT_TIMEOUT => 0,
-		  CURLOPT_FOLLOWLOCATION => true,
-		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		  CURLOPT_CUSTOMREQUEST => 'POST',
-		  CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
-		  CURLOPT_HTTPHEADER => array(
-		    'Accept: application/json',
-		    'Accept-Language: en_US',
-		    'Authorization: Basic QVJ4cC1rYWM3NEg3QWM0dXZ6UWVZaFpZLWtpbzQteFRxUXV2dGxqTGxCclRONzhrVHRkeFoxcUxLejVORWVna0VNWkZqY1ZMbVlwN1RseDI6RUNpUkxPMFJicDV3empFaGl5X19qdmhDVXNid2RvQlU5MWFybldRVnpaR2N3Z0hjZmsyNngwR0Fid09ORWlLMlJkXzItaWJUUjNqaVk0WWw=',
-		    'Content-Type: application/x-www-form-urlencoded'
-		  ),
-		)); 
-	 
-
-		$response = curl_exec($curl);  
-		$httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-		
-		if($httpcode!="200"){
-			curl_close($curl);
-			return ""; 
-		}
-
-		return $response;
 	}
 }
