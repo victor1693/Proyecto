@@ -14,9 +14,9 @@
         <!-- User (xs) -->
         <div class="navbar-user d-md-none">
             <!-- Dropdown -->
-            <div class="dropdown">
+            <div class="">
                 <!-- Toggle -->
-                <?php if (isset($data->user)): ?> 
+              <?php if (isset($data->user)): ?> 
                 <?php if (count($data->user)>0): ?> 
                 <div class="navbar-user d-flex" id="sidebarUser"> 
                     <?php if ($data->user[0]->img!=""): ?>  
@@ -35,26 +35,7 @@
                 </div>
                 <?php endif ?>
             <?php endif ?>
-                <!--<a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-bs-toggle="dropdown"id="sidebarIcon" role="button">
-                    <div class="avatar avatar-sm avatar-online">
-                        <img alt="..." class="avatar-img rounded-circle" src="<?= Request::root();?>/local/resources/views/assets/img/avatars/profiles/avatar-1.jpg">
-                        </img>
-                    </div>
-                </a>-->
-                <!-- Menu -->
-                <div aria-labelledby="sidebarIcon" class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="profile-posts.html">
-                        Profile
-                    </a>
-                    <a class="dropdown-item" href="account-general.html">
-                        Settings
-                    </a>
-                    <hr class="dropdown-divider">
-                        <a class="dropdown-item" href="sign-in.html">
-                            Logout
-                        </a>
-                    </hr>
-                </div>
+                 
             </div>
         </div>
         <!-- Collapse -->
