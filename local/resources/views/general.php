@@ -45,7 +45,8 @@
                 $img = $data->account[0]->img;
             }
         ?>
-        <div class="main-content"> 
+        <div class="main-content">
+             
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-10 col-xl-8">
@@ -78,7 +79,7 @@
                                 <div class="col">
                                     <div class="row align-items-center">
                                         <div class="col-auto">
-                                            <input id="img_profile_input"  accept="image/png, image/gif, image/jpeg" type="file" name="img_profile" style="display: none;">
+                                            <input id="img_profile_input" type="file" name="img_profile" style="display: none;">
                                             <?php if ($img!=""): ?>  
                                                 <div class="avatar">
                                                     <img class="avatar-img rounded-circle" src="<?= Request::root();?>/local/storage/app/profile_img/<?= $img;?>">
@@ -273,15 +274,10 @@
                     $("#email").addClass('is-invalid');
                     $("#email").focus();
                 }
-                else if($("#telefono").val() == ""){
-                    $("#telefono").addClass('is-invalid');
-                    $("#telefono").focus();
-                }
-                else if($("#telefono").val().length <=5){
-                    $("#telefono").addClass('is-invalid');
-                    $("#telefono").focus();
-                }
-                else if(!isEmail($("#email").val())){
+                else if($("#phone").val() == ""){
+                    $("#phone").addClass('is-invalid');
+                    $("#phone").focus();
+                }else if(!isEmail($("#email").val())){
                     $("#email").addClass("is-invalid");
                }
                else{
