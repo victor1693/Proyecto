@@ -1,5 +1,5 @@
 <!-- NAVIGATION -->
-<nav class="navbar navbar-vertical fixed-start navbar-expand-md scroll" id="sidebar" style="z-index: 0">
+<nav class="navbar navbar-vertical fixed-start navbar-expand-md" id="sidebar" style="z-index: 0; overflow-y:scroll;">
     <div class="container-fluid">
         <!-- Toggler -->
         <button aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#sidebarCollapse" data-bs-toggle="collapse" type="button">
@@ -94,7 +94,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a aria-controls="artist" aria-expanded="false" class="nav-link collapsed" data-bs-toggle="collapse" href="#artist" role="button">
+                    <a aria-controls="artist" id="artist-collapse" aria-expanded="false" class="nav-link collapsed" data-bs-toggle="collapse" href="#artist" role="button"
+                    onclick="resizeScroll()">
                         <i class="fe fe-star">
                         </i>
                         Artists
@@ -224,4 +225,23 @@
     function dashboard(){
          alert("Okay");
     }
+
+    $('#artist-collapse').on('shown.bs.collapse', function () {
+        
+    })
+
+    function resizeScroll(){
+
+        var boolean = $('#artist-collapse').attr("aria-expanded");
+
+        if(boolean='true'){
+            event.preventDefault();
+            alert('hola')
+            $('#sidebar').getNiceScroll().resize();
+            $('html').getNiceScroll().resize();
+            $('.scroll').getNiceScroll().resize();
+        }
+
+    }
+
 </script>
