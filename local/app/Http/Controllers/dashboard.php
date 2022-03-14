@@ -17,22 +17,46 @@ class dashboard extends Controller
 
     public function loadArtistCatalogue($id)
     {    
-    	return RQ::get("https://app.venbia.com/v1/artist/catalogue/".$id."?ajax=true");
+    	$r = RQ::get("https://app.venbia.com/v1/artist/catalogue/".$id."?ajax=true");
+        if($r == "1"){
+            return Redirect('loading-artist-audience/'.$id);
+        }
+        else{
+            return Redirect('dashboard')->with('info','Ocurrio un error al cargar la informacion de Artist Summary');
+        }
     }
 
     public function loadAudienceAnalisys($id)
     {    
-    	return RQ::get("https://app.venbia.com/v1/artist/audience-analisys/".$id."?ajax=true");
+    	$r = RQ::get("https://app.venbia.com/v1/artist/audience-analisys/".$id."?ajax=true");
+        if($r == "1"){
+            return Redirect('loading-artist-analysis/'.$id);
+        }
+        else{
+            return Redirect('dashboard')->with('info','Ocurrio un error al cargar la informacion de Artist Summary');
+        }
     }
 
     public function loadArtistSummary($id)
     {    
-    	return RQ::get("https://app.venbia.com/v1/artist/summary/".$id."?ajax=true");
+    	$r = RQ::get("https://app.venbia.com/v1/artist/summary/".$id."?ajax=true");
+        if($r == "1"){
+            return Redirect('loading-artist-catalogue/'.$id);
+        }
+        else{
+            return Redirect('dashboard')->with('info','Ocurrio un error al cargar la informacion de Artist Summary');
+        }
     }
 
 	public function loadAudioAnalysis($id)
     {    
-    	return RQ::get("https://app.venbia.com/v1/campaign-audio-analysis/".$id."?ajax=true");
+    	$r =  RQ::get("https://app.venbia.com/v1/campaign-audio-analysis/".$id."?ajax=true");
+        if($r == "1"){
+            return Redirect('dashboard');
+        }
+        else{
+            return Redirect('dashboard')->with('info','Ocurrio un error al cargar la informacion de Artist Summary');
+        }
     }
 
 }

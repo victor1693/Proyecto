@@ -65,7 +65,7 @@ class customerInfo extends Controller
 		}
 		else if(!isset($_POST['telefono'])){
 			return Redirect()->back()->with('info','Debe colocar su telefono.');
-		}
+		} 
 		else if($_POST['telefono'] == ""){
 			return Redirect()->back()->with('info','Debe colocar su telefono.');
 		}
@@ -103,7 +103,13 @@ class customerInfo extends Controller
 	# AUTH
 	
 	public function auth()
-	{
+	{	
+		session()->forget('email');
+		session()->forget('name');
+		session()->forget('role');
+		session()->forget('ac_token'); 
+		session()->flush();
+		
 		session()->put('email',$this->email);
 		session()->put('name',$this->name);
 		session()->put('role',$this->role);
