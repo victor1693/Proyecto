@@ -1,5 +1,5 @@
 <!-- NAVIGATION -->
-<nav class="navbar navbar-vertical fixed-start navbar-expand-md" id="sidebar" style="z-index: 0; overflow-y:scroll;">
+<nav class="navbar navbar-vertical fixed-start navbar-expand-md scroll" id="sidebar" style="z-index: 0; overflow-y:scroll;">
     <div class="container-fluid">
         <!-- Toggler -->
         <button aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#sidebarCollapse" data-bs-toggle="collapse" type="button">
@@ -68,7 +68,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a aria-controls="sidebarDashboards" aria-expanded="false" class="nav-link collapsed" data-bs-toggle="collapse" href="#sidebarDashboards" role="button">
+                    <a aria-controls="sidebarDashboards" aria-expanded="false" class="nav-link collapsed" data-bs-toggle="collapse" href="#sidebarDashboards" role="button"
+                    onclick="resizeScroll()">
                         <i class="fe fe-bar-chart-2">
                         </i>
                         Campaigns
@@ -222,25 +223,23 @@
 </nav>
 
 <script>
+
     function dashboard(){
          alert("Okay");
     }
 
-    $('#artist-collapse').on('shown.bs.collapse', function () {
-        
-    })
-
     function resizeScroll(){
 
-        var boolean = $('#artist-collapse').attr("aria-expanded");
+        /* event.preventDefault();
+        $("#sidebar").niceScroll({
+                    cursorcolor:"#ddd"
+                });
+        */
+        //$('html,.scroll').getNiceScroll().resize();
 
-        if(boolean='true'){
-            event.preventDefault();
-            alert('hola')
-            $('#sidebar').getNiceScroll().resize();
-            $('html').getNiceScroll().resize();
-            $('.scroll').getNiceScroll().resize();
-        }
+        setTimeout(function(){ 
+            $('html,.scroll').getNiceScroll().resize();
+        }, 500);
 
     }
 
