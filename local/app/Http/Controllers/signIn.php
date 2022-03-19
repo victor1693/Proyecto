@@ -40,7 +40,7 @@ class signIn extends Controller
             'customer_id' => '', 
 		); 
         
-		$auth = json_decode(RQ::post("https://app.venbia.com/v1/auth",$data)); 
+		$auth = json_decode(RQ::post("http://65.108.135.59/v1/auth",$data)); 
 		 
 		if($auth->httpCode != "200"){
 			return Redirect()->back()->with('info',$auth->Error);
@@ -71,7 +71,7 @@ class signIn extends Controller
 			'email' => $_POST['email']
 		); 
 
-		$auth = json_decode(RQ::post("https://app.venbia.com/v1/restore",$data)); 
+		$auth = json_decode(RQ::post("http://65.108.135.59/v1/restore",$data)); 
 		 
 		if($auth->httpCode != "200"){
 			return Redirect()->back()->with('info',$auth->Error);
@@ -104,7 +104,7 @@ class signIn extends Controller
         ); 
 
         
-        $auth = json_decode(RQ::post("https://app.venbia.com/v1/password",$data)); 
+        $auth = json_decode(RQ::post("http://65.108.135.59/v1/password",$data)); 
         
         if($auth->update_password->code != "200"){
             return Redirect()->back()->with('info',$auth->Error);

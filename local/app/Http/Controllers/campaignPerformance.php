@@ -11,8 +11,8 @@ class campaignPerformance extends Controller
 		$vista = View::make("campaign-performance");
 		$vista->artistAside = $this->getArtistAside(); 
 		$vista->token = $token;
-		$vista->data = json_decode(RQ::get("https://app.venbia.com/v1/campaign-performance/".$token));
-		$vista->aside = json_decode(RQ::get("https://app.venbia.com/v1/aside")); 
+		$vista->data = json_decode(RQ::get("http://65.108.135.59/v1/campaign-performance/".$token));
+		$vista->aside = json_decode(RQ::get("http://65.108.135.59/v1/aside")); 
 		return $vista;
 	}
 }

@@ -13,8 +13,8 @@ class general extends Controller
     {
     	$vista = View::make("general");
     	$vista->artistAside = $this->getArtistAside();
-    	$vista->data = json_decode(RQ::get("https://app.venbia.com/v1/general"));
-        $vista->aside = json_decode(RQ::get("https://app.venbia.com/v1/aside"));    
+    	$vista->data = json_decode(RQ::get("http://65.108.135.59/v1/general"));
+        $vista->aside = json_decode(RQ::get("http://65.108.135.59/v1/aside"));    
     	return $vista;
     }
 
@@ -71,7 +71,7 @@ class general extends Controller
             'phone' => $_POST['phone'],
             'img' => $url_img[1]
         );   
-        $update = json_decode(RQ::post("https://app.venbia.com/v1/general",$data));
+        $update = json_decode(RQ::post("http://65.108.135.59/v1/general",$data));
         if($update->code != "200"){
             return Redirect()->back()->with('info',"Ocurrio un error.");
         } 

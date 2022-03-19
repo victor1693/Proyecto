@@ -164,7 +164,7 @@ class payment extends Controller
 		}
 
 		# VERIFICAMOS QUE EL PI NO HAYA SIDO USADO
-		$pi = RQ::get("https://app.venbia.com/v1/pi/".$_GET['payment_intent']);
+		$pi = RQ::get("http://65.108.135.59/v1/pi/".$_GET['payment_intent']);
 		$pi = json_decode($pi);
 		  
 		if ($pi->error == true) {
@@ -181,7 +181,7 @@ class payment extends Controller
 	
 		
 		$campaign = $this->activateCampaign(); 
-		 
+	  
 		if($campaign->httpCode != "201"){
 			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.'); 
 		}
@@ -224,7 +224,7 @@ class payment extends Controller
 		}
 
 		# VERIFICAMOS QUE EL PI NO HAYA SIDO USADO
-		$pi = RQ::get("https://app.venbia.com/v1/pi/".$_GET['payment_intent']);
+		$pi = RQ::get("http://65.108.135.59/v1/pi/".$_GET['payment_intent']);
 		$pi = json_decode($pi);
 		  
 		if ($pi->error == true) {
@@ -267,6 +267,8 @@ class payment extends Controller
 
 		# ACTIVAMOS EL CAMPAIGN
 		$campaign = $this->activateCampaign();
+		dd($campaign);
+
 		if($campaign->httpCode != "201"){
 			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.');  
 		}
@@ -320,7 +322,7 @@ class payment extends Controller
 		}
 
 		# VERIFICAMOS QUE EL PI NO HAYA SIDO USADO
-		$pi = RQ::get("https://app.venbia.com/v1/pi/".$_GET['payment_intent']);
+		$pi = RQ::get("http://65.108.135.59/v1/pi/".$_GET['payment_intent']);
 		$pi = json_decode($pi);
 		  
 		if ($pi->error == true) {
@@ -368,7 +370,7 @@ class payment extends Controller
 		}
 
 		# VERIFICAMOS QUE EL PI NO HAYA SIDO USADO
-		$pi = RQ::get("https://app.venbia.com/v1/pi/".$_GET['payment_intent']);
+		$pi = RQ::get("http://65.108.135.59/v1/pi/".$_GET['payment_intent']);
 		$pi = json_decode($pi);
 		  
 		if ($pi->error == true) {
@@ -421,7 +423,7 @@ class payment extends Controller
 		}
 
 		$data = array('ac_token' => session()->get('ac_token')); 
-		$balance = json_decode(RQ::post("https://app.venbia.com/v1/get-balance",$data));
+		$balance = json_decode(RQ::post("http://65.108.135.59/v1/get-balance",$data));
 		if(count($balance) <= 0){
 			return array('status' => false, 'msj' => 'Esta cuenta no tiene balance.');
 		}
@@ -446,7 +448,7 @@ class payment extends Controller
 			return array('status' => false, 'msj' => 'Es necesario que indique el balance.');
 		}   
 		$data = array('discount' => $_GET['discount']); 
-		$discount = json_decode(RQ::post("https://app.venbia.com/v1/get-discount",$data)); 
+		$discount = json_decode(RQ::post("http://65.108.135.59/v1/get-discount",$data)); 
 
 		if(isset($balance->code)){
 			return array('status' => false, 'msj' => 'Ocurio un error al obtener el balance.');
@@ -484,8 +486,11 @@ class payment extends Controller
 			'card_amount' => $_GET['card_amount'],
 			'pi' => $pi
 		);
-
-		$campaign = json_decode(RQ::post("https://app.venbia.com/v1/campaign",$data));
+	    dd($data);
+	    die();
+		$campaign = json_decode(RQ::post("http://65.108.135.59/v1/campaign",$data));
+		dd($campaign);
+		die();
 		return $campaign;
 	}
 }

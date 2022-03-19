@@ -10,14 +10,14 @@ class dashboard extends Controller
     {    
     	$vista = View::make("dashboard");
     	$vista->artistAside = $this->getArtistAside(); 
-    	$vista->data = json_decode(RQ::get("https://app.venbia.com/v1/dashboard")); 
-        $vista->aside = json_decode(RQ::get("https://app.venbia.com/v1/aside"));
+    	$vista->data = json_decode(RQ::get("http://65.108.135.59/v1/dashboard")); 
+        $vista->aside = json_decode(RQ::get("http://65.108.135.59/v1/aside"));
     	return $vista;
     }
 
     public function loadArtistCatalogue($id)
     {    
-    	$r = RQ::get("https://app.venbia.com/v1/artist/catalogue/".$id."?ajax=true");
+    	$r = RQ::get("http://65.108.135.59/v1/artist/catalogue/".$id."?ajax=true");
         if($r == "1"){
             return Redirect('loading-artist-audience/'.$id);
         }
@@ -28,7 +28,7 @@ class dashboard extends Controller
 
     public function loadAudienceAnalisys($id)
     {    
-    	$r = RQ::get("https://app.venbia.com/v1/artist/audience-analisys/".$id."?ajax=true");
+    	$r = RQ::get("http://65.108.135.59/v1/artist/audience-analisys/".$id."?ajax=true");
         if($r == "1"){
             return Redirect('loading-artist-analysis/'.$id);
         }
@@ -39,7 +39,7 @@ class dashboard extends Controller
 
     public function loadArtistSummary($id)
     {    
-    	$r = RQ::get("https://app.venbia.com/v1/artist/summary/".$id."?ajax=true");
+    	$r = RQ::get("http://65.108.135.59/v1/artist/summary/".$id."?ajax=true");
         if($r == "1"){
             return Redirect('loading-artist-catalogue/'.$id);
         }
@@ -50,7 +50,7 @@ class dashboard extends Controller
 
 	public function loadAudioAnalysis($id)
     {    
-    	$r =  RQ::get("https://app.venbia.com/v1/campaign-audio-analysis/".$id."?ajax=true");
+    	$r =  RQ::get("http://65.108.135.59/v1/campaign-audio-analysis/".$id."?ajax=true");
         if($r == "1"){
             return Redirect('dashboard');
         }

@@ -116,7 +116,7 @@
                                             </option>
                                             <?php if (count($paises->data)>0): ?> 
                                             <?php foreach ($paises->data as $key): ?>
-                                                <?php if ($key->pais == "United States"): ?>
+                                                <?php if ($key->pais == ""): ?>
                                                 <option selected class="text-capitalize" value="<?= $key->pais;?>_<?= $key->code;?>"><?= $key->pais;?></option>
                                                 <?php else: ?>
                                                 <option class="text-capitalize" value="<?= $key->pais;?>_<?= $key->code;?>"><?= $key->pais;?></option>
@@ -163,7 +163,7 @@
                                     </a>
                                 </div>
                                 <div class="col-6" style="text-align: right;">
-                                    <button type="button" id="btn-create" class="btn btn-primary" href="<?= Request::root();?>/campaign-schedule" style="width: 120px;">
+                                    <button type="button" id="btn-create" class="btn btn-primary" onclick="finish()" style="width: 120px;">
                                         Finish
                                     </button>
                                 </div>
@@ -227,8 +227,11 @@
                else if(!isEmail($("#correo").val())){
                 $("#correo").addClass("is-invalid");
                }
+               else if($('#telefono').val().length<12){
+                $("#telefono").addClass("is-invalid");
+               }
                else{
-                    $("form").submit();
+                    
                }
             });
 
@@ -260,6 +263,22 @@
                   $(this).val($(this).val().replace(/[^0-9+]/g, ''));
               })
           });
+
+          function finish(){
+
+              var name = document.getElementById('name').value;
+              var apellido = document.getElementById('apellido').value;
+              var role = document.getElementById('role').value;
+              var correo = document.getElementById('correo').value;
+              var country = document.getElementById('pais').value;
+              var phone = document.getElementById('telefono').value;
+
+              if(phone.length>=12 && country != ''
+              && name != '' && apellido != '' && role !='' && correo !=''){
+                $("form").submit();
+                window.location.replace("<?= Request::root();?>/campaign-schedule");
+              }
+          }
 
         </script>
 

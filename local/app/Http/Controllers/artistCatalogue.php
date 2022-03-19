@@ -10,8 +10,8 @@ class artistCatalogue extends Controller
     {
     	$vista = View::make("artist-catalogue");
     	$vista->artistAside = $this->getArtistAside(); 
-    	$vista->artistSummary = json_decode(RQ::get("https://app.venbia.com/v1/artist/catalogue/".$token)); 
-    	 $vista->aside = json_decode(RQ::get("https://app.venbia.com/v1/aside")); 
+    	$vista->artistSummary = json_decode(RQ::get("http://65.108.135.59/v1/artist/catalogue/".$token)); 
+    	 $vista->aside = json_decode(RQ::get("http://65.108.135.59/v1/aside")); 
     	return $vista;
     }
 }

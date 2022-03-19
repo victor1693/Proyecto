@@ -1,5 +1,5 @@
 <!-- NAVIGATION -->
-<nav class="navbar navbar-vertical fixed-start navbar-expand-md scroll" id="sidebar" style="z-index: 0">
+<nav class="navbar navbar-vertical fixed-start navbar-expand-md scroll" id="sidebar" style="z-index: 0; overflow-y:scroll;">
     <div class="container-fluid">
         <!-- Toggler -->
         <button aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#sidebarCollapse" data-bs-toggle="collapse" type="button">
@@ -68,7 +68,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a aria-controls="sidebarDashboards" aria-expanded="false" class="nav-link collapsed" data-bs-toggle="collapse" href="#sidebarDashboards" role="button">
+                    <a aria-controls="sidebarDashboards" aria-expanded="false" class="nav-link collapsed" data-bs-toggle="collapse" href="#sidebarDashboards" role="button"
+                    onclick="resizeScroll()">
                         <i class="fe fe-bar-chart-2">
                         </i>
                         Campaigns
@@ -94,7 +95,8 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a aria-controls="artist" aria-expanded="false" class="nav-link collapsed" data-bs-toggle="collapse" href="#artist" role="button">
+                    <a aria-controls="artist" id="artist-collapse" aria-expanded="false" class="nav-link collapsed" data-bs-toggle="collapse" href="#artist" role="button"
+                    onclick="resizeScroll()">
                         <i class="fe fe-star">
                         </i>
                         Artists
@@ -221,7 +223,24 @@
 </nav>
 
 <script>
+
     function dashboard(){
          alert("Okay");
     }
+
+    function resizeScroll(){
+
+        /* event.preventDefault();
+        $("#sidebar").niceScroll({
+                    cursorcolor:"#ddd"
+                });
+        */
+        //$('html,.scroll').getNiceScroll().resize();
+
+        setTimeout(function(){ 
+            $('html,.scroll').getNiceScroll().resize();
+        }, 500);
+
+    }
+
 </script>

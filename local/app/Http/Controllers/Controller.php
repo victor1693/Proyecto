@@ -15,6 +15,6 @@ class Controller extends BaseController
     
     public function getArtistAside()
     {
-    	return RQ::get("https://app.venbia.com/v1/aside/artist");   
+    	return RQ::get("http://65.108.135.59/v1/aside/artist");   
     }
 }

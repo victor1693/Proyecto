@@ -11,8 +11,8 @@ class campaignDetails extends Controller
     {
     	$vista = View::make("details-campaign");
         $vista->artistAside = $this->getArtistAside(); 
-        $vista->data = json_decode(RQ::get("https://app.venbia.com/v1/campaigns-details"));
-        $vista->aside = json_decode(RQ::get("https://app.venbia.com/v1/aside"));
+        $vista->data = json_decode(RQ::get("http://65.108.135.59/v1/campaigns-details"));
+        $vista->aside = json_decode(RQ::get("http://65.108.135.59/v1/aside"));
         $vista->client_secret = "";
     	return $vista;
     }
@@ -81,7 +81,7 @@ class campaignDetails extends Controller
         $campaign = "";
 
         if($_POST['payment_type'] == "balance"){
-            $campaign = json_decode(RQ::post("https://app.venbia.com/v1/pay-with-balance",$data)); 
+            $campaign = json_decode(RQ::post("http://65.108.135.59/v1/pay-with-balance",$data)); 
         }  
 
         if($campaign->campaign->code != "201"){   

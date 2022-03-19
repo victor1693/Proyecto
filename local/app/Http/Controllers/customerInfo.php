@@ -21,8 +21,8 @@ class customerInfo extends Controller
 	public function index()
 	{
 		$vista = View::make("public-customer-info"); 
-		$vista->roles = json_decode(RQ::get("https://app.venbia.com/v1/roles"));  
-		$vista->paises = json_decode(RQ::get("https://app.venbia.com/v1/paises")); 
+		$vista->roles = json_decode(RQ::get("http://65.108.135.59/v1/roles"));  
+		$vista->paises = json_decode(RQ::get("http://65.108.135.59/v1/paises")); 
 		$vista->artistAside = $this->getArtistAside();  
 		return $vista;
 	}
@@ -87,7 +87,7 @@ class customerInfo extends Controller
 			'customer_id' => $customer_id
 		);
 
-		$account = json_decode(RQ::post("https://app.venbia.com/v1/user",$data)); 
+		$account = json_decode(RQ::post("http://65.108.135.59/v1/user",$data)); 
 	 
 		if($account->httpCode == "201"){
 			$this->email = $_POST['correo'];
