@@ -14,7 +14,7 @@
         <!-- User (xs) -->
         <div class="navbar-user d-md-none">
             <!-- Dropdown -->
-            <div class="dropdown">
+            <div class="">
                 <!-- Toggle -->
                 <?php if (isset($data->user)): ?> 
                 <?php if (count($data->user)>0): ?> 
@@ -34,14 +34,7 @@
                     <?php endif ?> 
                 </div>
                 <?php endif ?>
-            <?php endif ?>
-                <!--<a aria-expanded="false" aria-haspopup="true" class="dropdown-toggle" data-bs-toggle="dropdown"id="sidebarIcon" role="button">
-                    <div class="avatar avatar-sm avatar-online">
-                        <img alt="..." class="avatar-img rounded-circle" src="<?= Request::root();?>/local/resources/views/assets/img/avatars/profiles/avatar-1.jpg">
-                        </img>
-                    </div>
-                </a>-->
-                <!-- Menu -->
+            <?php endif ?> 
                 <div aria-labelledby="sidebarIcon" class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="profile-posts.html">
                         Profile
@@ -219,9 +212,4 @@
 </nav>
 <nav class="navbar navbar-expand-lg " id="topnav" style="display: none !important;">
 </nav>
-
-<script>
-    function dashboard(){
-         alert("Okay");
-    }
-</script>
+ 

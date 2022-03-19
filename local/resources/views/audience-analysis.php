@@ -580,7 +580,7 @@
                 });
                 m2 = parseFloat(m2 / 1000).toFixed(2);
             }
-            console.log(market_oportunity_values);
+            
             barGraph(market_oportunity_values,[],"market_oportunity_graph",market_oportunity_labels,m2,market_symbol);
 
             lineGraph([35,0,0,70],[],"salesGraph2",['01-Jan','02-Jan','03-Jan','04-Jan'],'$'); 
@@ -795,7 +795,7 @@
             function getArtistByGenres(genero) {
                 if(genero !=""){
                     var settings = {
-                      "url": "https://app.venbia.com/v1/generos-artist/"+genero,
+                      "url": "http://65.108.135.59/v1/generos-artist/"+genero,
                       "method": "GET",
                       "timeout": 0,
                       "headers": {},
@@ -805,8 +805,7 @@
                     $.ajax(settings).done(function (response) { 
                         $("#wordGraph").html("");
 
-                        word_list = response['data'];
-                        console.log(word_list);
+                        word_list = response['data']; 
                         Word_global = word_list; 
 
                         a = partir(word_list);
