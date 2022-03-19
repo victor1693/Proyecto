@@ -154,62 +154,6 @@
 
             };
 
-            function isEmail(email) {
-                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                return regex.test(email);
-            }
-
-            //Función para iniciar con botón Enter
-            var email = document.getElementById('email');
-
-            email.addEventListener("keyup", function(event) {
-                if (event.keyCode === 13) {
-
-                    $("input").removeClass('is-invalid');
-
-                    if($("#email").val() == ""){
-                        $("#email").focus();
-                        $("#email").addClass('is-invalid');
-                    }
-                    else if(!isEmail($("#email").val())){
-                        $("#email").addClass("is-invalid");
-                    }
-                    else if($("#password").val() == ""){
-                        $("#password").focus();
-                        $("#password").addClass('is-invalid');
-                    }
-                    else{
-                        $("form").submit();
-                    }
-                    
-                }
-            });
-
-            var password = document.getElementById('password');
-
-            password.addEventListener("keyup", function(event) {
-                if (event.keyCode === 13) {
-
-                    $("input").removeClass('is-invalid');
-
-                    if($("#email").val() == ""){
-                        $("#email").focus();
-                        $("#email").addClass('is-invalid');
-                    }
-                    else if(!isEmail($("#email").val())){
-                        $("#email").addClass("is-invalid");
-                    }
-                    else if($("#password").val() == ""){
-                        $("#password").focus();
-                        $("#password").addClass('is-invalid');
-                    }
-                    else{
-                        $("form").submit();
-                    }
-                    
-                }
-            });
-
         </script>
     </body>
 </html>
