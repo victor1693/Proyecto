@@ -47,6 +47,7 @@
                 }
              }
         </style>
+        <?php include('includes/general_scripts.php');?>
     </head>
     <body>
        <?php 

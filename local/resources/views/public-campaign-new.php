@@ -19,6 +19,7 @@
         <title>
             New Campaign
         </title>
+        <?php include('includes/general_scripts.php');?>
     </head>
     <body>
         <div class="main-content">

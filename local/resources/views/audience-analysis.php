@@ -43,6 +43,7 @@
         <title>
             Audience Analysis
         </title>
+        <?php include('includes/general_scripts.php');?>
     </head>
     <body>
         <?php 

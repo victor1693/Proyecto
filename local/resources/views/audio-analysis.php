@@ -51,6 +51,8 @@
             <?php endif ?>
             Audio Analysis of <?= $track;?> 
         </title>
+
+        <?php include('includes/general_scripts.php');?>
     </head>
     <body>
         <?php 

@@ -21,6 +21,7 @@
         <title>
             Dashboard
         </title>
+        <?php include('includes/general_scripts.php');?>
     </head>
     <body>
         <?php include('includes/aside.php');?>

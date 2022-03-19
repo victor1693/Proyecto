@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <meta content="text/html;charset=utf-8" http-equiv="content-type"/>
-    <!-- /Added by HTTrack -->
+    <meta content="text/html;charset=utf-8" http-equiv="content-type"/> 
    
     <body>
         <?php include('includes/aside.php');?>

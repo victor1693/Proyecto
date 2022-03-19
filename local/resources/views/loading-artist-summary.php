@@ -20,6 +20,7 @@
       <title>
          Loading Artists Summary
       </title>
+      <?php include('includes/general_scripts.php');?>
    </head>
    <body>
       <div id="lock" style="position: absolute;background: #fff;width: 100%;height: 100%;z-index: 2000;top: 0;left: 0;opacity: 0;"> 
