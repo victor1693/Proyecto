@@ -266,8 +266,7 @@ class payment extends Controller
 		} 
 
 		# ACTIVAMOS EL CAMPAIGN
-		$campaign = $this->activateCampaign();
-		dd($campaign);
+		$campaign = $this->activateCampaign(); 
 
 		if($campaign->httpCode != "201"){
 			return Redirect()->back()->with('info','Ocurrio un error al procesar el registro, coloquese en contacto con nosotros.');  
@@ -484,13 +483,11 @@ class payment extends Controller
 			'discount' => $_GET['discount'],
 			'balance' => $_GET['balance'],
 			'card_amount' => $_GET['card_amount'],
-			'pi' => $pi
-		);
-	    dd($data);
-	    die();
-		$campaign = json_decode(RQ::post("http://65.108.135.59/v1/campaign",$data));
-		dd($campaign);
-		die();
+			'pi' => $pi,
+			'paypal_id' => "",
+			'paypal_amount' => ""
+		); 
+		$campaign = json_decode(RQ::post("http://65.108.135.59/v1/campaign",$data));  
 		return $campaign;
 	}
 }
